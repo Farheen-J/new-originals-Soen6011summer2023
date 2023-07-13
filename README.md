@@ -43,6 +43,16 @@ Users who have registered can log in safely using their email address and passwo
 | Jai Sahni | Quality assurance engineer       | [jaisahni31](https://github.com/jaisahni31)   |
 
 
-### Project Approach and Technology
+#### Project Approach and Technology
 
-- Add Description here
+#### Tools and technologies:
+   - Spring Boot: A Java-based framework for building enterprise-grade applications. It simplifies the development of Java applications by providing a convention-over-configuration approach and built-in features for dependency injection, data access, and more.
+   - React.js: A JavaScript library for building user interfaces. React.js allows you to create reusable UI components and efficiently update and render components based on changes in application state.
+   - PostgreSQL: An open-source object-relational database management system (ORDBMS) known for its reliability, scalability, and extensive feature set. It supports a wide range of data types and provides advanced features such as ACID compliance, transactions, and foreign key constraints.
+   - IDE (Integrated Development Environment): IDEs offer features like code completion, debugging, and project management tools that can streamline our development process. We are using Eclipse or IntelliJ IDEA as per teams preferences. 
+   - Package Managers: Node Package Manager (NPM) and Yarn are commonly used package managers for managing front-end dependencies in a React.js project. They allow us to install, update, and manage JavaScript libraries and packages.
+   - Build Tools: We are using Maven for our project. It automates the build process, including compilation, packaging, and dependency management.
+   - Axios: A JavaScript library used for making HTTP requests from a browser or Node.js. Axios simplifies the process of interacting with APIs and fetching data from the backend.
+   - Material-UI: CSS framework that provide pre-designed components and styles to enhance the visual appearance and responsiveness of the React.js application.
+   - Postman: A popular API testing and development tool. It was used to test and debug your backend APIs during development.
+   - Git: A distributed version control system that allows tracking changes to our codebase. It's essential for collaboration, managing code branches, and versioning of the project.
