@@ -9,6 +9,7 @@ public enum UserType {
 
     EMPLOYER("employer");
 
+    CANDIDATE("candidate");
 
     private String userTypeDisplay;
 

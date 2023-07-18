@@ -10,7 +10,12 @@ public class UriConstants {
  */
 public static final String BASE_URL = "v1";
 
-
+/**
+ * The constant REGISTER_CANDIDATE.
+ */
+public static final String REGISTER_CANDIDATE = "register_candidate";
+}
+  
 /**
  * The constant REGISTER_EMPLOYER.
  */
