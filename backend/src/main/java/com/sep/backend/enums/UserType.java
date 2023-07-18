@@ -7,7 +7,7 @@ import java.util.HashMap;
 @AllArgsConstructor
 public enum UserType {
 
-    EMPLOYER("employer");
+    EMPLOYER("employer"),
 
     CANDIDATE("candidate");
 
