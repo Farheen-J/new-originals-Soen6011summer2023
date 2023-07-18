@@ -14,7 +14,7 @@ public static final String BASE_URL = "v1";
  * The constant REGISTER_CANDIDATE.
  */
 public static final String REGISTER_CANDIDATE = "register_candidate";
-}
+
   
 /**
  * The constant REGISTER_EMPLOYER.
@@ -26,7 +26,7 @@ public static final String GET_EMPLOYER_LIST = "employers";
 
 
 public static final String DELETE_EMPLOYER = "employer";
-;
+
 
 public static final String HOMEPAGE_EMPLOYER = "homepage_employer";
 }
