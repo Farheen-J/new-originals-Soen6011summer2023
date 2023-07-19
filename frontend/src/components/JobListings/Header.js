@@ -82,7 +82,7 @@ const Header = ({ keywords, removeKeywords, clearAll }) => {
             <li key={id} className={classes.keywordItem}>
                <span className={classes.keywordText}>{key}</span> 
               <button className="close" onClick={() => removeKeywords(key)}>
-                {/* Close icon */}
+                {}
               </button>
             </li>
           );

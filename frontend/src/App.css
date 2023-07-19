@@ -139,8 +139,6 @@
   }
 }
 
-/* quiz section*/
-
 .quiz {
   background-color: #104270;
   width: fit-content;
@@ -172,7 +170,6 @@
   font-weight: normal;
 }
 
-/* ANSWERS/RIGHT SECTION */
 .answer-section {
   width: 100%;
   display: flex;
@@ -193,11 +190,6 @@
   border: 5px solid #234668;
   cursor: pointer;
 }
-
-
-/* button:hover {
-  background-color: #555e7d;
-} */
 
 button:focus {
   outline: none;

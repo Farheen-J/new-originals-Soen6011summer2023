@@ -43,9 +43,9 @@ const useStyles = makeStyles((theme) => ({
   },
   submitButton: {
     margin: theme.spacing(2, 0),
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: '#fd8a88',
     '&:hover': {
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: '#de4340',
     },
   },
   textField: {
@@ -114,7 +114,7 @@ const Login = ({ handleChange, loginCallBack }) => {
                 >
                   <MenuItem value="employer">Employer</MenuItem>
                   <MenuItem value="candidate">Candidate</MenuItem>
-                  <MenuItem value="administrator">Administrator</MenuItem>
+                  <MenuItem value="admin">Administrator</MenuItem>
                 </Select>
               </FormControl>
               <Field

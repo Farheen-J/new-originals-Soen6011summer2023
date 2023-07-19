@@ -1192,7 +1192,8 @@ section {
   grid-gap: 2rem;
   margin-top: 3rem;
 }
-.blogs .last-blog img{
+
+.blogs .last-blog img {
   background: transparent;
 }
 
@@ -1526,6 +1527,7 @@ section {
   -webkit-background-clip: text;
   background-clip: text;
 }
+
 .dis-wrap {
   position: fixed;
   top: 50%;
@@ -1536,7 +1538,8 @@ section {
   padding: 10px;
   animation: fade 1s ease-in infinite;
 }
-button{
+
+button {
   background: transparent;
   color: #fff;
 }
@@ -1577,7 +1580,6 @@ canvas {
   vertical-align: bottom;
 }
 
-/* ---- particles.js container ---- */
 .particles-js {
   position: absolute;
   width: 100%;
@@ -1599,7 +1601,7 @@ canvas {
     padding: 0 !important;
   }
 
-  .header-content .right-header{
+  .header-content .right-header {
     width: 100%;
   }
 
@@ -1687,24 +1689,20 @@ canvas {
     padding: 2rem 3rem !important;
   }
 
-    .header-content .left-header{
-      padding: 0 !important;
+  .header-content .left-header {
+    padding: 0 !important;
 
-    }
+  }
 
-  /* .header-content .left-header .image{
-    margin: 0px !important;
-    height: 100%;
+  .header-content .left-header .image {
     width: 100%;
-  } */
-    .header-content .left-header .image {
-      width: 100% ;
-      display: flex;
-      justify-content: center !important;
-    }
-        .header-content .left-header .image img{
-          width: 100% !important;
-        }
+    display: flex;
+    justify-content: center !important;
+  }
+
+  .header-content .left-header .image img {
+    width: 100% !important;
+  }
 
 
   .header-content .right-header .name .span {
@@ -1822,11 +1820,12 @@ canvas {
   .header-content .left-header .image {
     margin: 0 auto;
   }
-    .header-content .left-header .image {
-      width: 100%;
-      display: flex;
-      justify-content: center !important;
-    }
+
+  .header-content .left-header .image {
+    width: 100%;
+    display: flex;
+    justify-content: center !important;
+  }
 
   .header-content .left-header .image img {
     width: 80%;
@@ -1901,7 +1900,7 @@ canvas {
   }
 
   .header-content .left-header .image {
-    width: 70% ;
+    width: 70%;
     -webkit-transition: var(--transition);
     transition: var(--transition);
   }
@@ -2003,5 +2002,3 @@ canvas {
   background: rgba(214, 214, 214, 0.075);
   border-radius: 10px;
 }
-
-/*# sourceMappingURL=style.css.map */
