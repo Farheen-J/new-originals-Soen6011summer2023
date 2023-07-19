@@ -35,9 +35,9 @@ public class EmployerController {
         this.iEmployerService = iEmployerService;
     }
     /**
-     * Register counselor response dto.
+     * Register employer response dto.
      *
-     * @param employerRegistrationRequestDto the counselor registration request dto
+     * @param employerRegistrationRequestDto the employer registration request dto
      * @return the response dto
      */
     @RequestMapping(method = RequestMethod.POST, value = UriConstants.REGISTER_EMPLOYER)

@@ -24,9 +24,9 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
     private CandidateRepository candidateRepository;
 
     /**
-     * Instantiates a new Patient service.
+     * Instantiates a new Candidate service.
      *
-     * @param candidateRepository the patient repository
+     * @param candidateRepository the Candidate repository
      */
     @Autowired
     public CandidateServiceImpl(CandidateRepository candidateRepository){
@@ -81,13 +81,13 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
     }
 
     @Override
-    public List<Candidate> getPatientsList() {
+    public List<Candidate> getCandidatesList() {
         return candidateRepository.findAll();
     }
 
     @Override
     @Transactional
-    public void deletePatient(String emailAddress) {
+    public void deleteCandidate(String emailAddress) {
         Candidate candidate = findByEmailId(emailAddress);
         candidateRepository.deleteAllByEmailAddress(emailAddress);
     }

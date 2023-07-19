@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * The interface Counselor service.
+ * The interface Employer service.
  */
 @Service
 public interface IEmployerService {

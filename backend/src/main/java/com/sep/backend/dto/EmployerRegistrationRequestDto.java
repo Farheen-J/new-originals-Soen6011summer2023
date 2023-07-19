@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 /**
- * The type Patient registration request dto.
+ * The type Employer registration request dto.
  */
 @Builder
 @Getter

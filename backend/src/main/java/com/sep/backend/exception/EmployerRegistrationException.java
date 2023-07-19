@@ -1,12 +1,12 @@
 package com.sep.backend.exception;
 
 /**
- * The type Patient registration exception.
+ * The type Employer registration exception.
  */
 public class EmployerRegistrationException extends Exception{
 
     /**
-     * Instantiates a new Patient registration exception.
+     * Instantiates a new Employer registration exception.
      *
      * @param message the message
      */
