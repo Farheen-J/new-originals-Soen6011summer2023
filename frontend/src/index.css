@@ -48,3 +48,9 @@ code {
   --speed: 500ms;
   --main-color: #104270;
 }
+
+@import "./scss/main.scss";
+
+@import "./scss/job.scss";
+
+@import "./scss/jobs.scss";
