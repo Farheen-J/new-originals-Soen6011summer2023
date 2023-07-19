@@ -1,14 +1,18 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import SideMenu from '../components/SideMenu';
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@material-ui/core';
-import { getUserInfo, logOut  } from '../services/registerAPI';
+import { getUserInfo, logOut } from '../services/registerAPI';
 import EmployerHP from '../components/Employer/EmployerHP';
 import CandidateHP from '../components/Candidate/CandidateHP';
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Grid } from '@material-ui/core';
+
+import data from "../components/JobListings/data.json";
+import Jobs from "../components/JobListings/Jobs";
+import Header from "../components/JobListings/Header";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,6 +58,24 @@ function Home({ loginCallBack }) {
   const classes = useStyles();
   const user = getUserInfo();
 
+  const [selectedOption, setSelectedOption] = useState('job_listings');
+  const [filterKeywords, setfilterKeywords] = useState([]);
+
+  const addFilterKeywords = (data) => {
+    if (!filterKeywords.includes(data)) {
+      setfilterKeywords([...filterKeywords, data]);
+    }
+  };
+
+  const deleteKeyword = (data) => {
+    const newKeywords = filterKeywords.filter((key) => key !== data);
+    setfilterKeywords(newKeywords);
+  };
+
+  const clearAll = () => {
+    setfilterKeywords([]);
+  };
+
   let userType = user?.userType;
   const font = "League Spartan, monospace";
 
@@ -68,8 +90,13 @@ function Home({ loginCallBack }) {
   };
 
   const handleLogout = () => {
-    logOut(); 
-    loginCallBack(); 
+    logOut();
+    loginCallBack();
+  };
+
+  const handleMenuItemClick = (option) => {
+    setSelectedOption(option);
+    handleClose();
   };
 
   const theme = createTheme({
@@ -85,7 +112,7 @@ function Home({ loginCallBack }) {
     <>
       <ThemeProvider theme={theme}>
         <div className={classes.root}>
-          <AppBar position="static" className={classes.appBar}>
+          <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
               <Typography variant="h4" className={classes.title}>connects.</Typography>
               <div className={classes.menuIconContainer}>
@@ -107,7 +134,10 @@ function Home({ loginCallBack }) {
           {userType !== null &&
             <Grid container className={classes.content}>
               <Grid item xs={3}>
-                <SideMenu loginCallBack={loginCallBack} />
+                <SideMenu
+                  loginCallBack={loginCallBack}
+                  onMenuItemClick={handleMenuItemClick}
+                />
               </Grid>
               <Grid item xs>
                 {userType === 'employer' ? (
@@ -119,6 +149,22 @@ function Home({ loginCallBack }) {
                 {userType === 'candidate' ? (
                   <>
                     <CandidateHP />
+                    {selectedOption === 'job_listings' ? (
+                      <>
+                        {filterKeywords.length > 0 && (
+                          <Header
+                            keywords={filterKeywords}
+                            removeKeywords={deleteKeyword}
+                            clearAll={clearAll}
+                          />
+                        )}
+                        <Jobs
+                          keywords={filterKeywords}
+                          data={data}
+                          setKeywords={addFilterKeywords}
+                        />
+                      </>
+                    ) : null}
                   </>
                 ) : null}
               </Grid>

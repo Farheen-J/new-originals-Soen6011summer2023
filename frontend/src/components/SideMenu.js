@@ -1,8 +1,8 @@
 import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import { makeStyles } from '@material-ui/core/styles';
-import { Menu, MenuItem } from '@material-ui/core';
-import { getUserInfo, logOut } from '../services/registerAPI';
+import { MenuItem } from '@material-ui/core';
+import { getUserInfo } from '../services/registerAPI';
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const drawerWidth = 240;
@@ -99,9 +99,9 @@ const useStyles = makeStyles(theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    top: theme.mixins.toolbar.minHeight, 
+    top: theme.mixins.toolbar.minHeight,
     height: `calc(100% - ${theme.mixins.toolbar.minHeight})`,
-    background: '#fffaf1', 
+    background: '#fffaf1',
     color: 'black',
     boxShadow: '3px 0 10px rgba(0, 0, 0, 0.2)',
   },
@@ -113,14 +113,14 @@ const useStyles = makeStyles(theme => ({
   menuItem: {
     fontFamily: 'inherit',
     fontWeight: 'inherit',
-    fontSize: 'inherit',    
+    fontSize: 'inherit',
     transition: 'background-color 0.2s ease-in-out',
     '&:hover': {
-      backgroundColor: '#ffe4e6', 
+      backgroundColor: '#ffe4e6',
     },
   },
   firstMenuItem: {
-    marginTop: theme.spacing(5), 
+    marginTop: theme.spacing(5),
   },
   menu: {
     position: 'absolute',
@@ -129,10 +129,60 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function SideMenu({ loginCallBack }) {
+function SideMenu({ loginCallBack, onMenuItemClick }) {
   const classes = useStyles();
   const user = getUserInfo();
-  
+  let userType = user?.userType;
+  const [activeMenuItem, setActiveMenuItem] = React.useState('job_listings');
+
+  const handleMenuItemClick = (option) => {
+    onMenuItemClick(option);
+    setActiveMenuItem(option);
+  };
+
+  const getMenuOptions = (userType, classes) => {
+    switch (userType) {
+      case 'candidate':
+        return (
+          <>
+            <MenuItem
+              className={`${classes.menuItem} ${classes.firstMenuItem}` }
+              onClick={() => handleMenuItemClick('job_listings')}
+            >
+              Job Listings
+            </MenuItem>
+
+            <MenuItem
+              className={classes.menuItem}
+              onClick={() => handleMenuItemClick('Option 2')}
+            >
+              Candidate Option 2
+            </MenuItem>
+
+          </>
+        );
+      case 'employer':
+        return (
+          <>
+            <MenuItem
+              className={classes.menuItem}
+              onClick={() => handleMenuItemClick('Option 2')}
+            >Employer Option 1</MenuItem>
+            <MenuItem className={classes.menuItem}>Employer Option 2</MenuItem>
+          </>
+        );
+      case 'admin':
+        return (
+          <>
+            <MenuItem className={`${classes.menuItem} ${classes.firstMenuItem}`}>Admin Option 1</MenuItem>
+            <MenuItem className={classes.menuItem}>Admin Option 2</MenuItem>
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <Drawer
       open={true}
@@ -143,10 +193,9 @@ function SideMenu({ loginCallBack }) {
         paper: classes.drawerPaper,
       }}
     >
-        <ThemeProvider theme={theme}>
-          <MenuItem className={`${classes.menuItem} ${classes.firstMenuItem}`} >Option 1</MenuItem>
-          <MenuItem className={classes.menuItem}>Option 2</MenuItem>
-        </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        {getMenuOptions(userType, classes)}
+      </ThemeProvider>
     </Drawer>
   );
 }
