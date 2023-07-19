@@ -12,6 +12,7 @@ import { Grid } from '@material-ui/core';
 
 import data from "../components/JobListings/data.json";
 import Jobs from "../components/JobListings/Jobs";
+import Resume from "../components/Candidate/Resume";
 import Header from "../components/JobListings/Header";
 
 const useStyles = makeStyles(theme => ({
@@ -165,6 +166,22 @@ function Home({ loginCallBack }) {
                         />
                       </>
                     ) : null}
+                    {selectedOption === 'resume' ? (
+                    <>
+                                            {filterKeywords.length > 0 && (
+                                              <Header
+                                                keywords={filterKeywords}
+                                                removeKeywords={deleteKeyword}
+                                                clearAll={clearAll}
+                                              />
+                                            )}
+                                            < Resume
+                                              keywords={filterKeywords}
+                                              data={data}
+                                              setKeywords={addFilterKeywords}
+                                            />
+                                            </>
+                                        ) : null}
                   </>
                 ) : null}
               </Grid>

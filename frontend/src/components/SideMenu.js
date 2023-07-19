@@ -154,9 +154,9 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
 
             <MenuItem
               className={classes.menuItem}
-              onClick={() => handleMenuItemClick('Option 2')}
+              onClick={() => handleMenuItemClick('resume')}
             >
-              Candidate Option 2
+              Build/Upload Resume
             </MenuItem>
 
           </>
