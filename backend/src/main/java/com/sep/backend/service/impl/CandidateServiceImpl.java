@@ -1,8 +1,10 @@
 package com.sep.backend.service.impl;
 
+import com.sep.backend.dto.LoginResponse;
 import com.sep.backend.enums.Gender;
 import com.sep.backend.exception.CandidateRegistrationException;
 import com.sep.backend.dto.CandidateRegistrationRequestDto;
+import com.sep.backend.exception.LoginException;
 import com.sep.backend.models.Candidate;
 import com.sep.backend.repository.CandidateRepository;
 import com.sep.backend.service.ICandidateService;
@@ -17,7 +19,7 @@ import java.util.Objects;
  * The type Candidate service.
  */
 @Service
-public class CandidateServiceImpl implements ICandidateService {
+public class CandidateServiceImpl extends UserLogin implements ICandidateService {
 
     private CandidateRepository candidateRepository;
 
@@ -53,6 +55,25 @@ public class CandidateServiceImpl implements ICandidateService {
                 .build();
         candidateRepository.save(candidate);
         return candidate;
+    }
+
+    public LoginResponse getLoginDetails(String email, String password) throws LoginException {
+        LoginResponse loginResponse=new LoginResponse();
+        Candidate candidate=candidateRepository.findFirstByEmailAddressAndPassword(email, password);
+        if(candidate==null){
+            loginResponse.setLogged(false);
+            return loginResponse;
+        }
+        loginResponse.setId(candidate.getId());
+        loginResponse.setLogged(true);
+        loginResponse.setAge(candidate.getAge());
+        loginResponse.setGender(candidate.getGender());
+        loginResponse.setFirstName(candidate.getFirstName());
+        loginResponse.setMiddleName(candidate.getMiddleName());
+        loginResponse.setLastName(candidate.getLastName());
+        loginResponse.setPhoneNumber(candidate.getPhoneNumber());
+        loginResponse.setEmailAddress(candidate.getEmailAddress());
+        return loginResponse;
     }
     @Override
     public Candidate findByEmailId(String emailId) {

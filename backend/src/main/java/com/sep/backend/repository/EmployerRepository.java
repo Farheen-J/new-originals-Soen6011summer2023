@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface EmployerRepository extends JpaRepository<Employer, Integer> {
 
-
+    Employer findFirstByEmailAddressAndPassword(String email, String password);
     /**
      * Find first by email address Employer.
      *

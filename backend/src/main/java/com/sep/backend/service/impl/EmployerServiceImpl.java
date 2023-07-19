@@ -1,8 +1,10 @@
 package com.sep.backend.service.impl;
 import com.sep.backend.dto.EmployerRegistrationRequestDto;
 
+import com.sep.backend.dto.LoginResponse;
 import com.sep.backend.exception.EmployerRegistrationException;
 
+import com.sep.backend.exception.LoginException;
 import com.sep.backend.models.Employer;
 
 import com.sep.backend.repository.EmployerRepository;
@@ -19,7 +21,7 @@ import java.util.Objects;
  * The type Counselor service.
  */
 @Service
-public class EmployerServiceImpl implements IEmployerService {
+public class EmployerServiceImpl extends UserLogin implements IEmployerService {
 
     private EmployerRepository employerRepository;
 
@@ -58,7 +60,24 @@ public class EmployerServiceImpl implements IEmployerService {
         employerRepository.save(employer);
         return employer;
     }
-
+    public LoginResponse getLoginDetails(String email, String password) throws LoginException {
+        LoginResponse loginResponse=new LoginResponse();
+        Employer employer=employerRepository.findFirstByEmailAddressAndPassword(email, password);
+        if(employer==null){
+            loginResponse.setLogged(false);
+            return loginResponse;
+        }
+        loginResponse.setId(employer.getId());
+        loginResponse.setLogged(true);
+        loginResponse.setDesignation(employer.getDesignation());
+        loginResponse.setCompanyName(employer.getCompany_name());
+        loginResponse.setFirstName(employer.getFirstName());
+//        loginResponse.setMiddleName(employer.getMiddleName());
+        loginResponse.setLastName(employer.getLastName());
+        loginResponse.setPhoneNumber(employer.getPhoneNumber());
+        loginResponse.setEmailAddress(employer.getEmailAddress());
+        return loginResponse;
+    }
 //    @Override
 //    public EmployerHomepageResponseDto getHomePage(String counsellorId) throws EmployerHomepageException {
 //        return null;
