@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The type Counselor service.
+ * The type employer service.
  */
 @Service
 public class EmployerServiceImpl extends UserLogin implements IEmployerService {
@@ -26,9 +26,9 @@ public class EmployerServiceImpl extends UserLogin implements IEmployerService {
     private EmployerRepository employerRepository;
 
     /**
-     * Instantiates a new Patient service.
+     * Instantiates a new Candidate service.
      *
-     * @param employerRepository the counselor repository
+     * @param employerRepository the employer repository
      */
     @Autowired
     public EmployerServiceImpl(EmployerRepository employerRepository){

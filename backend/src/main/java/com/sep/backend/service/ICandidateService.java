@@ -23,7 +23,7 @@ Candidate saveCandidate(CandidateRegistrationRequestDto candidateRegistrationReq
 
 Candidate findByEmailId(String emailId);
 
-List<Candidate> getPatientsList();
+List<Candidate> getCandidatesList();
 
-void deletePatient(String emailAddress);
+void deleteCandidate(String emailAddress);
 }

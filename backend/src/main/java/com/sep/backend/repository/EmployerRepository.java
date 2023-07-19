@@ -15,7 +15,7 @@ public interface EmployerRepository extends JpaRepository<Employer, Integer> {
      * Find first by email address Employer.
      *
      * @param emailAddress the email address
-     * @return the patient
+     * @return the employer
      */
     Employer findFirstByEmailAddress(String emailAddress);
 

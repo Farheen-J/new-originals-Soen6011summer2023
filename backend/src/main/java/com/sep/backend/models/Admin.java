@@ -1,5 +1,6 @@
 package com.sep.backend.models;
 
+import com.sep.backend.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,15 +11,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * The type Employer.
+ * The type Admin.
  */
 @Entity
-@Table(name = "employer")
+@Table(name = "admin")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Employer extends BaseModel {
+public class Admin extends BaseModel {
 
     @Column(name = "first_name")
     private String firstName;
@@ -26,22 +27,22 @@ public class Employer extends BaseModel {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Column(name = "middle_name")
+    private String middleName;
+
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
 
     @Column(name = "email_address", unique = true)
     private String emailAddress;
 
-    @Column(name = "company_name", nullable = false)
-    private String company_name;
+    @Column(name = "gender", nullable = false)
+    private Gender gender;
 
-    @Column(name = "designation",nullable = false)
-    private String designation;
+    @Column(name = "age", nullable = false)
+    private Integer age;
 
     @Column(name = "password", nullable = false)
     private String password;
-
-    @Column(name = "registration_number", nullable = false)
-    private String registrationNumber;
 
 }
