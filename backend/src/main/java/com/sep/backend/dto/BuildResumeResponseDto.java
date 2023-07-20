@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
 /**
- * The type Patient registration response dto.
+ * The type Build Resume response dto.
  */
 @Builder
 public class BuildResumeResponseDto {
@@ -12,8 +12,8 @@ public class BuildResumeResponseDto {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("email")
-    private String email;
+    @JsonProperty("email_address")
+    private String emailAddress;
 
     @JsonProperty("linkedIn")
     private String linkedIn;
@@ -28,7 +28,7 @@ public class BuildResumeResponseDto {
     private String skills;
 
     @JsonProperty("exp_org1")
-    private Integer exp_org1;
+    private String exp_org1;
 
     @JsonProperty("exp_pos1")
     private String exp_pos1;

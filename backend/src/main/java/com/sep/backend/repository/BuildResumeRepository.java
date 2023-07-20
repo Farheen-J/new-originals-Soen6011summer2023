@@ -1,24 +1,22 @@
 package com.sep.backend.repository;
 
-import com.sep.backend.enums.Gender;
 import com.sep.backend.models.BuildResume;
-//import com.sep.backend.models.Doctor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 /**
- * The interface Counselor repository.
+ * The interface Build Resume repository.
  */
 public interface BuildResumeRepository extends JpaRepository<BuildResume, Integer> {
 
 
 
     /**
-     * Find first by email address patient.
+     * Find first by email address resume.
      *
      * @param emailAddress the email address
-     * @return the patient
+     * @return the resume
      */
     BuildResume findFirstByEmailAddress(String emailAddress);
 

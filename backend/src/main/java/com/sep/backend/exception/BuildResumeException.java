@@ -1,12 +1,12 @@
 package com.sep.backend.exception;
 
 /**
- * The type Patient registration exception.
+ * The type Build Resume exception.
  */
 public class BuildResumeException extends Exception{
 
     /**
-     * Instantiates a new Doctor registration exception.
+     * Instantiates a new build resume exception.
      *
      * @param message the message
      */

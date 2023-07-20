@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 
 /**
- * The type Patient controller.
+ * The type Build Resume controller.
  */
 @RestController
 @CrossOrigin
@@ -25,9 +25,9 @@ public class BuildResumeController {
     private final IBuildResumeService iBuildResumeService;
 
     /**
-     * Instantiates a new Patient controller.
+     * Instantiates a new Build Resume controller.
      *
-     * @param iBuildResumeService the patient service
+     * @param iBuildResumeService the build resume service
      */
     @Autowired
     public BuildResumeController(IBuildResumeService iBuildResumeService){
@@ -35,9 +35,9 @@ public class BuildResumeController {
     }
 
     /**
-     * Register patient response dto.
+     * Register build resume response dto.
      *
-     * @param buildResumeRequestDto the patient registration request dto
+     * @param buildResumeRequestDto the build resume request dto
      * @return the response dto
      */
     @RequestMapping(method = RequestMethod.POST, value = UriConstants.BUILD_RESUME)
@@ -55,9 +55,10 @@ public class BuildResumeController {
         return new ResponseDto<>(
                 BuildResumeResponseDto.builder()
                         .name(buildResume.getName())
-                        .email(buildResume.getEmail())
+                        .emailAddress(buildResume.getEmailAddress())
                         .phoneNumber(buildResume.getPhoneNumber())
                         .skills(buildResume.getSkills())
+                        .github(buildResume.getGithub())
                         .linkedIn(buildResume.getLinkedIn())
                         .exp_org1(buildResume.getExp_org1())
                         .exp_pos1(buildResume.getExp_pos1())
@@ -71,34 +72,20 @@ public class BuildResumeController {
                         .proj1_desc(buildResume.getProj1_desc())
                         .proj1_link(buildResume.getProj1_link())
                         .extra_1(buildResume.getExtra_1())
+                        .exp_org2(buildResume.getExp_org2())
+                        .exp_pos2(buildResume.getExp_pos2())
+                        .exp_dur2(buildResume.getExp_dur2())
+                        .exp_dec2(buildResume.getExp_dec2())
+                        .edu2_school(buildResume.getEdu2_school())
+                        .edu2_degree(buildResume.getEdu2_degree())
+                        .edu2_year(buildResume.getEdu2_year())
+                        .edu2_dur(buildResume.getEdu2_dur())
+                        .proj2_title(buildResume.getProj2_title())
+                        .proj2_desc(buildResume.getProj2_desc())
+                        .proj2_link(buildResume.getProj2_link())
+                        .extra_2(buildResume.getExtra_2())
                         .build()
         );
     }
-
-//    @RequestMapping(method = RequestMethod.GET, value = UriConstants.GET_DOCTOR_LIST)
-//    public ResponseDto<List<BuildResume>> getResume(){
-//
-//        List<BuildResume> list;
-//        try{
-//            list = iBuildResume.getResumeDetails();
-//        }
-//        catch (Exception e){
-//            log.error("Error occurred :: " , e);
-//            return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
-//        }
-//        return new ResponseDto<>(list);
-//    }
-
-//    @RequestMapping(method = RequestMethod.DELETE, value = UriConstants.DELETE_DOCTOR)
-//    private ResponseDto<String> deleteDoctor(@RequestParam(name = "email_address")String emailAddress){
-//        try{
-//            iBuildResume.deleteDoctor(emailAddress);
-//            return new ResponseDto<>("Record Deleted Successfully");
-//        }
-//        catch (Exception e){
-//            log.error("Error occurred :: " , e);
-//            return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
-//        }
-//    }
 
 }

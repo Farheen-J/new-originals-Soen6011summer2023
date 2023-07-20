@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Column;
 
 @Builder
 @Getter
@@ -17,8 +16,8 @@ public class BuildResumeRequestDto {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("email")
-    private String email;
+    @JsonProperty("email_address")
+    private String emailAddress;
 
     @JsonProperty("linkedIn")
     private String linkedIn;
@@ -33,7 +32,7 @@ public class BuildResumeRequestDto {
     private String skills;
 
     @JsonProperty("exp_org1")
-    private Integer exp_org1;
+    private String exp_org1;
 
     @JsonProperty("exp_pos1")
     private String exp_pos1;

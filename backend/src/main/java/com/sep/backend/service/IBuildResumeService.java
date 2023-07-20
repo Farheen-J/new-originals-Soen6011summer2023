@@ -4,26 +4,18 @@ import com.sep.backend.dto.BuildResumeRequestDto;
 import com.sep.backend.exception.BuildResumeException;
 import com.sep.backend.models.BuildResume;
 
-import java.util.List;
 
 /**
- * The interface Patient service.
+ * The interface Build Resume service.
  */
 public interface IBuildResumeService {
 
     /**
-     * Save doctor.
+     * Save resume.
      *
-     * @param buildResumeRequestdto the patient registration request dto
-     * @return the patient
+     * @param buildResumeRequestdto the build resume request dto
+     * @return the resume
      */
     BuildResume saveResume(BuildResumeRequestDto buildResumeRequestdto) throws BuildResumeException;
 
-//    LoginResponse getLoginDetails(String email, String password) throws LoginException;
-
-    List<BuildResume> getResume();
-
-//    void deleteDoctor(String emailAddress);
-//
-//    Doctor findById(Integer id);
 }
