@@ -112,20 +112,20 @@ const Form = () => {
           className="btn btn-primary"
           onClick={() => {
             if (page === FormTitle.length - 1) {
-              axios
-                .post("http://localhost:8080/create-pdf", formData)
-                .then(() =>
-                  axios.get("http://localhost:8080/fetch-pdf", {
-                    responseType: "blob",
-                  })
-                )
-                .then((res) => {
-                  const pdfBlob = new Blob([res.data], {
-                    type: "application/pdf",
-                  });
-                  setSuccess(true && res.status === 200);
-                  saveAs(pdfBlob, "Resume.pdf");
-                });
+//               axios
+//                 .post("http://localhost:8080/create-pdf", formData)
+//                 .then(() =>
+//                   axios.get("http://localhost:8080/fetch-pdf", {
+//                     responseType: "blob",
+//                   })
+//                 )
+//                 .then((res) => {
+//                   const pdfBlob = new Blob([res.data], {
+//                     type: "application/pdf",
+//                   });
+                  setSuccess(true );
+                  //saveAs(pdfBlob, "Resume.pdf");
+                //});
             } else {
               setPage((currPage) => currPage + 1);
             }

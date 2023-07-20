@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import Success from "./Form/Success";
 
 function UploadFile() {
 
-  const [file, setFile] = useState()
-
+  const [file, setFile] = useState();
+  const [success, setSuccess] = useState(false);
   function handleChange(event) {
     setFile(event.target.files[0])
   }
@@ -31,7 +32,8 @@ function UploadFile() {
         <form onSubmit={handleSubmit}>
           <h1>Upload Your Resume</h1>
           <input type="file" onChange={handleChange}/>
-          <button type="submit">Upload</button>
+          <button type="submit" onClick={() => {setSuccess(true );}}>Upload</button>
+          {success && <Success />}
         </form>
     </div>
   );
