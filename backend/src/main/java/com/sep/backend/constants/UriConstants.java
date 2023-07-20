@@ -20,7 +20,7 @@ public static final String BASE_URL = "v1";
  */
 public static final String REGISTER_CANDIDATE = "register_candidate";
 
-  
+public static final String BUILD_RESUME = "build_resume";
 /**
  * The constant REGISTER_EMPLOYER.
  */
