@@ -7,7 +7,7 @@ import Extras from "./Extras";
 import axios from "axios";
 import { saveAs } from "file-saver";
 import Success from "./Success";
-import { useReactToPrint } from 'react-to-print';
+
 const Form = () => {
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -50,9 +50,9 @@ const Form = () => {
   const [page, setPage] = useState(0);
   const componentRef = useRef();
 
-  const handlePrint = useReactToPrint({
-      content: () => componentRef,
-    });
+//   const handlePrint = useReactToPrint({
+//       content: () => componentRef,
+//     });
   const FormTitle = [
     "Personal Details",
     "Education",

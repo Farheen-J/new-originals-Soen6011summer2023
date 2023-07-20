@@ -79,7 +79,7 @@ const [value, setValue] = React.useState('1');
                           />
                         </Tabs>
                         <TabPanel value={value} index={0}>
-                          <h1 className="text-center">Let's build your Resume!</h1>
+                          <h1 className="text-center">Lets build your Resume</h1>
                           <Form />
                         </TabPanel>
                         <TabPanel value={value} index={1}>

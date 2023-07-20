@@ -29,7 +29,7 @@ function UploadFile() {
   return (
     <div className="App">
         <form onSubmit={handleSubmit}>
-          <h1>Upload Your Resume!</h1>
+          <h1>Upload Your Resume</h1>
           <input type="file" onChange={handleChange}/>
           <button type="submit">Upload</button>
         </form>
