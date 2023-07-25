@@ -12,7 +12,10 @@
     "contract": "Full Time",
     "location": "USA Only",
     "languages": ["HTML", "CSS", "JavaScript"],
-    "tools": []
+    "tools": [],
+    "employerId": "employer@gmail.com",
+    "description": "Description….Roles and responsibility",
+    "requirements": "degree..experience..etc"
   },
   {
     "id": 2,
@@ -27,7 +30,10 @@
     "contract": "Part Time",
     "location": "Remote",
     "languages": ["Python"],
-    "tools": ["React"]
+    "tools": ["React"],
+    "employerId": "employer@gmail.com",
+    "description": "Description….Roles and responsibility",
+    "requirements": "degree..experience..etc"
   },
   {
     "id": 3,
@@ -42,7 +48,10 @@
     "contract": "Part Time",
     "location": "USA Only",
     "languages": ["JavaScript"],
-    "tools": ["React", "Sass"]
+    "tools": ["React", "Sass"],
+    "employerId": "employer@gmail.com",
+    "description": "Description….Roles and responsibility",
+    "requirements": "degree..experience..etc"
   },
   {
     "id": 4,
@@ -57,7 +66,10 @@
     "contract": "Contract",
     "location": "USA Only",
     "languages": ["CSS", "JavaScript"],
-    "tools": []
+    "tools": [],
+    "employerId": "employer@gmail.com",
+    "description": "Description….Roles and responsibility",
+    "requirements": "degree..experience..etc"
   },
   {
     "id": 5,
@@ -72,7 +84,10 @@
     "contract": "Full Time",
     "location": "Worldwide",
     "languages": ["JavaScript"],
-    "tools": ["Ruby", "Sass"]
+    "tools": ["Ruby", "Sass"],
+    "employerId": "employer@gmail.com",
+    "description": "Description….Roles and responsibility",
+    "requirements": "degree..experience..etc"
   },
   {
     "id": 6,
@@ -87,7 +102,10 @@
     "contract": "Full Time",
     "location": "UK Only",
     "languages": ["Ruby"],
-    "tools": ["RoR"]
+    "tools": ["RoR"],
+    "employerId": "employer@gmail.com",
+    "description": "Description….Roles and responsibility",
+    "requirements": "degree..experience..etc"
   },
   {
     "id": 7,
@@ -102,7 +120,10 @@
     "contract": "Full Time",
     "location": "Worldwide",
     "languages": ["HTML", "JavaScript"],
-    "tools": ["Sass"]
+    "tools": ["Sass"],
+    "employerId": "employer@gmail.com",
+    "description": "Description….Roles and responsibility",
+    "requirements": "degree..experience..etc"
   },
   {
     "id": 8,
@@ -116,6 +137,7 @@
     "postedAt": "2w ago",
     "contract": "Full Time",
     "location": "USA Only",
+    "employerId": "employer@gmail.com",
     "languages": ["JavaScript"],
     "tools": ["Vue", "Sass"]
   },
@@ -132,7 +154,10 @@
     "contract": "Full Time",
     "location": "Worldwide",
     "languages": ["JavaScript", "Python"],
-    "tools": ["Django"]
+    "tools": ["Django"],
+    "employerId": "employer@gmail.com",
+    "description": "Description….Roles and responsibility",
+    "requirements": "degree..experience..etc"
   },
   {
     "id": 10,
@@ -147,6 +172,9 @@
     "contract": "Part Time",
     "location": "Worldwide",
     "languages": ["JavaScript"],
-    "tools": ["React", "Sass"]
+    "tools": ["React", "Sass"],
+    "employerId": "employer@gmail.com",
+    "description": "Description….Roles and responsibility",
+    "requirements": "degree..experience..etc"
   }
 ]

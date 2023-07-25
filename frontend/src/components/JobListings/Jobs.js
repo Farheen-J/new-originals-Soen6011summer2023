@@ -10,7 +10,8 @@ const Jobs = ({ data, setKeywords, keywords }) => {
     jobsContainer: {
       display: "flex",
       flexDirection: "column",
-      marginTop: "calc(2vw - 4rem + 90px)",
+      marginLeft: theme.spacing(-2),
+      marginTop: "calc(2vw - 4rem + 75px)",
     },
   }));
 

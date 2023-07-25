@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "left",
     marginTop: "calc(2vw - 4rem + 90px)",
-    marginBottom: "0.5rem",
+    marginLeft: theme.spacing(-2),
   },
   keywordList: {
     [theme.breakpoints.down("xs")]: {
@@ -28,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
   },
   keywordItem: {
-    backgroundColor: "#ffe4e6", 
-    color: "var(--primary-color)",
+    backgroundColor: "#f5f5f5", 
+    color: theme.palette.primary.main,
     fontWeight: 700,
     padding: "0.2rem",
     display: "flex",
