@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     height: 55,
-    backgroundColor: '#ffe4e6',
+    backgroundColor: '#fecdcc',
     flexGrow: 1,
   },
   title: {
@@ -167,21 +167,21 @@ function Home({ loginCallBack }) {
                       </>
                     ) : null}
                     {selectedOption === 'resume' ? (
-                    <>
-                                            {filterKeywords.length > 0 && (
-                                              <Header
-                                                keywords={filterKeywords}
-                                                removeKeywords={deleteKeyword}
-                                                clearAll={clearAll}
-                                              />
-                                            )}
-                                            < Resume
-                                              keywords={filterKeywords}
-                                              data={data}
-                                              setKeywords={addFilterKeywords}
-                                            />
-                                            </>
-                                        ) : null}
+                      <>
+                        {filterKeywords.length > 0 && (
+                          <Header
+                            keywords={filterKeywords}
+                            removeKeywords={deleteKeyword}
+                            clearAll={clearAll}
+                          />
+                        )}
+                        < Resume
+                          keywords={filterKeywords}
+                          data={data}
+                          setKeywords={addFilterKeywords}
+                        />
+                      </>
+                    ) : null}
                   </>
                 ) : null}
               </Grid>

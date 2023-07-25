@@ -114,13 +114,23 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'inherit',
     fontWeight: 'inherit',
     fontSize: 'inherit',
+    position: 'relative',
     transition: 'background-color 0.2s ease-in-out',
     '&:hover': {
       backgroundColor: '#ffe4e6',
     },
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      height: '2px',
+      width: '100%',
+      background: `linear-gradient(to right, #d3d3d3, transparent)`,
+    },
   },
-  firstMenuItem: {
-    marginTop: theme.spacing(5),
+  activeMenuItem: {
+    backgroundColor: '#ffe4e6',
   },
   menu: {
     position: 'absolute',
@@ -146,14 +156,16 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
         return (
           <>
             <MenuItem
-              className={`${classes.menuItem} ${classes.firstMenuItem}` }
+              className={`${classes.menuItem} ${activeMenuItem === 'job_listings' ? classes.activeMenuItem : ''
+                }`}
               onClick={() => handleMenuItemClick('job_listings')}
             >
               Job Listings
             </MenuItem>
 
             <MenuItem
-              className={classes.menuItem}
+              className={`${classes.menuItem} ${activeMenuItem === 'resume' ? classes.activeMenuItem : ''
+                }`}
               onClick={() => handleMenuItemClick('resume')}
             >
               Build/Upload Resume
@@ -174,7 +186,7 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
       case 'admin':
         return (
           <>
-            <MenuItem className={`${classes.menuItem} ${classes.firstMenuItem}`}>Admin Option 1</MenuItem>
+            <MenuItem className={`${classes.menuItem}`}>Admin Option 1</MenuItem>
             <MenuItem className={classes.menuItem}>Admin Option 2</MenuItem>
           </>
         );
