@@ -25,7 +25,7 @@ public class EmployerRegistrationRequestDto {
     private String companyName;
 
     @JsonProperty("designation")
-    private  String designation;
+    private String designation;
 
     @JsonProperty( "phone_number")
     private String phoneNumber;

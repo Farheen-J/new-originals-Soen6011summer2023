@@ -20,8 +20,23 @@ public static final String BASE_URL = "v1";
  */
 public static final String REGISTER_CANDIDATE = "register_candidate";
 
+    /**
+     * The constant BUILD_RESUME.
+     */
 public static final String BUILD_RESUME = "build_resume";
+
 /**
+ * The constant UPLOAD_RESUME.
+ */
+    public static final String UPLOAD_RESUME = "upload_resume";
+
+    /**
+     * The constant GET_UPLOADED_RESUME.
+     */
+    public static final String GET_UPLOADED_RESUME = "get_uploaded_resume";
+
+
+    /**
  * The constant REGISTER_EMPLOYER.
  */
 public static final String REGISTER_EMPLOYER = "register_employer";

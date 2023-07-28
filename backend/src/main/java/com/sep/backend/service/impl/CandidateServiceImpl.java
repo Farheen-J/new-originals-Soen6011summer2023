@@ -57,6 +57,14 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
         return candidate;
     }
 
+    @Override
+    public Candidate uploadResume(String emailAddress, byte[] resumeData) {
+        Candidate candidate = candidateRepository.findFirstByEmailAddress(emailAddress);
+        candidate.setUploadedResume(resumeData);
+        candidateRepository.save(candidate);
+        return candidate;
+    }
+
     public LoginResponse getLoginDetails(String email, String password) throws LoginException {
         LoginResponse loginResponse=new LoginResponse();
         Candidate candidate=candidateRepository.findFirstByEmailAddressAndPassword(email, password);
@@ -76,8 +84,8 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
         return loginResponse;
     }
     @Override
-    public Candidate findByEmailId(String emailId) {
-        return candidateRepository.findFirstByEmailAddress(emailId);
+    public Candidate findByEmailAddress(String emailAddress) {
+        return candidateRepository.findFirstByEmailAddress(emailAddress);
     }
 
     @Override
@@ -88,7 +96,7 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
     @Override
     @Transactional
     public void deleteCandidate(String emailAddress) {
-        Candidate candidate = findByEmailId(emailAddress);
+        Candidate candidate = findByEmailAddress(emailAddress);
         candidateRepository.deleteAllByEmailAddress(emailAddress);
     }
 

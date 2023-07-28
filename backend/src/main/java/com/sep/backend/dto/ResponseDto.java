@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +25,9 @@ public class ResponseDto<T> {
 private T data;
 private List<String> messages;
 private List<String> errors;
+
+
+
 
 /**
  * Instantiates a new Response dto.

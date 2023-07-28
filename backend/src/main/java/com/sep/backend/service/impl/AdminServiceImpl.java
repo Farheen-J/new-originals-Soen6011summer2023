@@ -30,7 +30,6 @@ public class AdminServiceImpl extends  UserLogin implements IAdminService {
 
     }
 
-
     public  LoginResponse getLoginDetails(String email, String password) throws LoginException {
         LoginResponse loginResponse=new LoginResponse();
         Admin admin = adminRepository.findFirstByEmailAddressAndPassword(email, password);

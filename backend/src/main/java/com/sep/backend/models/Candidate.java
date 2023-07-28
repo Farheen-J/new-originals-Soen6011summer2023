@@ -1,12 +1,11 @@
 package com.sep.backend.models;
 
 import com.sep.backend.enums.Gender;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.sql.Blob;
 
 /**
  * The type Candidate.
@@ -14,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "candidate")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -42,5 +42,11 @@ private Integer age;
 
 @Column(name = "password", nullable = false)
 private String password;
+
+
+@Column(name = "uploaded_resume")
+private byte[] uploadedResume;
+
+
 
 }
