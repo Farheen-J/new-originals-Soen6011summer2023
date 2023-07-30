@@ -83,6 +83,12 @@ public class EmployerServiceImpl extends UserLogin implements IEmployerService {
 //        return null;
 //    }
 
+    @Override
+    public Employer getEmployerByEmailAddress(String emailAddress) {
+
+        return employerRepository.findFirstByEmailAddress(emailAddress);
+    }
+
 
     @Override
     public List<Employer> getEmployerList() {
