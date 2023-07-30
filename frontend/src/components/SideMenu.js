@@ -171,6 +171,13 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
               Build/Upload Resume
             </MenuItem>
 
+            <MenuItem
+              className={`${classes.menuItem} ${activeMenuItem === 'track' ? classes.activeMenuItem : ''
+                }`}
+              onClick={() => handleMenuItemClick('track')}
+            >
+              Track Applications
+            </MenuItem>
           </>
         );
       case 'employer':
