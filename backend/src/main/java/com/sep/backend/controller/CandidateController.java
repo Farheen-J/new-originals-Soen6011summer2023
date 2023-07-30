@@ -1,10 +1,13 @@
 package com.sep.backend.controller;
 
 import com.sep.backend.dto.*;
+import com.sep.backend.exception.TrackCandidateApplicationException;
 import com.sep.backend.models.Candidate;
 import com.sep.backend.constants.UriConstants;
 import com.sep.backend.models.JobListing;
+import com.sep.backend.models.TrackCandidateApplication;
 import com.sep.backend.service.ICandidateService;
+import com.sep.backend.service.ITrackCandidateApplicationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,8 @@ import java.util.Collections;
 public class CandidateController {
 
 private final ICandidateService iCandidateService;
+private final ITrackCandidateApplicationService iTrackCandidateApplicationService;
+
 
 /**
  * Instantiates a new Candidate controller.
@@ -33,8 +38,9 @@ private final ICandidateService iCandidateService;
  * @param iCandidateService the candidate service
  */
 @Autowired
-public CandidateController(ICandidateService iCandidateService){
+public CandidateController(ICandidateService iCandidateService, ITrackCandidateApplicationService iTrackCandidateApplicationService){
      this.iCandidateService = iCandidateService;
+     this.iTrackCandidateApplicationService = iTrackCandidateApplicationService;
 }
 /**
  * Register candidate response dto.
@@ -127,5 +133,33 @@ public ResponseDto<CandidateRegistrationResponseDto> registerCandidate(@RequestB
                log.error("Error occurred while fetching candidate: ", e);
                return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
           }
+     }
+     @RequestMapping(method = RequestMethod.POST, value = UriConstants.CANDIDATE_JOB_TRACKING)
+     public ResponseDto<CandidateJobTrackingResponseDto> candidateJobTracking(@RequestBody CandidateJobTrackingRequestDto candidateJobTrackingRequestDto) throws TrackCandidateApplicationException {
+          TrackCandidateApplication trackCandidateApplication;
+          try {
+               trackCandidateApplication = iTrackCandidateApplicationService.saveApplication(candidateJobTrackingRequestDto);
+          } catch (Exception e) {
+               log.error("Error occurred :: ", e);
+               return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
+          }
+          return new ResponseDto<>(
+                  CandidateJobTrackingResponseDto.builder()
+                          .jobId(trackCandidateApplication.getJobId())
+                          .company(trackCandidateApplication.getCompany())
+                          .isNew(trackCandidateApplication.isNew())
+                          .isFeatured(trackCandidateApplication.isFeatured())
+                          .position(trackCandidateApplication.getPosition())
+                          .role(trackCandidateApplication.getRole())
+                          .level(trackCandidateApplication.getLevel())
+                          .postedAt(trackCandidateApplication.getPostedAt())
+                          .contract(trackCandidateApplication.getContract())
+                          .location(trackCandidateApplication.getLocation())
+                          .employerEmail(trackCandidateApplication.getEmployerEmail())
+                          .description(trackCandidateApplication.getDescription())
+                          .requirements(trackCandidateApplication.getRequirements())
+                          .applicationStatus(trackCandidateApplication.getApplicationStatus())
+                          .build()
+          );
      }
 }
