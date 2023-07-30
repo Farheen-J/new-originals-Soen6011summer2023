@@ -76,4 +76,10 @@ public class BuildResumeServiceImpl implements IBuildResumeService {
         return buildResume;
     }
 
+    @Override
+    public BuildResume getResumeByEmailAddress(String emailAddress) {
+
+        return buildResumeRepository.findFirstByEmailAddress(emailAddress);
+    }
+
 }

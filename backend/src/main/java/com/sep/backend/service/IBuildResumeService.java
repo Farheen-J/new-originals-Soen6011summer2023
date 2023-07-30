@@ -18,4 +18,6 @@ public interface IBuildResumeService {
      */
     BuildResume saveResume(BuildResumeRequestDto buildResumeRequestdto) throws BuildResumeException;
 
+    BuildResume getResumeByEmailAddress(String emailAddress);
+
 }
