@@ -13,9 +13,9 @@ const Job = (props) => {
     languages,
     level,
     location,
-    logo,
+    //logo,
     position,
-    postedAt,
+    posted_at,
     role,
     tools,
   } = props.data;
@@ -27,15 +27,15 @@ const Job = (props) => {
   const [icon, setIcon] = useState("");
   const [openDialog, setOpenDialog] = useState(false); // State to control dialog box
 
-  const importSvgs = () => {
-    const logoSvg = import(`${logo}`).then((d) => {
-      setIcon(d.default);
-    });
-  };
+  // const importSvgs = () => {
+  //   const logoSvg = import(`${logo}`).then((d) => {
+  //     setIcon(d.default);
+  //   });
+  // };
 
-  useEffect(() => {
-    importSvgs();
-  }, [logo]);
+  // useEffect(() => {
+  //   importSvgs();
+  // }, [logo]);
 
   useEffect(() => {
     if (isSmallScreen) {
@@ -113,7 +113,7 @@ const Job = (props) => {
         </div>
 
         <div className="details">
-          <span>{postedAt}</span>
+          <span>{posted_at}</span>
           <span>&nbsp;•&nbsp;</span>
           <span>{contract}</span>
           <span>&nbsp;•&nbsp;</span>
