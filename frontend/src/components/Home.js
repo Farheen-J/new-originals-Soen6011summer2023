@@ -12,6 +12,7 @@ import { Grid } from '@material-ui/core';
 
 import data from "../components/JobListings/data.json";
 import Jobs from "../components/JobListings/Jobs";
+import TrackApplications from "../components/Candidate/TrackApplications";
 import Resume from "../components/Candidate/Resume";
 import Header from "../components/JobListings/Header";
 
@@ -180,6 +181,11 @@ function Home({ loginCallBack }) {
                           data={data}
                           setKeywords={addFilterKeywords}
                         />
+                      </>
+                    ) : null}
+                    {selectedOption === 'track' ? (
+                      <>
+                        <TrackApplications/>
                       </>
                     ) : null}
                   </>

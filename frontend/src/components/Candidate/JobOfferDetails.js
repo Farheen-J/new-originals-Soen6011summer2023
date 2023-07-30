@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 
 
-const JobDescription = (props) => {
+const JobOfferDetails = (props) => {
   const {
     company,
     contract,
@@ -30,6 +30,9 @@ const JobDescription = (props) => {
   const [currentContent, setCurrentContent] = useState("default");
   const { open, handleClose } = props;
   const [errMsg, setErrMsg] = useState('');
+  const [accepted, setAccepted] = useState(false);
+const [rejected, setRejected] = useState(false);
+
 
   const useStyles = makeStyles((theme) => ({
     container: {},
@@ -56,18 +59,19 @@ const JobDescription = (props) => {
       marginBottom: "5px",
     },
     buttonContainer: {
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    button: {
-      fontSize: "1.2rem",
-      margin: theme.spacing(1, 0),
-      backgroundColor: '#fd8a88',
-      color: '#fff',
-      '&:hover': {
-        backgroundColor: '#de4340',
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: theme.spacing(2),
       },
-    },
+      button: {
+        fontSize: "1.2rem",
+        margin: theme.spacing(1, 1),
+        backgroundColor: '#fd8a88',
+        color: '#fff',
+        '&:hover': {
+          backgroundColor: '#de4340',
+        },
+      },
     errMsg: {
       background: "linear-gradient(to right, #d2eaff, transparent)",
       padding: "8px", 
@@ -78,18 +82,14 @@ const JobDescription = (props) => {
 
   const classes = useStyles();
 
-  const handleGoBack = () => {
-    setCurrentContent("default");
+  const handleAcceptOffer = () => {
+    setAccepted(true);
   };
-
-  const handleNextClick = () => {
-    setCurrentContent("newContent");
+  
+  const handleRejectOffer = () => {
+    setRejected(true);
   };
-
-  const handleApplyClick = () => {
-    setErrMsg('Error!');
-  };
-
+  
   const contentMap = {
     default: {
       title: position,
@@ -105,16 +105,7 @@ const JobDescription = (props) => {
         Tools: tools.join(", "),
         "Posted At": postedAt,
       },
-    },
-    newContent: {
-      title: "Your information",
-      data: {
-        Note: "Please ensure you have either built your profile or uploaded your resume for your employer to view prior applying. Employer will only receive below data if your profile does not exist.",
-        Name: props.candidateData.last_name,
-        Email: props.candidateData.email_address,
-        Contact: props.candidateData.phone_number,
-      }
-    },
+    }
   };
 
   const formatCurrentContentData = () => {
@@ -168,47 +159,28 @@ const JobDescription = (props) => {
             </div>
           )}
           {formatCurrentContentData()}
+          <div className={classes.buttonContainer}>
+          <>
+              <Button
+                className={classes.button}
+                onClick={handleAcceptOffer}
+                color="primary"
+              >
+                Accept
+              </Button>
+              <Button
+                className={classes.button}
+                onClick={handleRejectOffer}
+                color="primary"
+              >
+                Reject
+              </Button>
+            </>
+        </div>
         </DialogContent>
-        <DialogActions className={classes.buttonContainer}>
-        {currentContent === "newContent" ? ( 
-            <React.Fragment>
-              <Button
-                className={classes.button}
-                onClick={handleGoBack}
-                color="primary"
-              >
-                Back
-              </Button>
-              <Button
-                className={classes.button}
-                onClick={handleApplyClick}
-                color="primary"
-              >
-                Apply
-              </Button>
-              <Button
-                className={classes.button}
-                onClick={handleClose}
-                color="primary"
-              >
-                Close
-              </Button>
-            </React.Fragment>
-          ) : ( 
-            props.invoker === "job_listing" && (
-              <Button
-                className={classes.button}
-                onClick={handleNextClick}
-                color="primary"
-              >
-                Proceed to apply
-              </Button>
-            )
-          )}
-        </DialogActions>
       </Dialog>
     </div>
   );
 };
 
-export default JobDescription;
+export default JobOfferDetails;

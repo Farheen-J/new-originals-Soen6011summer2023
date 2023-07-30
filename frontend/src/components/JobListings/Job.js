@@ -1,12 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
   useMediaQuery,
 } from "@material-ui/core";
 import JobDescription from "./JobDescription";
@@ -16,7 +10,6 @@ const Job = (props) => {
     company,
     contract,
     featured,
-    id,
     languages,
     level,
     location,
@@ -146,6 +139,7 @@ const Job = (props) => {
         handleClose={handleDialogClose}
         data={props.data} 
         candidateData={JSON.parse(sessionStorage.getItem("AUTH_TOKEN"))}
+        invoker="job_listing"
       />
     </div>
   );
