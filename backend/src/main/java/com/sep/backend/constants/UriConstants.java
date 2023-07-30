@@ -42,6 +42,7 @@ public static final String GET_BUILT_RESUME = "get_built_resume";
  * The constant REGISTER_EMPLOYER.
  */
 public static final String REGISTER_EMPLOYER = "register_employer";
+public static final String GET_EMPLOYER = "get_employer";
 
 /**
  * The constant REGISTER_JOB_LISTING.

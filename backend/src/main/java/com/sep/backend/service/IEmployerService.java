@@ -26,6 +26,8 @@ public interface IEmployerService {
 
     List<Employer> getEmployerList();
 
+    Employer getEmployerByEmailAddress(String emailAddress);
+
     void deleteEmployer(String emailAddress);
 
     Employer findById(Integer id);
