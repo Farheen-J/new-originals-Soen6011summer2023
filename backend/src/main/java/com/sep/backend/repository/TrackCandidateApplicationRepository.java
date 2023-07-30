@@ -14,6 +14,5 @@ public interface TrackCandidateApplicationRepository extends JpaRepository<Track
      * @return the track candidate application
      */
     TrackCandidateApplication findFirstByEmployerEmail(String employerEmail);
-
-//    TrackCandidateApplication findFirstByApplicationStatus(ApplicationStatus applicationStatus);
+    TrackCandidateApplication findFirstByApplicationStatus(ApplicationStatus applicationStatus);
 }

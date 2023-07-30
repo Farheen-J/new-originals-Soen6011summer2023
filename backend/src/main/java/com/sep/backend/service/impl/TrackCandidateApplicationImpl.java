@@ -1,8 +1,10 @@
 package com.sep.backend.service.impl;
 
 import com.sep.backend.dto.CandidateJobTrackingRequestDto;
+import com.sep.backend.enums.ApplicationStatus;
 import com.sep.backend.exception.JobListingRegistrationException;
 import com.sep.backend.exception.TrackCandidateApplicationException;
+import com.sep.backend.models.BuildResume;
 import com.sep.backend.models.JobListing;
 import com.sep.backend.models.TrackCandidateApplication;
 import com.sep.backend.repository.JobListingRepository;
@@ -46,5 +48,10 @@ public class TrackCandidateApplicationImpl implements ITrackCandidateApplication
 
         trackCandidateApplicationRepository.save(trackCandidateApplication);
         return trackCandidateApplication;
+    }
+    @Override
+    public TrackCandidateApplication getApplication(ApplicationStatus applicationStatus) {
+
+        return trackCandidateApplicationRepository.findFirstByApplicationStatus(applicationStatus);
     }
 }
