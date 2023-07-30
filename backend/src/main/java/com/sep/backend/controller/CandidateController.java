@@ -1,11 +1,9 @@
 package com.sep.backend.controller;
 
-import com.sep.backend.dto.UploadResumeResponse;
+import com.sep.backend.dto.*;
 import com.sep.backend.models.Candidate;
 import com.sep.backend.constants.UriConstants;
-import com.sep.backend.dto.CandidateRegistrationRequestDto;
-import com.sep.backend.dto.CandidateRegistrationResponseDto;
-import com.sep.backend.dto.ResponseDto;
+import com.sep.backend.models.JobListing;
 import com.sep.backend.service.ICandidateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,5 +98,34 @@ public ResponseDto<CandidateRegistrationResponseDto> registerCandidate(@RequestB
           return ResponseEntity.status(HttpStatus.OK)
                   .contentType(MediaType.APPLICATION_PDF)
                   .body(resumeData);
+     }
+     @RequestMapping(method = RequestMethod.GET, value = UriConstants.GET_CANDIDATE)
+     public ResponseDto<CandidateRegistrationResponseDto> getCandidateByEmailAddress(@RequestParam (name = "email_address") String emailAddress) {
+          Candidate candidate;
+          try {
+               candidate = iCandidateService.findByEmailAddress(emailAddress);
+
+               // Check if the candidate exists in the database
+               if (candidate == null) {
+                    return new ResponseDto<>(Collections.singletonList("Candidate not found"));
+               }
+
+               // Create the response DTO containing the candidate data
+               CandidateRegistrationResponseDto responseDto = CandidateRegistrationResponseDto.builder()
+                       .id(candidate.getId())
+                       .firstName(candidate.getFirstName())
+                       .middleName(candidate.getMiddleName())
+                       .lastName(candidate.getLastName())
+                       .age(candidate.getAge())
+                       .emailAddress(candidate.getEmailAddress())
+                       .phoneNumber(candidate.getPhoneNumber())
+                       .gender(candidate.getGender().getGenderDisplay())
+                       .build();
+
+               return new ResponseDto<>(responseDto);
+          } catch (Exception e) {
+               log.error("Error occurred while fetching candidate: ", e);
+               return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
+          }
      }
 }
