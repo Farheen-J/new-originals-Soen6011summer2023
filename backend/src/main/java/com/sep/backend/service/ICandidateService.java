@@ -21,9 +21,12 @@ public interface ICandidateService {
  */
 Candidate saveCandidate(CandidateRegistrationRequestDto candidateRegistrationRequestDto) throws CandidateRegistrationException;
 
-Candidate findByEmailId(String emailId);
+Candidate findByEmailAddress(String emailAddress);
 
 List<Candidate> getCandidatesList();
 
 void deleteCandidate(String emailAddress);
+
+Candidate uploadResume(String emailAddress, byte[] resumeData);
+
 }
