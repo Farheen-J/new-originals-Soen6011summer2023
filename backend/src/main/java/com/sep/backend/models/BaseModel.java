@@ -2,8 +2,8 @@ package com.sep.backend.models;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
-import lombok.Builder;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
@@ -27,11 +27,11 @@ import java.util.Date;
 @Data
 public abstract class BaseModel {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "id", nullable = false)
-private Integer id;
-
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "random_five_digit_id")
+     @GenericGenerator(name = "random_five_digit_id", strategy = "com.sep.backend.utils.IDGenerator")
+     @Column(name = "id", nullable = false, unique = true)
+     private Integer id;
 /**
  * The Created at.
  */

@@ -52,6 +52,10 @@ public static final String REGISTER_JOB_LISTING = "register_job_listing";
  * The constant GET_JOB_LISTING.
  */
 public static final String GET_JOB_LISTING = "get_job_listing";
+/**
+* The constant GET_CANDIDATE.
+*/
+public static final String GET_CANDIDATE = "get_candidate";
 
 /**
  * The constant GET_JOB_LISTINGS.

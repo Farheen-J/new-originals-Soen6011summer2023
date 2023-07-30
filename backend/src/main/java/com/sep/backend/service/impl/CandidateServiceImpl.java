@@ -99,6 +99,10 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
         Candidate candidate = findByEmailAddress(emailAddress);
         candidateRepository.deleteAllByEmailAddress(emailAddress);
     }
+    @Override
+    public Candidate getCandidateByEmailAddress(String emailAddress) {
 
+        return candidateRepository.findFirstByEmailAddress(emailAddress);
+    }
 
 }

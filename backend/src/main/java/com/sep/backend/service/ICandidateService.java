@@ -29,4 +29,5 @@ void deleteCandidate(String emailAddress);
 
 Candidate uploadResume(String emailAddress, byte[] resumeData);
 
+Candidate getCandidateByEmailAddress(String emailAddress);
 }
