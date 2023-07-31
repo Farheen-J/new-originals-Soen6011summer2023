@@ -13,14 +13,8 @@ public class JobApplicationResponseDto {
     @JsonProperty("job_id")
     private Integer jobId;
 
-    @JsonProperty("name")
-    private String name;
-
     @JsonProperty("email_address")
     private String emailAddress;
-
-    @JsonProperty("phone_number")
-    private String phoneNumber;
 
     @JsonProperty("application_status")
     private String applicationStatus;
