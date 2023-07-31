@@ -1,0 +1,19 @@
+language: java
+jdk:
+  - openjdk17
+
+# This section specifies the Maven commands to be executed during the build process.
+script:
+  # Clean the project
+  - mvn clean
+  # Run tests
+  - mvn test
+  # Package the application
+  - mvn package
+
+# Optionally, you can add a deploy section if you want to automatically deploy the application after a successful build.
+# deploy:
+#   provider: some_provider
+#   api_key: $API_KEY
+#   on:
+#     branch: master

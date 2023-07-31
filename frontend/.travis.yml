@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - 16
+
+script:
+  # Install dependencies
+  - npm install
+  # Run tests
+  - npm test
+  # Build the React app
+  - npm run build
+
+  
