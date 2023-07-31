@@ -57,3 +57,12 @@ export const logOut = () => {
 
 export const getUserInfo =  () => JSON.parse(sessionStorage.getItem("AUTH_TOKEN"));
 
+export const jobListings = () => {
+  let register_url = URLS.candidate_get_job_listings;
+  return axios.get(register_url).then(
+    auth => {
+      return auth.data;
+    }
+  );
+
+}

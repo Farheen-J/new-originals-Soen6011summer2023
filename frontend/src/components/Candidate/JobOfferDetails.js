@@ -20,7 +20,7 @@ const JobOfferDetails = (props) => {
     location,
     logo,
     position,
-    postedAt,
+    posted_at,
     role,
     tools,
     description,
@@ -103,7 +103,7 @@ const [rejected, setRejected] = useState(false);
         Languages: languages.join(", "),
         Location: location,
         Tools: tools.join(", "),
-        "Posted At": postedAt,
+        "Posted At": posted_at,
       },
     }
   };

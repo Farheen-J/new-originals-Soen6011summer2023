@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import SideMenu from '../components/SideMenu';
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@material-ui/core';
@@ -10,11 +9,12 @@ import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Grid } from '@material-ui/core';
 
-import data from "../components/JobListings/data.json";
 import Jobs from "../components/JobListings/Jobs";
 import TrackApplications from "../components/Candidate/TrackApplications";
 import Resume from "../components/Candidate/Resume";
 import Header from "../components/JobListings/Header";
+import { jobListings } from '../services/registerAPI';
+import { formatDistanceToNow } from 'date-fns';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,12 +56,55 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
 function Home({ loginCallBack }) {
   const classes = useStyles();
   const user = getUserInfo();
 
+  const [dataFetched, setDataFetched] = useState(false);
   const [selectedOption, setSelectedOption] = useState('job_listings');
   const [filterKeywords, setfilterKeywords] = useState([]);
+  const [errMsg, setErrMsg] = useState('');
+
+  const [data, setData] = useState([]);
+
+  const formatPostedAt = (dateString) => {
+    console.log("dateString:", dateString);
+    const date = new Date(dateString);
+    // Check if the date is valid before formatting
+    if (isNaN(date)) {
+      return "Invalid date"; // You can customize the message as needed
+    }
+    const new_format = formatDistanceToNow(date, { addSuffix: true });
+    console.log(new_format);
+    return new_format;
+  };
+
+  const fetchDataFromAPI = async () => {
+    jobListings()
+    .then((data) => {
+      if (data.errors) {
+        setErrMsg(data.errors[0]);
+      } else {
+        const formattedData = data.map((item) => ({
+          ...item,
+          posted_at: formatPostedAt(item.posted_at),
+        }));
+        console.log("response: " + JSON.stringify(formattedData))
+        setData(formattedData);
+        setErrMsg('');
+        setDataFetched(true);
+      }
+    })
+    .catch(() => {
+      setErrMsg('Unable to register');
+    });
+
+  };
+
+  useEffect(() => {
+    fetchDataFromAPI();
+  }, []);
 
   const addFilterKeywords = (data) => {
     if (!filterKeywords.includes(data)) {
@@ -133,7 +176,7 @@ function Home({ loginCallBack }) {
               </div>
             </Toolbar>
           </AppBar>
-          {userType !== null &&
+          {userType !== null  && dataFetched &&
             <Grid container className={classes.content}>
               <Grid item xs={3}>
                 <SideMenu
