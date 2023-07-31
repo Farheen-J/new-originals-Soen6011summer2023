@@ -21,10 +21,5 @@ public class JobApplicationRequestDto {
     @JsonProperty("email_address")
     private String emailAddress;
 
-    @JsonProperty("name")
-    private String name;
-
-    @JsonProperty("phone_number")
-    private String phoneNumber;
 
 }

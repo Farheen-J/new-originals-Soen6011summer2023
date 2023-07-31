@@ -4,9 +4,6 @@ import com.sep.backend.dto.JobApplicationRequestDto;
 import com.sep.backend.exception.JobApplicationRegistrationException;
 import com.sep.backend.models.JobApplication;
 
-import java.util.List;
-
-
 /**
  * The interface Job Application service.
  */
@@ -19,5 +16,6 @@ public interface IJobApplicationService {
      * @return the resume
      */
     JobApplication saveJobApplication(JobApplicationRequestDto jobApplicationRequestDto) throws JobApplicationRegistrationException;
+
 
 }
