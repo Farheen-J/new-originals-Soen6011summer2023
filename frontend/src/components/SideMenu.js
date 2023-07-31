@@ -184,9 +184,12 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
         return (
           <>
             <MenuItem
-              className={classes.menuItem}
-              onClick={() => handleMenuItemClick('Option 2')}
-            >Employer Option 1</MenuItem>
+              className={`${classes.menuItem} ${activeMenuItem === 'track' ? classes.activeMenuItem : ''
+                }`}
+              onClick={() => handleMenuItemClick('track')}
+            >
+              Track Applications
+            </MenuItem>
             <MenuItem className={classes.menuItem}>Employer Option 2</MenuItem>
           </>
         );

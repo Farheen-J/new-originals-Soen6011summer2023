@@ -10,7 +10,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Grid } from '@material-ui/core';
 
 import Jobs from "../components/JobListings/Jobs";
-import TrackApplications from "../components/Candidate/TrackApplications";
+import CandidateTrackApplications from "../components/Candidate/TrackApplications";
+import EmployerTrackApplications from "../components/Employer/TrackApplications";
 import Resume from "../components/Candidate/Resume";
 import Header from "../components/JobListings/Header";
 import { jobListings } from '../services/registerAPI';
@@ -188,6 +189,11 @@ function Home({ loginCallBack }) {
                 {userType === 'employer' ? (
                   <>
                     <EmployerHP />
+                    {selectedOption === 'track' ? (
+                      <>
+                        <EmployerTrackApplications/>
+                      </>
+                    ) : null}
                   </>
                 ) : null}
 
@@ -228,7 +234,7 @@ function Home({ loginCallBack }) {
                     ) : null}
                     {selectedOption === 'track' ? (
                       <>
-                        <TrackApplications/>
+                        <CandidateTrackApplications/>
                       </>
                     ) : null}
                   </>
