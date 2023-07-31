@@ -7,7 +7,7 @@ import {
   DialogActions,
   Button,
 } from "@material-ui/core";
-
+import { applyCandidateJobs } from '../../services/registerAPI';
 
 const JobDescription = (props) => {
   const {
@@ -70,9 +70,9 @@ const JobDescription = (props) => {
     },
     errMsg: {
       background: "linear-gradient(to right, #d2eaff, transparent)",
-      padding: "8px", 
-      marginBottom: "10px", 
-      textAlign: "center", 
+      padding: "8px",
+      marginBottom: "10px",
+      textAlign: "center",
     },
   }));
 
@@ -86,14 +86,34 @@ const JobDescription = (props) => {
     setCurrentContent("newContent");
   };
 
-  const handleApplyClick = () => {
-    setErrMsg('Error!');
+  const handleApplyClick = async () => {
+    console.log("Job Description data \n" + JSON.stringify(props.candidateData))
+    console.log(props.data.id);
+    console.log(props.candidateData.email_address);
+
+    let userData = {
+      job_id: props.data.id,
+      email_address: props.candidateData.email_address
+    }
+    applyCandidateJobs(userData)
+      .then((data) => {
+        if (data.errors) {
+          setErrMsg(data.errors[0]);
+        } else {
+          console.log("response in job description: " + JSON.stringify(data))
+          setErrMsg("Application submitted successfully!");
+        }
+      })
+      .catch(() => {
+        setErrMsg("Error submitting application. Please try again later.");
+      });
   };
 
   const contentMap = {
     default: {
       title: position,
       data: {
+        JobId: id,
         Company: company,
         Role: role,
         Level: level,
@@ -137,8 +157,8 @@ const JobDescription = (props) => {
       );
     }
   };
-  
-  
+
+
   return (
     <div className={classes.container}>
       <Dialog
@@ -170,7 +190,7 @@ const JobDescription = (props) => {
           {formatCurrentContentData()}
         </DialogContent>
         <DialogActions className={classes.buttonContainer}>
-        {currentContent === "newContent" ? ( 
+          {currentContent === "newContent" ? (
             <React.Fragment>
               <Button
                 className={classes.button}
@@ -194,7 +214,7 @@ const JobDescription = (props) => {
                 Close
               </Button>
             </React.Fragment>
-          ) : ( 
+          ) : (
             props.invoker === "job_listing" && (
               <Button
                 className={classes.button}

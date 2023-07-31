@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URLS,BASE_ULR } from '../config/constant';
+import { URLS, BASE_ULR } from '../config/constant';
 export const login = ({ email, password, userType }) => axios.get(URLS.login, {
   params: {
     email,
@@ -23,7 +23,7 @@ export const signUp = (userData) => {
     last_name: userData.last_name,
     phone_number: userData.phone_number,
     email_address: userData.email_address,
-    password: userData.password  
+    password: userData.password
   }
 
   if (userData.userType === 'employer') {
@@ -55,11 +55,20 @@ export const logOut = () => {
   sessionStorage.removeItem("AUTH_TOKEN");
 }
 
-export const getUserInfo =  () => JSON.parse(sessionStorage.getItem("AUTH_TOKEN"));
+export const getUserInfo = () => JSON.parse(sessionStorage.getItem("AUTH_TOKEN"));
 
 export const jobListings = () => {
   let register_url = URLS.candidate_get_job_listings;
   return axios.get(register_url).then(
+    auth => {
+      return auth.data;
+    }
+  );
+}
+
+export const applyCandidateJobs = (userData) => {
+  let register_url = URLS.candidate_apply_job;
+  return axios.post(register_url, userData).then(
     auth => {
       return auth.data;
     }
