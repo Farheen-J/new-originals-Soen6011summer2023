@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * The type Job Listing response dto.
@@ -20,11 +21,11 @@ public class JobListingResponseDto {
     @JsonProperty("employer_email")
     private String employerEmail;
 
-    @JsonProperty("isNew")
-    private boolean isNew;
+    @JsonProperty("tools")
+    private List<String> tools;
 
-    @JsonProperty("isFeatured")
-    private boolean isFeatured;
+    @JsonProperty("languages")
+    private List<String> languages;
 
     @JsonProperty("position")
     private String position;

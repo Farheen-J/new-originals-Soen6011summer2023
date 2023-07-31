@@ -5,9 +5,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 /**
  * The type Job Listing.
@@ -23,11 +25,13 @@ public class JobListing extends BaseModel{
 @Column(name = "company", nullable = false)
 private String company;
 
-@Column(name = "isNew")
-private boolean isNew;
+@Column(name = "tools")
+@ElementCollection
+private List<String> tools;
 
-@Column(name = "isFeatured")
-private boolean isFeatured;
+@Column(name = "languages")
+@ElementCollection
+private List<String> languages;
 
 @Column(name = "position", nullable = false)
 private String position;
