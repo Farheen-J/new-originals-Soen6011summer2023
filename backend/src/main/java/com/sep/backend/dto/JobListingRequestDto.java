@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Builder
@@ -21,11 +22,11 @@ public class JobListingRequestDto {
     @JsonProperty("employer_email")
     private String employerEmail;
 
-    @JsonProperty("isNew")
-    private boolean isNew;
+    @JsonProperty("tools")
+    private List<String> tools;
 
-    @JsonProperty("isFeatured")
-    private boolean isFeatured;
+    @JsonProperty("languages")
+    private List<String> languages;
 
     @JsonProperty("position")
     private String position;
