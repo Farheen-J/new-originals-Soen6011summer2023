@@ -11,6 +11,7 @@ const apiList = {
 
   jobs: `${BASE_ULR}/register_job_listing`,
   uploadResume : `${BASE_ULR}/upload_resume`,
+  applications: `${BASE_ULR}/get_candidate_job_tracking`,
 };
 
 export default apiList;
