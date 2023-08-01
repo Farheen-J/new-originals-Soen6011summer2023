@@ -12,7 +12,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import axios from "axios";
-import ChipInput from "material-ui-chip-input";
+import ChipInput from '@material-ui/core/Chip';
 import moment from 'moment';
 //import MyJobs from "./MyJobs";
 
@@ -308,23 +308,22 @@ const CreateJobs = (props) => {
                                                                               <ErrorMessage name="salary" component="div" />
                                                                             </Grid>
 
+
                                       <Button
-                                                              type="submit"
-                                                              variant="contained"
-                                                              color="primary"
-                                                              style={{ padding: "10px 50px", marginTop: "30px" }}
-                                                              disabled={isSubmitting}
-                                                            >
-                                                              Create Job
+                                                  type="submit"
+                                                  variant="contained"
+                                                  color="primary"
+                                                  style={{ padding: "10px 50px", marginTop: "30px" }}
+                                                  disabled={isSubmitting}
+                                                  >
+                                        Create Job
                                       </Button>
+
                                       </Grid>
                                       </Grid>
                                     </Form>
                                     )}
                 </Formik>
-
-
-
             </Paper>
           </Grid>
         </Grid>
