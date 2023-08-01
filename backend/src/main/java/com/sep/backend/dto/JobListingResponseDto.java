@@ -30,6 +30,9 @@ public class JobListingResponseDto {
     @JsonProperty("position")
     private String position;
 
+    @JsonProperty("salary")
+    private Double salary;
+
     @JsonProperty( "role")
     private String role;
 

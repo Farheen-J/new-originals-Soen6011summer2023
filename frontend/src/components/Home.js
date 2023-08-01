@@ -14,6 +14,7 @@ import CandidateTrackApplications from "../components/Candidate/TrackApplication
 import EmployerTrackApplications from "../components/Employer/TrackApplications";
 import Resume from "../components/Candidate/Resume";
 import Header from "../components/JobListings/Header";
+import CreateJobsPage from "../components/Employer/CreateJobsPage"
 import { jobListings } from '../services/registerAPI';
 import { formatDistanceToNow } from 'date-fns';
 
@@ -194,6 +195,26 @@ function Home({ loginCallBack }) {
                         <EmployerTrackApplications/>
                       </>
                     ) : null}
+                    {selectedOption === 'my_jobs' ? (
+                                          <>
+                                          </>
+                                        ) : null}
+                    {selectedOption === 'create_jobs' ? (
+                                          <>
+                                            {filterKeywords.length > 0 && (
+                                              <Header
+                                                keywords={filterKeywords}
+                                                removeKeywords={deleteKeyword}
+                                                clearAll={clearAll}
+                                              />
+                                            )}
+                                            <CreateJobsPage
+                                              keywords={filterKeywords}
+                                              data={data}
+                                              setKeywords={addFilterKeywords}
+                                            />
+                                          </>
+                                        ) : null}
                   </>
                 ) : null}
 
@@ -218,17 +239,9 @@ function Home({ loginCallBack }) {
                     ) : null}
                     {selectedOption === 'resume' ? (
                       <>
-                        {filterKeywords.length > 0 && (
-                          <Header
-                            keywords={filterKeywords}
-                            removeKeywords={deleteKeyword}
-                            clearAll={clearAll}
-                          />
-                        )}
+
                         < Resume
-                          keywords={filterKeywords}
-                          data={data}
-                          setKeywords={addFilterKeywords}
+
                         />
                       </>
                     ) : null}

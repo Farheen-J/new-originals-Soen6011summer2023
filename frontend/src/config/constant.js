@@ -6,3 +6,10 @@ export const URLS = {
     candidate_get_job_listings: '/get_job_listings',
     candidate_apply_job: '/candidate_apply_job',
 }
+const apiList = {
+
+  jobs: `${BASE_ULR}/register_job_listing`,
+  uploadResume : `${BASE_ULR}/upload_resume`,
+};
+
+export default apiList;

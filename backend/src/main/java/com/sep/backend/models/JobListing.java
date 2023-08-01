@@ -45,13 +45,16 @@ private String level;
 @Column(name = "posted_at")
 private Date postedAt;
 
+@Column(name = "salary")
+private Double salary;
+
 @Column(name = "location", nullable = false)
 private String location;
 
 @Column(name = "contract", nullable = false)
 private String contract;
 
-@Column(name = "emoloyer_email", nullable = false)
+@Column(name = "employer_email", nullable = false)
 private String employerEmail;
 
 @Column(name = "description")

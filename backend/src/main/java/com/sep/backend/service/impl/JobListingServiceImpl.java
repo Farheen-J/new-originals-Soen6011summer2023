@@ -49,6 +49,7 @@ public class JobListingServiceImpl implements IJobListingService {
                 .postedAt(jobListingRequestDto.getPostedAt())
                 .contract(jobListingRequestDto.getContract())
                 .location(jobListingRequestDto.getLocation())
+                .salary(jobListingRequestDto.getSalary())
                 .employerEmail(jobListingRequestDto.getEmployerEmail())
                 .description(jobListingRequestDto.getDescription())
                 .requirements(jobListingRequestDto.getRequirements()).build();
