@@ -37,6 +37,11 @@ public static final String GET_BUILT_RESUME = "get_built_resume";
      */
     public static final String GET_UPLOADED_RESUME = "get_uploaded_resume";
 
+    /**
+     * The constant GET_UPLOADED_RESUME.
+     */
+    public static final String CANDIDATE_JOB_TRACKING = "candidate_job_tracking";
+    public static final String GET_CANDIDATE_JOB_TRACKING = "get_candidate_job_tracking";
 
     /**
  * The constant REGISTER_EMPLOYER.

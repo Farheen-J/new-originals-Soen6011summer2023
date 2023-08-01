@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-@AllArgsConstructor
+
 public enum ApplicationStatus
 {
     //status 0 -> applied by candidate
@@ -20,6 +20,19 @@ public enum ApplicationStatus
     ACCEPTED_BY_EMPLOYER(3);
 
     private int status;
+    ApplicationStatus(int value) {
+        this.status = value;
+    }
 
-
+    public int getValue() {
+        return status;
+    }
+    public static ApplicationStatus getByValue(int value) {
+        for (ApplicationStatus status : ApplicationStatus.values()) {
+            if (status.getValue() == value) {
+                return status;
+            }
+        }
+        return null; // If the value doesn't match any enum constant.
+    }
 }
