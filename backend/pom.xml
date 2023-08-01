@@ -85,8 +85,18 @@
 			<artifactId>codesnippet-doclet</artifactId>
 			<version>0.61</version>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-		
+
 	</dependencies>
 
 	<build>
