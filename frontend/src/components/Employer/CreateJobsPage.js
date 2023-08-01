@@ -12,7 +12,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import axios from "axios";
-import ChipInput from "material-ui-chip-input";
+//import ChipInput from "material-ui-chip-input";
 import moment from 'moment';
 //import MyJobs from "./MyJobs";
 
@@ -231,7 +231,7 @@ const CreateJobs = (props) => {
                                         <ErrorMessage name="level" component="div" />
                                       </Grid>
                                       <Grid item>
-                                        <Field
+                                        {/* <Field
                                           as={ChipInput}
                                           className={classes.inputBox}
                                           label="Tools"
@@ -239,10 +239,10 @@ const CreateJobs = (props) => {
                                           helperText="Press enter to add tools"
                                           name="tools"
                                           fullWidth
-                                        />
+                                        /> */}
                                       </Grid>
                                       <Grid item>
-                                        <Field
+                                        {/* <Field
                                           as={ChipInput}
                                           className={classes.inputBox}
                                           label="Languages"
@@ -250,7 +250,7 @@ const CreateJobs = (props) => {
                                           helperText="Press enter to add Languages"
                                           name="languages"
                                           fullWidth
-                                        />
+                                        /> */}
                                       </Grid>
                                       <Grid item>
                                         <Field

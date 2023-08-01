@@ -73,24 +73,6 @@ public static final String GET_JOB_LISTINGS = "get_job_listings";
  */
 public static final String CANDIDATE_APPLY_JOB = "candidate_apply_job";
 
-/**
-* The constant EMPLOYER_REJECT_CANDIDATE.
-*/
-public static final String EMPLOYER_REJECT_CANDIDATE = "employer_reject_candidate";
-
-    /**
-     * The constant EMPLOYER_ACCEPT_CANDIDATE.
-     */
-    public static final String EMPLOYER_ACCEPT_CANDIDATE = "employer_accept_candidate";
-
-    /**
-     * The constant EMPLOYER_SET_INTERVIEW.
-     */
-    public static final String EMPLOYER_SET_INTERVIEW = "employer_set_interview";
-/**
-* The constant CANDIDATE_APPLY_JOB.
-*/
-public static final String CANDIDATE_TRACK_JOBS = "candidate_track_jobs";
 public static final String GET_EMPLOYER_LIST = "employers";
 
 
