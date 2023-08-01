@@ -22,6 +22,9 @@ public class JobListingRequestDto {
     @JsonProperty("employer_email")
     private String employerEmail;
 
+    @JsonProperty("salary")
+    private Double salary;
+
     @JsonProperty("tools")
     private List<String> tools;
 
