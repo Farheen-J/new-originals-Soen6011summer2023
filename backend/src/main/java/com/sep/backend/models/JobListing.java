@@ -33,6 +33,10 @@ private List<String> tools;
 @ElementCollection
 private List<String> languages;
 
+
+@Column(name = "salary")
+private Double salary;
+
 @Column(name = "position", nullable = false)
 private String position;
 
@@ -51,7 +55,7 @@ private String location;
 @Column(name = "contract", nullable = false)
 private String contract;
 
-@Column(name = "emoloyer_email", nullable = false)
+@Column(name = "employer_email", nullable = false)
 private String employerEmail;
 
 @Column(name = "description")

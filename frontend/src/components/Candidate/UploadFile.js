@@ -11,10 +11,11 @@ function UploadFile() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    const url = 'http://localhost:8080/uploadFile';
+    const url = 'http://localhost:8080/v1/upload_resume';
     const formData = new FormData();
-    formData.append('file', file);
-    formData.append('fileName', file.name);
+    formData.append('uploaded_resume', file);
+    formData.append('email_address', 'arshiyasahni87@gmail.com');
+
     const config = {
       headers: {
         'content-type': 'multipart/form-data',

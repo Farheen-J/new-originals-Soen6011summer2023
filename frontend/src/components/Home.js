@@ -8,7 +8,7 @@ import CandidateHP from '../components/Candidate/CandidateHP';
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Grid } from '@material-ui/core';
-
+import CreateJobsPage from "../components/Employer/CreateJobsPage"
 import Jobs from "../components/JobListings/Jobs";
 import CandidateTrackApplications from "../components/Candidate/TrackApplications";
 import EmployerTrackApplications from "../components/Employer/TrackApplications";
@@ -194,6 +194,26 @@ function Home({ loginCallBack }) {
                         <EmployerTrackApplications/>
                       </>
                     ) : null}
+                    {selectedOption === 'my_jobs' ? (
+                                                              <>
+                                                              </>
+                                                            ) : null}
+                    {selectedOption === 'create_jobs' ? (
+                                                              <>
+                                                                {filterKeywords.length > 0 && (
+                                                                  <Header
+                                                                    keywords={filterKeywords}
+                                                                    removeKeywords={deleteKeyword}
+                                                                    clearAll={clearAll}
+                                                                  />
+                                                                )}
+                                                                <CreateJobsPage
+                                                                  keywords={filterKeywords}
+                                                                  data={data}
+                                                                  setKeywords={addFilterKeywords}
+                                                                />
+                                                              </>
+                                                            ) : null}
                   </>
                 ) : null}
 
