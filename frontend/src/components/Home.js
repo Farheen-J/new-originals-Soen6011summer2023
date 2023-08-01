@@ -90,7 +90,7 @@ function Home({ loginCallBack }) {
           ...item,
           posted_at: formatPostedAt(item.posted_at),
         }));
-        console.log("response: " + JSON.stringify(formattedData))
+        //console.log("response: " + JSON.stringify(formattedData))
         setData(formattedData);
         setErrMsg('');
         setDataFetched(true);
