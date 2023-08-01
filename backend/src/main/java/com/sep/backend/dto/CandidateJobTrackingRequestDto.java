@@ -2,58 +2,33 @@ package com.sep.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sep.backend.enums.ApplicationStatus;
+import com.sep.backend.models.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Column;
-import java.util.Date;
+import java.util.List;
+
 
 @Builder
 @Getter
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CandidateJobTrackingRequestDto {
-    @JsonProperty("jobId")
-    private String jobId;
 
-    @JsonProperty( "company")
-    private String company;
+    @JsonProperty("email_address")
+    private String emailAddress;
 
-    @JsonProperty( "isNew")
-    private boolean isNew;
+    @JsonProperty("accepted_jobs")
+    private List<AcceptedJob> acceptedJobs;
 
-    @JsonProperty( "isFeatured")
-    private boolean isFeatured;
+    @JsonProperty("applied_jobs")
+    private List<JobApplication> appliedJobs;
 
-    @JsonProperty( "position")
-    private String position;
+    @JsonProperty("rejected_jobs")
+    private List<RejectedJob> rejectedJobs;
 
-    @JsonProperty("role")
-    private String role;
+    @JsonProperty("interview_jobs")
+    private List<InterviewJob> interviewJobs;
 
-    @JsonProperty( "level")
-    private String level;
-
-    @JsonProperty( "posted_at")
-    private Date postedAt;
-
-    @JsonProperty( "location")
-    private String location;
-
-    @JsonProperty( "contract")
-    private String contract;
-
-    @JsonProperty("employer_email")
-    private String employerEmail;
-
-    @JsonProperty("description")
-    private String description;
-
-    @JsonProperty( "requirements")
-    private String requirements;
-
-    @JsonProperty( "application_status")
-    private ApplicationStatus applicationStatus;
 }

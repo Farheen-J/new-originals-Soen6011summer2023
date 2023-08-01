@@ -1,7 +1,7 @@
 package com.sep.backend.repository;
 
 
-import com.sep.backend.models.JobApplication;
+import com.sep.backend.models.AcceptedJob;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * The interface JobApplication repository.
  */
-public interface JobApplicationRepository extends JpaRepository<JobApplication, Integer> {
+public interface AcceptedJobRepository extends JpaRepository<AcceptedJob, Integer> {
 
 
     /**
@@ -18,11 +18,11 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
      * @param emailAddress the email address
      * @return the job listing
      */
-    JobApplication findFirstByEmailAddress(String emailAddress);
+    AcceptedJob findFirstByEmailAddress(String emailAddress);
 
-    List<JobApplication> findAll();
+    List<AcceptedJob> findAll();
 
-    List<JobApplication> findAllByEmailAddress(String emailAddress);
+    List<AcceptedJob> findAllByEmailAddress(String emailAddress);
     void deleteAllByEmailAddress(String emailAddress);
 
 }
