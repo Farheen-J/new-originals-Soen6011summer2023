@@ -26,23 +26,23 @@ public class JobListingController {
     private final IJobListingService iJobListingService;
     private final IJobApplicationService iJobApplicationService;
 
-    private final IRejectedJobService iRejectedJobService;
-
-    private final IAcceptedJobService iAcceptedJobService;
-    private final IInterviewJobService iInterviewJobService;
+//    private final IRejectedJobService iRejectedJobService;
+//
+//    private final IAcceptedJobService iAcceptedJobService;
+//    private final IInterviewJobService iInterviewJobService;
     /**
      * Instantiates a new Job Listing controller.
      *
      * @param iJobListingService the job listing service
      */
     @Autowired
-    public JobListingController(IJobListingService iJobListingService, IJobApplicationService iJobApplicationService, IRejectedJobService iRejectedJobService, IAcceptedJobService iAcceptedJobService, IInterviewJobService iInterviewJobService)
+    public JobListingController(IJobListingService iJobListingService, IJobApplicationService iJobApplicationService)
     {
         this.iJobListingService = iJobListingService;
         this.iJobApplicationService = iJobApplicationService;
-        this.iRejectedJobService = iRejectedJobService;
-        this.iAcceptedJobService = iAcceptedJobService;
-        this.iInterviewJobService = iInterviewJobService;
+//        this.iRejectedJobService = iRejectedJobService;
+//        this.iAcceptedJobService = iAcceptedJobService;
+//        this.iInterviewJobService = iInterviewJobService;
     }
 
     /**
@@ -177,66 +177,66 @@ public class JobListingController {
         );
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = UriConstants.EMPLOYER_REJECT_CANDIDATE)
-    public ResponseDto<JobApplicationResponseDto> employerRejectCandidate(@RequestBody JobApplicationRequestDto jobApplicationRequestDto){
-        RejectedJob rejectedJob;
-        try{
-            rejectedJob = iRejectedJobService.saveRejectCandidate(jobApplicationRequestDto);
-        } catch (JobApplicationRegistrationException e) {
-            return new ResponseDto<>(Collections.singletonList(e.getMessage()));
-        }
-        catch (Exception e){
-            log.error("Error occurred :: " , e);
-            return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
-        }
-        return new ResponseDto<>(
-                JobApplicationResponseDto.builder()
-                        .jobId(rejectedJob.getJobID())
-                        .emailAddress(rejectedJob.getEmailAddress())
-                        .applicationStatus(String.valueOf(rejectedJob.getApplicationStatus()))
-                        .build()
-        );
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = UriConstants.EMPLOYER_ACCEPT_CANDIDATE)
-    public ResponseDto<JobApplicationResponseDto> employerAcceptCandidate(@RequestBody JobApplicationRequestDto jobApplicationRequestDto){
-        AcceptedJob acceptedJob;
-        try{
-            acceptedJob = iAcceptedJobService.saveAcceptCandidate(jobApplicationRequestDto);
-        } catch (JobApplicationRegistrationException e) {
-            return new ResponseDto<>(Collections.singletonList(e.getMessage()));
-        }
-        catch (Exception e){
-            log.error("Error occurred :: " , e);
-            return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
-        }
-        return new ResponseDto<>(
-                JobApplicationResponseDto.builder()
-                        .jobId(acceptedJob.getJobID())
-                        .emailAddress(acceptedJob.getEmailAddress())
-                        .applicationStatus(String.valueOf(acceptedJob.getApplicationStatus()))
-                        .build()
-        );
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = UriConstants.EMPLOYER_SET_INTERVIEW)
-    public ResponseDto<JobApplicationResponseDto> employerSetInterview(@RequestBody JobApplicationRequestDto jobApplicationRequestDto){
-        InterviewJob interviewJob;
-        try{
-            interviewJob = iInterviewJobService.saveInterviewCandidate(jobApplicationRequestDto);
-        } catch (JobApplicationRegistrationException e) {
-            return new ResponseDto<>(Collections.singletonList(e.getMessage()));
-        }
-        catch (Exception e){
-            log.error("Error occurred :: " , e);
-            return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
-        }
-        return new ResponseDto<>(
-                JobApplicationResponseDto.builder()
-                        .jobId(interviewJob.getJobID())
-                        .emailAddress(interviewJob.getEmailAddress())
-                        .applicationStatus(String.valueOf(interviewJob.getApplicationStatus()))
-                        .build()
-        );
-    }
+//    @RequestMapping(method = RequestMethod.POST, value = UriConstants.EMPLOYER_REJECT_CANDIDATE)
+//    public ResponseDto<JobApplicationResponseDto> employerRejectCandidate(@RequestBody JobApplicationRequestDto jobApplicationRequestDto){
+//        RejectedJob rejectedJob;
+//        try{
+//            rejectedJob = iRejectedJobService.saveRejectCandidate(jobApplicationRequestDto);
+//        } catch (JobApplicationRegistrationException e) {
+//            return new ResponseDto<>(Collections.singletonList(e.getMessage()));
+//        }
+//        catch (Exception e){
+//            log.error("Error occurred :: " , e);
+//            return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
+//        }
+//        return new ResponseDto<>(
+//                JobApplicationResponseDto.builder()
+//                        .jobId(rejectedJob.getJobID())
+//                        .emailAddress(rejectedJob.getEmailAddress())
+//                        .applicationStatus(String.valueOf(rejectedJob.getApplicationStatus()))
+//                        .build()
+//        );
+//    }
+//
+//    @RequestMapping(method = RequestMethod.POST, value = UriConstants.EMPLOYER_ACCEPT_CANDIDATE)
+//    public ResponseDto<JobApplicationResponseDto> employerAcceptCandidate(@RequestBody JobApplicationRequestDto jobApplicationRequestDto){
+//        AcceptedJob acceptedJob;
+//        try{
+//            acceptedJob = iAcceptedJobService.saveAcceptCandidate(jobApplicationRequestDto);
+//        } catch (JobApplicationRegistrationException e) {
+//            return new ResponseDto<>(Collections.singletonList(e.getMessage()));
+//        }
+//        catch (Exception e){
+//            log.error("Error occurred :: " , e);
+//            return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
+//        }
+//        return new ResponseDto<>(
+//                JobApplicationResponseDto.builder()
+//                        .jobId(acceptedJob.getJobID())
+//                        .emailAddress(acceptedJob.getEmailAddress())
+//                        .applicationStatus(String.valueOf(acceptedJob.getApplicationStatus()))
+//                        .build()
+//        );
+//    }
+//
+//    @RequestMapping(method = RequestMethod.POST, value = UriConstants.EMPLOYER_SET_INTERVIEW)
+//    public ResponseDto<JobApplicationResponseDto> employerSetInterview(@RequestBody JobApplicationRequestDto jobApplicationRequestDto){
+//        InterviewJob interviewJob;
+//        try{
+//            interviewJob = iInterviewJobService.saveInterviewCandidate(jobApplicationRequestDto);
+//        } catch (JobApplicationRegistrationException e) {
+//            return new ResponseDto<>(Collections.singletonList(e.getMessage()));
+//        }
+//        catch (Exception e){
+//            log.error("Error occurred :: " , e);
+//            return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
+//        }
+//        return new ResponseDto<>(
+//                JobApplicationResponseDto.builder()
+//                        .jobId(interviewJob.getJobID())
+//                        .emailAddress(interviewJob.getEmailAddress())
+//                        .applicationStatus(String.valueOf(interviewJob.getApplicationStatus()))
+//                        .build()
+//        );
+//    }
 }
