@@ -19,7 +19,9 @@ public class UriConstants {
      * The constant REGISTER_CANDIDATE.
      */
     public static final String REGISTER_CANDIDATE = "register_candidate";
-
+    /**
+     * The constant BUILD_RESUME.
+     */
     public static final String BUILD_RESUME = "build_resume";
 
     /**
@@ -42,6 +44,9 @@ public class UriConstants {
      * The constant REGISTER_EMPLOYER.
      */
     public static final String REGISTER_EMPLOYER = "register_employer";
+    /**
+     * The constant GET_EMPLOYER.
+     */
     public static final String GET_EMPLOYER = "get_employer";
 
     /**
@@ -91,9 +96,14 @@ public class UriConstants {
      * The constant CANDIDATE_TRACK_JOBS.
      */
     public static final String CANDIDATE_TRACK_JOBS = "candidate_track_jobs";
-    public static final String GET_EMPLOYER_LIST = "employers";
+    /**
+     * The constant GET_EMPLOYER_LIST.
+     */
+    public static final String GET_EMPLOYER_LIST = "get_employer_list";
 
-
-    public static final String DELETE_EMPLOYER = "employer";
+    /**
+     * The constant DELETE_EMPLOYER.
+     */
+    public static final String DELETE_EMPLOYER = "delete_employer";
 
 }
