@@ -42,6 +42,7 @@ public class JobListingServiceImpl implements IJobListingService {
         JobListing jobListing = JobListing.builder()
                 .company(jobListingRequestDto.getCompany())
                 .tools(jobListingRequestDto.getTools())
+                .salary(jobListingRequestDto.getSalary())
                 .languages(jobListingRequestDto.getLanguages())
                 .position(jobListingRequestDto.getPosition())
                 .role(jobListingRequestDto.getRole())

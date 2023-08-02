@@ -50,6 +50,7 @@ public class JobListingResponseDto {
 
     @JsonProperty("salary")
     private Double salary;
+
     @JsonProperty("requirements")
     private String requirements;
 }

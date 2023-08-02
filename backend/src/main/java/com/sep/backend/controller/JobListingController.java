@@ -68,6 +68,7 @@ public class JobListingController {
                         .id(jobListing.getId())
                         .company(jobListing.getCompany())
                         .tools(jobListing.getTools())
+                        .salary(jobListing.getSalary())
                         .languages(jobListing.getLanguages())
                         .position(jobListing.getPosition())
                         .role(jobListing.getRole())
@@ -105,6 +106,7 @@ public class JobListingController {
                     .id(jobListing.getId())
                     .company(jobListing.getCompany())
                     .tools(jobListing.getTools())
+                    .salary(jobListing.getSalary())
                     .languages(jobListing.getLanguages())
                     .position(jobListing.getPosition())
                     .role(jobListing.getRole())
@@ -140,6 +142,7 @@ public class JobListingController {
                     .id(jobListing.getId())
                     .company(jobListing.getCompany())
                     .tools(jobListing.getTools())
+                    .salary(jobListing.getSalary())
                     .languages(jobListing.getLanguages())
                     .position(jobListing.getPosition())
                     .role(jobListing.getRole())
@@ -206,6 +209,24 @@ public class JobListingController {
                         .applicationStatus(String.valueOf(jobApplication.getApplicationStatus()))
                         .build()
         );
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = UriConstants.GET_CANDIDATES_APPLY_JOB)
+    public List<JobApplicationResponseDto> getAppliedCandidatesByEmailAddress(@RequestParam (name = "job_id") Integer jobId){
+        List<JobApplication> jobApplications = iJobApplicationService.getAppliedJobsByJobId(jobId);
+        List<JobApplicationResponseDto> responseDtoList = new ArrayList<>();
+
+        for (JobApplication jobApplication : jobApplications) {
+            JobApplicationResponseDto responseDto = JobApplicationResponseDto.builder()
+                    .jobId(jobApplication.getJobID())
+                    .emailAddress(jobApplication.getEmailAddress())
+                    .applicationStatus(String.valueOf(jobApplication.getApplicationStatus()))
+                    .build();
+
+            responseDtoList.add(responseDto);
+        }
+
+        return responseDtoList;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = UriConstants.EMPLOYER_REJECT_CANDIDATE)
