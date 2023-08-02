@@ -53,6 +53,11 @@ public class UriConstants {
      * The constant GET_JOB_LISTING.
      */
     public static final String GET_JOB_LISTING = "get_job_listing";
+
+    /**
+     * The constant EMPLOYER_GET_JOB_LISTING.
+     */
+    public static final String EMPLOYER_GET_JOB_LISTINGS = "employer_get_job_listing";
     /**
      * The constant GET_CANDIDATE.
      */
@@ -83,7 +88,7 @@ public class UriConstants {
      */
     public static final String EMPLOYER_SET_INTERVIEW = "employer_set_interview";
     /**
-     * The constant CANDIDATE_APPLY_JOB.
+     * The constant CANDIDATE_TRACK_JOBS.
      */
     public static final String CANDIDATE_TRACK_JOBS = "candidate_track_jobs";
     public static final String GET_EMPLOYER_LIST = "employers";

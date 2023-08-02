@@ -14,7 +14,7 @@ import java.util.Objects;
 import static com.sep.backend.enums.ApplicationStatus.ACCEPTED_BY_EMPLOYER;
 
 /**
- * The type Job Application service.
+ * The type AcceptedJob service.
  */
 @Service
 public class AcceptedJobServiceImpl implements IAcceptedJobService {
@@ -23,9 +23,9 @@ public class AcceptedJobServiceImpl implements IAcceptedJobService {
 
 
     /**
-     * Instantiates a new Job Application service.
+     * Instantiates a new Accepted Job service.
      *
-     * @param acceptedJobRepository the job application repository
+     * @param acceptedJobRepository the accepted job repository
      */
     @Autowired
     public AcceptedJobServiceImpl(AcceptedJobRepository acceptedJobRepository) {

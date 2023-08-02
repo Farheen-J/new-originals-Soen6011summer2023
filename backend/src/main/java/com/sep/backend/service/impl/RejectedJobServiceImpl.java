@@ -14,7 +14,7 @@ import java.util.Objects;
 import static com.sep.backend.enums.ApplicationStatus.REJECTED_BY_EMPLOYER;
 
 /**
- * The type Job Application service.
+ * The type Rejected Job service.
  */
 @Service
 public class RejectedJobServiceImpl implements IRejectedJobService {
@@ -23,9 +23,9 @@ public class RejectedJobServiceImpl implements IRejectedJobService {
 
 
     /**
-     * Instantiates a new Job Application service.
+     * Instantiates a new Rejected Job service.
      *
-     * @param rejectedJobRepository the job application repository
+     * @param rejectedJobRepository the rejected job repository
      */
     @Autowired
     public RejectedJobServiceImpl(RejectedJobRepository rejectedJobRepository) {

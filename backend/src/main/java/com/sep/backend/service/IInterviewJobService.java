@@ -5,12 +5,12 @@ import com.sep.backend.exception.JobApplicationRegistrationException;
 import com.sep.backend.models.InterviewJob;
 
 /**
- * The interface Job Application service.
+ * The interface Interview Job service.
  */
 public interface IInterviewJobService {
 
     /**
-     * Save job application.
+     * Save interview job.
      *
      * @param jobApplicationRequestDto the job application request dto
      * @return the resume

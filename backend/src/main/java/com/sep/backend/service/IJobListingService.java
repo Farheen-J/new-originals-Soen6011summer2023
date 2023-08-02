@@ -22,4 +22,7 @@ public interface IJobListingService {
 
     JobListing getJobListingById(Integer id);
     List<JobListing> getAllJobListings();
+
+    List<JobListing> getAllJobListingsByEmployerEmail(String employerEmail);
+
 }

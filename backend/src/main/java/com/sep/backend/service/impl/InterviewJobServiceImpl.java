@@ -14,7 +14,7 @@ import java.util.Objects;
 import static com.sep.backend.enums.ApplicationStatus.INTERVIEW_WITH_EMPLOYER;
 
 /**
- * The type Job Application service.
+ * The type Interview Job service.
  */
 @Service
 public class InterviewJobServiceImpl implements IInterviewJobService {
@@ -23,9 +23,9 @@ public class InterviewJobServiceImpl implements IInterviewJobService {
 
 
     /**
-     * Instantiates a new Job Application service.
+     * Instantiates a new Interview Job service.
      *
-     * @param acceptedJobRepository the job application repository
+     * @param interviewJobRepository the interview job repository
      */
     @Autowired
     public InterviewJobServiceImpl(InterviewJobRepository interviewJobRepository) {

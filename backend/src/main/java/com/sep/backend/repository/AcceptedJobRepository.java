@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 /**
- * The interface JobApplication repository.
+ * The interface Accepted Job repository.
  */
 public interface AcceptedJobRepository extends JpaRepository<AcceptedJob, Integer> {
 

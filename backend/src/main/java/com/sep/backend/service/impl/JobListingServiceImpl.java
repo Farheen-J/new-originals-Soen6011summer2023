@@ -69,4 +69,9 @@ public class JobListingServiceImpl implements IJobListingService {
         return jobListingRepository.findAll();
     }
 
+    @Override
+    public List<JobListing> getAllJobListingsByEmployerEmail(String employerEmail) {
+        return jobListingRepository.findAllByEmployerEmail(employerEmail);
+    }
+
 }

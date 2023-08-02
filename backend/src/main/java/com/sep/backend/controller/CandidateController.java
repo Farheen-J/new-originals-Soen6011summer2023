@@ -145,7 +145,7 @@ public class CandidateController {
                return new ResponseDto<>(Collections.singletonList("Tracked Jobs for Candidate not found"));
           }
 
-          // Create the response DTO containing the candidate data
+          // Create the response DTO containing the candidate track data
           CandidateJobTrackingResponseDto responseDto = CandidateJobTrackingResponseDto.builder()
                   .emailAddress(candidateTrackJob.getEmailAddress())
                   .acceptedJobs(candidateTrackJob.getAcceptedJobs())

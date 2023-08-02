@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * The type Job Application service.
+ * The type Candidate Job Track service.
  */
 @Service
 public class CandidateJobTrackingServiceImpl implements ICandidateJobTrackingService {
@@ -24,11 +24,7 @@ public class CandidateJobTrackingServiceImpl implements ICandidateJobTrackingSer
     private RejectedJobRepository rejectedJobRepository;
 
     private InterviewJobRepository interviewJobRepository;
-    /**
-     * Instantiates a new Job Application service.
-     *
-//     * @param acceptedJobRepository the job application repository
-     */
+
     @Autowired
     public CandidateJobTrackingServiceImpl(CandidateJobTrackingRepository candidateJobTrackingRepository, JobApplicationRepository jobApplicationRepository, AcceptedJobRepository acceptedJobRepository, RejectedJobRepository rejectedJobRepository, InterviewJobRepository interviewJobRepository) {
         this.candidateJobTrackingRepository = candidateJobTrackingRepository;
