@@ -5,7 +5,7 @@ import com.sep.backend.enums.ApplicationStatus;
 import lombok.Builder;
 
 /**
- * The type Job Listing response dto.
+ * The type Job Application response dto.
  */
 @Builder
 public class JobApplicationResponseDto {

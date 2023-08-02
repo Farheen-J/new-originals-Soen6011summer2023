@@ -22,6 +22,7 @@ public interface JobListingRepository extends JpaRepository<JobListing, Integer>
 
     List<JobListing> findAll();
 
+    List<JobListing> findAllByEmployerEmail(String employerEmail);
     void deleteAllByEmployerEmail(String employerEmail);
 
 }
