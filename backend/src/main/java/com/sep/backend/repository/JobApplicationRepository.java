@@ -1,6 +1,7 @@
 package com.sep.backend.repository;
 
 
+import com.sep.backend.models.InterviewJob;
 import com.sep.backend.models.JobApplication;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -23,6 +24,8 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
     List<JobApplication> findAll();
 
     List<JobApplication> findAllByEmailAddress(String emailAddress);
+
+    List<JobApplication> findAllByJobID(Integer jobId);
     void deleteAllByEmailAddress(String emailAddress);
 
 }

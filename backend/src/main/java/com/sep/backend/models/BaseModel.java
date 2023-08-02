@@ -32,32 +32,5 @@ public abstract class BaseModel {
      @GenericGenerator(name = "random_five_digit_id", strategy = "com.sep.backend.utils.IDGenerator")
      @Column(name = "id", nullable = false, unique = true)
      private Integer id;
-/**
- * The Created at.
- */
-@Column(name = "created_at", nullable = false)
-protected Date createdAt;
-
-/**
- * The Updated at.
- */
-@Column(name = "updated_at", nullable = false)
-protected Date updatedAt;
-
-/**
- * On create.
- */
-@PrePersist
-protected void onCreate() {
-     updatedAt = createdAt = new Date(System.currentTimeMillis());
-}
-
-/**
- * On update.
- */
-@PreUpdate
-protected void onUpdate() {
-     updatedAt = new Date(System.currentTimeMillis());
-}
 
 }

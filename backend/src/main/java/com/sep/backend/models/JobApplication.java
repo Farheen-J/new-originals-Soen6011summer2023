@@ -1,5 +1,6 @@
 package com.sep.backend.models;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.sep.backend.enums.ApplicationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,9 +21,9 @@ import javax.persistence.Table;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JobApplication{
+public class JobApplication extends BaseModel {
 
-@Id
+
 @Column(name = "job_id", nullable = false)
 private Integer jobID;
 

@@ -4,12 +4,14 @@ package com.sep.backend.service.impl;
 import com.sep.backend.dto.JobApplicationRequestDto;
 import com.sep.backend.exception.JobApplicationRegistrationException;
 import com.sep.backend.models.JobApplication;
+import com.sep.backend.models.JobListing;
 import com.sep.backend.repository.JobApplicationRepository;
 import com.sep.backend.service.IJobApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.sep.backend.enums.ApplicationStatus.*;
@@ -56,4 +58,8 @@ public class JobApplicationServiceImpl implements IJobApplicationService {
         return jobApplication;
     }
 
+    @Override
+    public List<JobApplication> getAppliedJobsByJobId(Integer jobId) {
+        return jobApplicationRepository.findAllByJobID(jobId);
+    }
 }

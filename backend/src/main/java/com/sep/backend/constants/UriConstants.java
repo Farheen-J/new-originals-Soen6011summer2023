@@ -79,6 +79,11 @@ public class UriConstants {
     public static final String CANDIDATE_APPLY_JOB = "candidate_apply_job";
 
     /**
+     * The constant GET_CANDIDATES_APPLY_JOB.
+     */
+    public static final String GET_CANDIDATES_APPLY_JOB = "get_candidates_apply_job";
+
+    /**
      * The constant EMPLOYER_REJECT_CANDIDATE.
      */
     public static final String EMPLOYER_REJECT_CANDIDATE = "employer_reject_candidate";
