@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Job from "./Job";
+import Candidate from "./Candidate";
 import { makeStyles } from "@material-ui/core/styles";
 
-const Jobs = ({ data, setKeywords, keywords }) => {
+const Candidates = ({ data, setKeywords, keywords }) => {
   
   const [filteredData, setfilteredData] = useState([]);
 
   const useStyles = makeStyles((theme) => ({
     // Define the styles for the component using makeStyles hook
-    jobsContainer: {
+    candidatesContainer: {
       display: "flex",
       flexDirection: "column",
       marginLeft: theme.spacing(-2),
@@ -39,16 +39,15 @@ const Jobs = ({ data, setKeywords, keywords }) => {
   useEffect(() => {
     // Fetch data from the API when the component mounts
     modifiedData();
-    // SearchFunc();
   }, [keywords]);
 
   return (
-    <div className={classes.jobsContainer}>
+    <div className={classes.candidatesContainer}>
       {filteredData.map((d) => {
-        return <Job key={d.id} data={d} setkeywords={setKeywords} className={classes.jobItem} />;
+        return <Candidate key={d.id} data={d} setkeywords={setKeywords}/>;
       })}
     </div>
   );
 };
 
-export default Jobs;
+export default Candidates;

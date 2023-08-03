@@ -19,6 +19,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { signUp } from '../services/registerAPI';
 
 const useStyles = makeStyles((theme) => ({
+  // Define the styles for the component using makeStyles hook
   paper: {
     padding: theme.spacing(4),
     width: '500px',

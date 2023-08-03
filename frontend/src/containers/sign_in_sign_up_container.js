@@ -18,6 +18,7 @@ const SignInOutContainer = ({ loginCallBack }) => {
   const font = "League Spartan, monospace";
 
   const theme = createTheme({
+    // Define the theme for Material-UI components
     typography: {
       fontFamily: font,
       button: {
@@ -96,13 +97,14 @@ const SignInOutContainer = ({ loginCallBack }) => {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    borderRadius: '20px', 
+    borderRadius: '20px',
     background: '#fcfcfade', //'#ffffffe3',
-    boxShadow: '0 2px 4px rgba(255, 255, 255, 0.1), 0 0 10px rgba(0, 0, 0, 0.1)', 
+    boxShadow: '0 2px 4px rgba(255, 255, 255, 0.1), 0 0 10px rgba(0, 0, 0, 0.1)',
     padding: '20px',
   };
 
   const useStyles = makeStyles((theme) => ({
+    // Define the styles for the component using makeStyles hook
     particlesContainer: {
       position: 'fixed',
       top: 0,
@@ -133,6 +135,7 @@ const SignInOutContainer = ({ loginCallBack }) => {
 
 
   useEffect(() => {
+    // Fetch data from the API when the component mounts
     if (signUpRef.current) {
       setSignUpFormHeight(signUpRef.current.clientHeight);
     }
@@ -189,36 +192,36 @@ const SignInOutContainer = ({ loginCallBack }) => {
         <div className={classes.particlesContainer}>
           <Particles params={particlesOptions} />
         </div>
-          <div className="signinContainer" style={divStyle} class="box-style" >
-            <ThemeProvider theme={theme}>
-              <Typography variant="h3" style={{ fontFamily: font, fontWeight: 900 }}>connects.</Typography>
-            </ThemeProvider>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              variant="fullWidth"
-              indicatorColor="primary" // Change the indicator color
-            >
-              <Tab
-                label="Sign In"
-                className={classes.tabs}
-              />
-              <Tab
-                label="Sign Up"
-                className={classes.tabs}
-              />
-            </Tabs>
-            <TabPanel value={value} index={0}>
-              <Login
-                handleChange={handleChange}
-                loginCallBack={loginCallBack}
-              />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <Signup loginCallBack={loginCallBack} />
-            </TabPanel>
-          </div>
-            
+        <div className="signinContainer" style={divStyle} class="box-style" >
+          <ThemeProvider theme={theme}>
+            <Typography variant="h3" style={{ fontFamily: font, fontWeight: 900 }}>connects.</Typography>
+          </ThemeProvider>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            variant="fullWidth"
+            indicatorColor="primary" // Change the indicator color
+          >
+            <Tab
+              label="Sign In"
+              className={classes.tabs}
+            />
+            <Tab
+              label="Sign Up"
+              className={classes.tabs}
+            />
+          </Tabs>
+          <TabPanel value={value} index={0}>
+            <Login
+              handleChange={handleChange}
+              loginCallBack={loginCallBack}
+            />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <Signup loginCallBack={loginCallBack} />
+          </TabPanel>
+        </div>
+
       </Grid>
     </Grid>
   );

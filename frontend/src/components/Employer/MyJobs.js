@@ -30,6 +30,7 @@ import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import apiList from "../../config/constant";
 
 const useStyles = makeStyles((theme) => ({
+  // Define the styles for the component using makeStyles hook
   body: {
     height: "inherit",
   },
@@ -98,22 +99,22 @@ const JobTile = (props) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-//      .then((response) => {
-//        setPopup({
-//          open: true,
-//          severity: "success",
-//          message: response.data.message,
-//        });
-//        getData();
-//        handleClose();
-//      })
+      //      .then((response) => {
+      //        setPopup({
+      //          open: true,
+      //          severity: "success",
+      //          message: response.data.message,
+      //        });
+      //        getData();
+      //        handleClose();
+      //      })
       .catch((err) => {
         console.log(err.response);
-//        setPopup({
-//          open: true,
-//          severity: "error",
-//          message: err.response.data.message,
-//        });
+        //        setPopup({
+        //          open: true,
+        //          severity: "error",
+        //          message: err.response.data.message,
+        //        });
         handleClose();
       });
   };
@@ -125,23 +126,23 @@ const JobTile = (props) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-//      .then((response) => {
-//        setPopup({
-//          open: true,
-//          severity: "success",
-//          message: response.data.message,
-//        });
-//        getData();
-//        handleCloseUpdate();
-//      })
+      //      .then((response) => {
+      //        setPopup({
+      //          open: true,
+      //          severity: "success",
+      //          message: response.data.message,
+      //        });
+      //        getData();
+      //        handleCloseUpdate();
+      //      })
       .catch((err) => {
         console.log(err.response);
-//        setPopup({
-//          open: true,
-//          severity: "error",
-//          message: err.response.data.message,
-//        });
-//        handleCloseUpdate();
+        //        setPopup({
+        //          open: true,
+        //          severity: "error",
+        //          message: err.response.data.message,
+        //        });
+        //        handleCloseUpdate();
       });
   };
 
@@ -697,6 +698,7 @@ const MyJobs = (props) => {
 
   //const setPopup = useContext(SetPopupContext);
   useEffect(() => {
+    // Fetch data from the API when the component mounts
     getData();
   }, []);
 
@@ -764,11 +766,11 @@ const MyJobs = (props) => {
       })
       .catch((err) => {
         console.log(err.response.data);
-//        setPopup({
-//          open: true,
-//          severity: "error",
-//          message: "Error",
-//        });
+        //        setPopup({
+        //          open: true,
+        //          severity: "error",
+        //          message: "Error",
+        //        });
       });
   };
 

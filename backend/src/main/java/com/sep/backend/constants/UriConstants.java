@@ -101,6 +101,12 @@ public class UriConstants {
      * The constant CANDIDATE_TRACK_JOBS.
      */
     public static final String CANDIDATE_TRACK_JOBS = "candidate_track_jobs";
+
+    /**
+     * The constant GET_ALL_CANDIDATES.
+     */
+    public static final String GET_ALL_CANDIDATES = "get_candidate_list";
+
     /**
      * The constant GET_EMPLOYER_LIST.
      */
@@ -110,5 +116,6 @@ public class UriConstants {
      * The constant DELETE_EMPLOYER.
      */
     public static final String DELETE_EMPLOYER = "delete_employer";
+
 
 }

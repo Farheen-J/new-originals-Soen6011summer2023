@@ -32,6 +32,7 @@ const JobDescription = (props) => {
   const [errMsg, setErrMsg] = useState('');
 
   const useStyles = makeStyles((theme) => ({
+    // Define the styles for the component using makeStyles hook
     container: {},
     dialogContent: {
       width: "100%",
@@ -87,10 +88,6 @@ const JobDescription = (props) => {
   };
 
   const handleApplyClick = async () => {
-    console.log("Job Description data \n" + JSON.stringify(props.candidateData))
-    console.log(props.data.id);
-    console.log(props.candidateData.email_address);
-
     let userData = {
       job_id: props.data.id,
       email_address: props.candidateData.email_address

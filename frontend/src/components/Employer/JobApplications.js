@@ -29,6 +29,7 @@ import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import apiList from "../../config/constant";
 
 const useStyles = makeStyles((theme) => ({
+  // Define the styles for the component using makeStyles hook
   body: {
     height: "inherit",
   },
@@ -80,7 +81,7 @@ const FilterPopup = (props) => {
               item
               xs={9}
               justify="space-around"
-              // alignItems="center"
+            // alignItems="center"
             >
               <Grid item>
                 <FormControlLabel
@@ -330,18 +331,18 @@ const ApplicationTile = (props) => {
         })
         .catch((error) => {
           console.log(error);
-//          setPopup({
-//            open: true,
-//            severity: "error",
-//            message: "Error",
-//          });
+          //          setPopup({
+          //            open: true,
+          //            severity: "error",
+          //            message: "Error",
+          //          });
         });
     } else {
-//      setPopup({
-//        open: true,
-//        severity: "error",
-//        message: "No resume found",
-//      });
+      //      setPopup({
+      //        open: true,
+      //        severity: "error",
+      //        message: "No resume found",
+      //      });
     }
   };
 
@@ -358,19 +359,19 @@ const ApplicationTile = (props) => {
         },
       })
       .then((response) => {
-//        setPopup({
-//          open: true,
-//          severity: "success",
-//          message: response.data.message,
-//        });
+        //        setPopup({
+        //          open: true,
+        //          severity: "success",
+        //          message: response.data.message,
+        //        });
         getData();
       })
       .catch((err) => {
-//        setPopup({
-//          open: true,
-//          severity: "error",
-//          message: err.response.data.message,
-//        });
+        //        setPopup({
+        //          open: true,
+        //          severity: "error",
+        //          message: err.response.data.message,
+        //        });
         console.log(err.response);
       });
   };
@@ -523,9 +524,8 @@ const ApplicationTile = (props) => {
             Education:{" "}
             {application.jobApplicant.education
               .map((edu) => {
-                return `${edu.institutionName} (${edu.startYear}-${
-                  edu.endYear ? edu.endYear : "Ongoing"
-                })`;
+                return `${edu.institutionName} (${edu.startYear}-${edu.endYear ? edu.endYear : "Ongoing"
+                  })`;
               })
               .join(", ")}
           </Grid>
@@ -570,7 +570,7 @@ const ApplicationTile = (props) => {
             variant="contained"
             color="primary"
             style={{ padding: "10px 50px" }}
-            // onClick={() => changeRating()}
+          // onClick={() => changeRating()}
           >
             Submit
           </Button>
@@ -604,6 +604,7 @@ const JobApplications = (props) => {
   });
 
   useEffect(() => {
+    // Fetch data from the API when the component mounts
     getData();
   }, []);
 
@@ -657,11 +658,11 @@ const JobApplications = (props) => {
         console.log(err.response);
         // console.log(err.response.data);
         setApplications([]);
-//        setPopup({
-//          open: true,
-//          severity: "error",
-//          message: err.response.data.message,
-//        });
+        //        setPopup({
+        //          open: true,
+        //          severity: "error",
+        //          message: err.response.data.message,
+        //        });
       });
   };
 

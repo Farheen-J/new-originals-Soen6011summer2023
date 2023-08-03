@@ -66,6 +66,15 @@ export const jobListings = () => {
   );
 }
 
+export const candidateListings = () => {
+  let candidate_listing_url = URLS.employer_get_all_candidates;
+  return axios.get(candidate_listing_url).then(
+    auth => {
+      return auth.data;
+    }
+  );
+}
+
 export const applyCandidateJobs = (userData) => {
   let register_url = URLS.candidate_apply_job;
   return axios.post(register_url, userData).then(
@@ -73,5 +82,22 @@ export const applyCandidateJobs = (userData) => {
       return auth.data;
     }
   );
+}
 
+export const candidateTracking = (email_address) => {
+  let register_url = URLS.candidate_tracking + "?email_address=" + email_address;
+  return axios.get(register_url).then(
+    auth => {
+      return auth.data;
+    }
+  );
+}
+
+export const getCandidateResume = (email_address) => {
+  let candidate_resume = URLS.candidate_resume + "?email_address=" + email_address;
+  return axios.get(candidate_resume).then(
+    auth => {
+      return auth.data;
+    }
+  );
 }
