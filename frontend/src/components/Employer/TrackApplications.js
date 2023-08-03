@@ -6,6 +6,7 @@ import JobDescription from "../JobListings/JobDescription";
 import JobOfferDetails from "../Employer/JobOfferDetails";
 
 const useStyles = makeStyles((theme) => ({
+    // Define the styles for the component using makeStyles hook
     root: {
         flexGrow: 1,
         maxWidth: 1000,
@@ -67,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
 const font = "League Spartan, monospace";
 const theme = createTheme({
+    // Define the theme for Material-UI components
     typography: {
         fontFamily: font,
         button: {

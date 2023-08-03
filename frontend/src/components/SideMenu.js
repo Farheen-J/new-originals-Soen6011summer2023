@@ -10,6 +10,7 @@ const drawerWidth = 240;
 const font = "League Spartan, monospace";
 
 const theme = createTheme({
+  // Define the theme for Material-UI components
   typography: {
     fontFamily: font,
     button: {
@@ -183,7 +184,7 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
       case 'employer':
         return (
           <>
-          <MenuItem className={`${classes.menuItem} ${activeMenuItem === 'my_jobs' ? classes.activeMenuItem : ''}`}>My Jobs</MenuItem>
+            <MenuItem className={`${classes.menuItem} ${activeMenuItem === 'my_jobs' ? classes.activeMenuItem : ''}`}>My Jobs</MenuItem>
 
             <MenuItem
               className={`${classes.menuItem} ${activeMenuItem === 'track' ? classes.activeMenuItem : ''
@@ -193,9 +194,17 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
               Track Applications
             </MenuItem>
             <MenuItem
-                          className={`${classes.menuItem} ${activeMenuItem === 'create_jobs' ? classes.activeMenuItem : ''}`}
-                          onClick={() => handleMenuItemClick('create_jobs')}
-                        >Create Jobs</MenuItem>
+              className={`${classes.menuItem} ${activeMenuItem === 'create_jobs' ? classes.activeMenuItem : ''}`}
+              onClick={() => handleMenuItemClick('create_jobs')}
+            >
+              Create Jobs
+            </MenuItem>
+            <MenuItem
+              className={`${classes.menuItem} ${activeMenuItem === 'candidate_listings' ? classes.activeMenuItem : ''}`}
+              onClick={() => handleMenuItemClick('candidate_listings')}
+            >
+              Browse Candidates
+            </MenuItem>
 
           </>
         );

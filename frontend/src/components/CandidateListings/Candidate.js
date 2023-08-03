@@ -3,39 +3,21 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   useMediaQuery,
 } from "@material-ui/core";
-import JobDescription from "./JobDescription";
+import CandidateDescription from "./CandidateDescription";
 
-const Job = (props) => {
+const Candidate = (props) => {
   const {
-    company,
-    contract,
-    featured,
-    languages,
-    level,
-    location,
-    //logo,
-    position,
-    posted_at,
-    role,
-    tools,
+    email_address,
+    last_name,
+    phone_number
   } = props.data;
 
-  let keywords = [role, level, ...languages, ...tools];
+  //let keywords = [role, level, ...languages, ...tools];
   const jobRef = useRef(null);
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const [icon, setIcon] = useState("");
   const [openDialog, setOpenDialog] = useState(false); // State to control dialog box
-
-  // const importSvgs = () => {
-  //   const logoSvg = import(`${logo}`).then((d) => {
-  //     setIcon(d.default);
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   importSvgs();
-  // }, [logo]);
 
   useEffect(() => {
     // Fetch data from the API when the component mounts
@@ -96,35 +78,26 @@ const Job = (props) => {
   return (
     <div
       ref={jobRef}
-      className={
-        featured ? "job-container job-container--borderLeft" : "job-container"
-      }
+      className={ "job-container"}
     >
       <div className="logo">
         <img src={icon} alt="" />
       </div>
       <div className="part1">
-        <div className="company">
-          <span className="cname">{company}</span>
-          {props.data.new && <span className="new">new!</span>}
-          {props.data.featured && <span className="featured">featured</span>}
-        </div>
-
-        <div className="position" onClick={handleDialogOpen}>
-          {position}
+        <div className="company"  onClick={handleDialogOpen}>
+          <span className="cname">{last_name}</span>
         </div>
 
         <div className="details">
-          <span>{posted_at}</span>
+          <span>{email_address}</span>
           <span>&nbsp;•&nbsp;</span>
-          <span>{contract}</span>
+          <span>{phone_number}</span>
           <span>&nbsp;•&nbsp;</span>
-          <span>{location}</span>
         </div>
       </div>
 
       <div className={classes.part2}>
-        {keywords.map((key, id) => (
+        {/* {keywords.map((key, id) => (
           <span
             className={classes.span}
             onClick={() => props.setkeywords(key)}
@@ -132,19 +105,18 @@ const Job = (props) => {
           >
             {key}
           </span>
-        ))}
+        ))} */}
       </div>
 
       {/* Dialog */}
-      <JobDescription
+      <CandidateDescription
         open={openDialog}
         handleClose={handleDialogClose}
         data={props.data}
         candidateData={JSON.parse(sessionStorage.getItem("AUTH_TOKEN"))}
-        invoker="job_listing"
       />
     </div>
   );
 };
 
-export default Job;
+export default Candidate;

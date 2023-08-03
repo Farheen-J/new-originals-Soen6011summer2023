@@ -10,12 +10,15 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Grid } from '@material-ui/core';
 import CreateJobsPage from "../components/Employer/CreateJobsPage"
 import Jobs from "../components/JobListings/Jobs";
+import Candidates from "../components/CandidateListings/Candidates";
 import CandidateTrackApplications from "../components/Candidate/TrackApplications";
 import EmployerTrackApplications from "../components/Employer/TrackApplications";
 import Resume from "../components/Candidate/Resume";
 import Header from "../components/JobListings/Header";
 import { jobListings } from '../services/registerAPI';
+import { candidateListings } from '../services/registerAPI';
 import { formatDistanceToNow } from 'date-fns';
+import { getCandidateResume } from '../services/registerAPI';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -68,43 +71,76 @@ function Home({ loginCallBack }) {
   const [errMsg, setErrMsg] = useState('');
 
   const [data, setData] = useState([]);
+  const [candidateData, setCandidateData] = useState([]);
 
   const formatPostedAt = (dateString) => {
-    console.log("dateString:", dateString);
     const date = new Date(dateString);
     // Check if the date is valid before formatting
     if (isNaN(date)) {
       return "Invalid date"; // You can customize the message as needed
     }
     const new_format = formatDistanceToNow(date, { addSuffix: true });
-    console.log(new_format);
     return new_format;
   };
 
   const fetchDataFromAPI = async () => {
     jobListings()
-    .then((data) => {
-      if (data.errors) {
-        setErrMsg(data.errors[0]);
+      .then((data) => {
+        if (data.errors) {
+          setErrMsg(data.errors[0]);
+        } else {
+          const formattedData = data.map((item) => ({
+            ...item,
+            posted_at: formatPostedAt(item.posted_at),
+          }));
+          setData(formattedData);
+          setErrMsg('');
+          setDataFetched(true);
+        }
+      })
+      .catch(() => {
+        setErrMsg('Unable to register');
+      });
+  };
+
+  const fetchCandidateDataFromAPI2 = async () => {
+    try {
+      const response = await candidateListings();
+  
+      if (response.errors) {
+        setErrMsg(response.errors[0]);
       } else {
-        const formattedData = data.map((item) => ({
-          ...item,
-          posted_at: formatPostedAt(item.posted_at),
+        // Collect all the email addresses from the response
+        const emailAddresses = response.map((candidate) => candidate.email_address);
+  
+        // Make API calls for each candidate's email address and get the resumes
+        const getCandidateResumePromises = emailAddresses.map((email) =>
+          getCandidateResume(email)
+        );
+  
+        // Wait for all the API calls to complete
+        const candidateResumes = await Promise.all(getCandidateResumePromises);
+  
+        // Merge candidate data with their resumes
+        const candidatesWithData = response.map((candidate, index) => ({
+          ...candidate,
+          resume: candidateResumes[index],
         }));
-        //console.log("response: " + JSON.stringify(formattedData))
-        setData(formattedData);
-        setErrMsg('');
+  
+       
+        setCandidateData(candidatesWithData);
+        setErrMsg("");
         setDataFetched(true);
       }
-    })
-    .catch(() => {
-      setErrMsg('Unable to register');
-    });
-
+    } catch (error) {
+      setErrMsg("");
+    }
   };
 
   useEffect(() => {
+    // Fetch data from the API when the component mounts
     fetchDataFromAPI();
+    fetchCandidateDataFromAPI2();
   }, []);
 
   const addFilterKeywords = (data) => {
@@ -146,6 +182,7 @@ function Home({ loginCallBack }) {
   };
 
   const theme = createTheme({
+    // Define the theme for Material-UI components
     typography: {
       fontFamily: font,
       button: {
@@ -177,7 +214,7 @@ function Home({ loginCallBack }) {
               </div>
             </Toolbar>
           </AppBar>
-          {userType !== null  && dataFetched &&
+          {userType !== null && dataFetched &&
             <Grid container className={classes.content}>
               <Grid item xs={3}>
                 <SideMenu
@@ -189,31 +226,47 @@ function Home({ loginCallBack }) {
                 {userType === 'employer' ? (
                   <>
                     <EmployerHP />
+                    {selectedOption === 'candidate_listings' ? (
+                      <>
+                        {filterKeywords.length > 0 && (
+                          <Header
+                            keywords={filterKeywords}
+                            removeKeywords={deleteKeyword}
+                            clearAll={clearAll}
+                          />
+                        )}
+                        <Candidates
+                          keywords={filterKeywords}
+                          data={candidateData}
+                          setKeywords={addFilterKeywords}
+                        />
+                      </>
+                    ) : null}
                     {selectedOption === 'track' ? (
                       <>
-                        <EmployerTrackApplications/>
+                        <EmployerTrackApplications />
                       </>
                     ) : null}
                     {selectedOption === 'my_jobs' ? (
-                                                              <>
-                                                              </>
-                                                            ) : null}
+                      <>
+                      </>
+                    ) : null}
                     {selectedOption === 'create_jobs' ? (
-                                                              <>
-                                                                {filterKeywords.length > 0 && (
-                                                                  <Header
-                                                                    keywords={filterKeywords}
-                                                                    removeKeywords={deleteKeyword}
-                                                                    clearAll={clearAll}
-                                                                  />
-                                                                )}
-                                                                <CreateJobsPage
-                                                                  keywords={filterKeywords}
-                                                                  data={data}
-                                                                  setKeywords={addFilterKeywords}
-                                                                />
-                                                              </>
-                                                            ) : null}
+                      <>
+                        {filterKeywords.length > 0 && (
+                          <Header
+                            keywords={filterKeywords}
+                            removeKeywords={deleteKeyword}
+                            clearAll={clearAll}
+                          />
+                        )}
+                        <CreateJobsPage
+                          keywords={filterKeywords}
+                          data={data}
+                          setKeywords={addFilterKeywords}
+                        />
+                      </>
+                    ) : null}
                   </>
                 ) : null}
 
@@ -254,7 +307,10 @@ function Home({ loginCallBack }) {
                     ) : null}
                     {selectedOption === 'track' ? (
                       <>
-                        <CandidateTrackApplications/>
+                        <CandidateTrackApplications
+                          data={data}
+                          candidateData={JSON.parse(sessionStorage.getItem("AUTH_TOKEN"))}
+                        />
                       </>
                     ) : null}
                   </>

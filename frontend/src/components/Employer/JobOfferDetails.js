@@ -35,6 +35,7 @@ const [rejected, setRejected] = useState(false);
 
 
   const useStyles = makeStyles((theme) => ({
+    // Define the styles for the component using makeStyles hook
     container: {},
     dialogContent: {
       width: "100%",
