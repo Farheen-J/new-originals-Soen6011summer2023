@@ -30,6 +30,9 @@ private Integer jobID;
 @Column(name = "email_address", nullable = false)
 private String emailAddress;
 
+@Column(name = "employer_email", nullable = false)
+private String employerEmail;
+
 @Column(name = "application_status")
 private ApplicationStatus applicationStatus;
 }

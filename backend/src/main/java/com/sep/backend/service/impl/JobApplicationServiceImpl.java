@@ -51,6 +51,7 @@ public class JobApplicationServiceImpl implements IJobApplicationService {
         JobApplication jobApplication = JobApplication.builder()
                 .jobID(jobApplicationRequestDto.getJobId())
                 .emailAddress(jobApplicationRequestDto.getEmailAddress())
+                .employerEmail(jobApplicationRequestDto.getEmployerEmail())
                 .applicationStatus(APPLIED_BY_CANDIDATE)
                 .build();
 

@@ -48,6 +48,7 @@ public class AcceptedJobServiceImpl implements IAcceptedJobService {
         AcceptedJob acceptedJob = AcceptedJob.builder()
                 .jobID(jobApplicationRequestDto.getJobId())
                 .emailAddress(jobApplicationRequestDto.getEmailAddress())
+                .employerEmail(jobApplicationRequestDto.getEmployerEmail())
                 .applicationStatus(ACCEPTED_BY_EMPLOYER)
                 .build();
 

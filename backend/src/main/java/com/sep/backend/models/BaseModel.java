@@ -28,9 +28,8 @@ import java.util.Date;
 public abstract class BaseModel {
 
      @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "random_five_digit_id")
-     @GenericGenerator(name = "random_five_digit_id", strategy = "com.sep.backend.utils.IDGenerator")
-     @Column(name = "id", nullable = false, unique = true)
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     @Column(name = "id", nullable = false)
      private Integer id;
 
 }

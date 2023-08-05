@@ -18,6 +18,9 @@ public class JobApplicationRequestDto {
     @JsonProperty("job_id")
     private Integer jobId;
 
+    @JsonProperty("employer_email")
+    private String employerEmail;
+
     @JsonProperty("email_address")
     private String emailAddress;
 

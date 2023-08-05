@@ -21,12 +21,14 @@ import javax.persistence.Table;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AcceptedJob {
+public class AcceptedJob extends BaseModel{
 
-@Id
+
 @Column(name = "job_id", nullable = false)
 private Integer jobID;
 
+    @Column(name = "employer_email", nullable = false)
+    private String employerEmail;
 
 @Column(name = "email_address", nullable = false)
 private String emailAddress;

@@ -1,13 +1,13 @@
 package com.sep.backend.controller;
 
 import com.sep.backend.constants.UriConstants;
-import com.sep.backend.dto.EmployerRegistrationRequestDto;
-import com.sep.backend.dto.EmployerRegistrationResponseDto;
-import com.sep.backend.dto.JobListingResponseDto;
-import com.sep.backend.dto.ResponseDto;
+import com.sep.backend.dto.*;
 import com.sep.backend.exception.EmployerRegistrationException;
+import com.sep.backend.models.CandidateTrackJob;
 import com.sep.backend.models.Employer;
+import com.sep.backend.models.EmployerTrackJob;
 import com.sep.backend.models.JobListing;
+import com.sep.backend.service.IEmployerJobTrackingService;
 import com.sep.backend.service.IEmployerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,7 @@ import java.util.List;
 public class EmployerController {
     private final IEmployerService iEmployerService;
 
+    private final IEmployerJobTrackingService iEmployerJobTrackingService;
     /**
      * Instantiates a new  controller.
      *
@@ -33,8 +34,9 @@ public class EmployerController {
      */
 
     @Autowired
-    public EmployerController(IEmployerService iEmployerService){
+    public EmployerController(IEmployerService iEmployerService, IEmployerJobTrackingService iEmployerJobTrackingService){
         this.iEmployerService = iEmployerService;
+        this.iEmployerJobTrackingService = iEmployerJobTrackingService;
     }
     /**
      * Register employer response dto.
@@ -131,6 +133,31 @@ public class EmployerController {
             log.error("Error occurred while fetching employer: ", e);
             return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
         }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = UriConstants.EMPLOYER_TRACK_JOBS)
+    public ResponseDto<EmployerJobTrackingResponseDto> trackEmployerApplications(@RequestParam (name="employer_email") String emailAddress) {
+
+
+        EmployerTrackJob employerTrackJob;
+
+        employerTrackJob = iEmployerJobTrackingService.findByEmailAddress(emailAddress);
+        if(employerTrackJob == null)
+        {
+            return new ResponseDto<>(Collections.singletonList("Tracked Jobs for Employer not found"));
+        }
+
+        // Create the response DTO containing the candidate track data
+        EmployerJobTrackingResponseDto responseDto = EmployerJobTrackingResponseDto.builder()
+                .employerEmail(employerTrackJob.getEmployerEmail())
+                .acceptedJobs(employerTrackJob.getAcceptedJobs())
+                .postedJobs(employerTrackJob.getPostedJobs())
+                .interviewJobs(employerTrackJob.getInterviewJobs())
+                .rejectedJobs(employerTrackJob.getRejectedJobs())
+                .build();
+
+        return new ResponseDto<>(responseDto);
+
     }
 
 }

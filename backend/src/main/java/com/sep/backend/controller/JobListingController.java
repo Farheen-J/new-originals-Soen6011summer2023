@@ -206,6 +206,7 @@ public class JobListingController {
                 JobApplicationResponseDto.builder()
                         .jobId(jobApplication.getJobID())
                         .emailAddress(jobApplication.getEmailAddress())
+                        .employerEmail(jobApplication.getEmployerEmail())
                         .applicationStatus(String.valueOf(jobApplication.getApplicationStatus()))
                         .build()
         );
@@ -220,6 +221,7 @@ public class JobListingController {
             JobApplicationResponseDto responseDto = JobApplicationResponseDto.builder()
                     .jobId(jobApplication.getJobID())
                     .emailAddress(jobApplication.getEmailAddress())
+                    .employerEmail(jobApplication.getEmployerEmail())
                     .applicationStatus(String.valueOf(jobApplication.getApplicationStatus()))
                     .build();
 
@@ -245,6 +247,7 @@ public class JobListingController {
                 JobApplicationResponseDto.builder()
                         .jobId(rejectedJob.getJobID())
                         .emailAddress(rejectedJob.getEmailAddress())
+                        .employerEmail(rejectedJob.getEmployerEmail())
                         .applicationStatus(String.valueOf(rejectedJob.getApplicationStatus()))
                         .build()
         );
@@ -266,6 +269,7 @@ public class JobListingController {
                 JobApplicationResponseDto.builder()
                         .jobId(acceptedJob.getJobID())
                         .emailAddress(acceptedJob.getEmailAddress())
+                        .employerEmail(acceptedJob.getEmployerEmail())
                         .applicationStatus(String.valueOf(acceptedJob.getApplicationStatus()))
                         .build()
         );
@@ -287,6 +291,7 @@ public class JobListingController {
                 JobApplicationResponseDto.builder()
                         .jobId(interviewJob.getJobID())
                         .emailAddress(interviewJob.getEmailAddress())
+                        .employerEmail(interviewJob.getEmployerEmail())
                         .applicationStatus(String.valueOf(interviewJob.getApplicationStatus()))
                         .build()
         );
