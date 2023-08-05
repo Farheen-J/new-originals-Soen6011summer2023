@@ -48,6 +48,7 @@ public class RejectedJobServiceImpl implements IRejectedJobService {
         RejectedJob rejectedJob = RejectedJob.builder()
                 .jobID(jobApplicationRequestDto.getJobId())
                 .emailAddress(jobApplicationRequestDto.getEmailAddress())
+                .employerEmail(jobApplicationRequestDto.getEmployerEmail())
                 .applicationStatus(REJECTED_BY_EMPLOYER)
                 .build();
 

@@ -21,9 +21,8 @@ import javax.persistence.Table;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InterviewJob {
+public class InterviewJob extends BaseModel{
 
-@Id
 @Column(name = "job_id", nullable = false)
 private Integer jobID;
 
@@ -31,7 +30,10 @@ private Integer jobID;
 @Column(name = "email_address", nullable = false)
 private String emailAddress;
 
-
 @Column(name = "application_status")
 private ApplicationStatus applicationStatus;
+
+@Column(name = "employer_email", nullable = false)
+private String employerEmail;
 }
+

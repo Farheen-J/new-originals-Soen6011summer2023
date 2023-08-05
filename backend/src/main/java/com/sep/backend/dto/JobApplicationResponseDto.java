@@ -16,6 +16,9 @@ public class JobApplicationResponseDto {
     @JsonProperty("email_address")
     private String emailAddress;
 
+    @JsonProperty("employer_email")
+    private String employerEmail;
+
     @JsonProperty("application_status")
     private String applicationStatus;
 

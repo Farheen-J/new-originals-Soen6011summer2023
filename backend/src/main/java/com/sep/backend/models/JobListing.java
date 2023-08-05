@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +19,13 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JobListing extends BaseModel{
+public class JobListing{
+
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "random_five_digit_id")
+@GenericGenerator(name = "random_five_digit_id", strategy = "com.sep.backend.utils.IDGenerator")
+@Column(name = "id", nullable = false, unique = true)
+private Integer id;
 
 @Column(name = "company", nullable = false)
 private String company;
@@ -32,7 +37,6 @@ private List<String> tools;
 @Column(name = "languages")
 @ElementCollection
 private List<String> languages;
-
 
 @Column(name = "salary")
 private Double salary;

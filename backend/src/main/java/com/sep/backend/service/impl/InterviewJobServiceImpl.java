@@ -48,6 +48,7 @@ public class InterviewJobServiceImpl implements IInterviewJobService {
         InterviewJob interviewJob = InterviewJob.builder()
                 .jobID(jobApplicationRequestDto.getJobId())
                 .emailAddress(jobApplicationRequestDto.getEmailAddress())
+                .employerEmail(jobApplicationRequestDto.getEmployerEmail())
                 .applicationStatus(INTERVIEW_WITH_EMPLOYER)
                 .build();
 
