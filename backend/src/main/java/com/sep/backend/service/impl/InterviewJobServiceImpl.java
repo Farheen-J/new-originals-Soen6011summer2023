@@ -5,6 +5,7 @@ import com.sep.backend.dto.JobApplicationRequestDto;
 import com.sep.backend.exception.JobApplicationRegistrationException;
 import com.sep.backend.models.InterviewJob;
 import com.sep.backend.repository.InterviewJobRepository;
+import com.sep.backend.repository.JobApplicationRepository;
 import com.sep.backend.service.IInterviewJobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class InterviewJobServiceImpl implements IInterviewJobService {
 
     private InterviewJobRepository interviewJobRepository;
 
+    private JobApplicationRepository jobApplicationRepository;
+
 
     /**
      * Instantiates a new Interview Job service.
@@ -28,9 +31,9 @@ public class InterviewJobServiceImpl implements IInterviewJobService {
      * @param interviewJobRepository the interview job repository
      */
     @Autowired
-    public InterviewJobServiceImpl(InterviewJobRepository interviewJobRepository) {
+    public InterviewJobServiceImpl(InterviewJobRepository interviewJobRepository, JobApplicationRepository jobApplicationRepository) {
         this.interviewJobRepository = interviewJobRepository;
-
+        this.jobApplicationRepository = jobApplicationRepository;
     }
 
     @Override

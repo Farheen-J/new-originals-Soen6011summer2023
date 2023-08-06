@@ -4,11 +4,13 @@ package com.sep.backend.service.impl;
 import com.sep.backend.dto.JobApplicationRequestDto;
 import com.sep.backend.exception.JobApplicationRegistrationException;
 import com.sep.backend.models.RejectedJob;
+import com.sep.backend.repository.JobApplicationRepository;
 import com.sep.backend.repository.RejectedJobRepository;
 import com.sep.backend.service.IRejectedJobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Objects;
 
 import static com.sep.backend.enums.ApplicationStatus.REJECTED_BY_EMPLOYER;
@@ -17,10 +19,12 @@ import static com.sep.backend.enums.ApplicationStatus.REJECTED_BY_EMPLOYER;
  * The type Rejected Job service.
  */
 @Service
+@Transactional
 public class RejectedJobServiceImpl implements IRejectedJobService {
 
     private RejectedJobRepository rejectedJobRepository;
 
+    private JobApplicationRepository jobApplicationRepository;
 
     /**
      * Instantiates a new Rejected Job service.
@@ -28,9 +32,9 @@ public class RejectedJobServiceImpl implements IRejectedJobService {
      * @param rejectedJobRepository the rejected job repository
      */
     @Autowired
-    public RejectedJobServiceImpl(RejectedJobRepository rejectedJobRepository) {
+    public RejectedJobServiceImpl(RejectedJobRepository rejectedJobRepository, JobApplicationRepository jobApplicationRepository) {
         this.rejectedJobRepository = rejectedJobRepository;
-
+        this.jobApplicationRepository = jobApplicationRepository;
     }
 
     @Override
@@ -53,6 +57,7 @@ public class RejectedJobServiceImpl implements IRejectedJobService {
                 .build();
 
         rejectedJobRepository.save(rejectedJob);
+        jobApplicationRepository.deleteByJobIDAndEmailAddress(jobApplicationRequestDto.getJobId(),jobApplicationRequestDto.getEmailAddress());
         return rejectedJob;
     }
 
