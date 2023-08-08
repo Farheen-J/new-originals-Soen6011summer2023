@@ -46,7 +46,7 @@ const Experiences = ({ formData, setFormData }) => {
             How many years you worked there for?
           </label>
           <input
-            type="email"
+            type="number"
             className="form-control"
             id="Email"
             value={formData.exp1_dur}

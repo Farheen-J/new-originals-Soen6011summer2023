@@ -12,13 +12,10 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import axios from "axios";
+import { MuiChipsInput } from 'mui-chips-input'
 import ChipInput from '@material-ui/core/Chip';
 import moment from 'moment';
-//import MyJobs from "./MyJobs";
-
-
-//import { SetPopupContext } from "../../App";
-
+import MyJobs from "./MyJobs";
 import apiList from "../../config/constant";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,11 +29,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     // padding: "30px",
   },
+  ErrorMessage: {
+    color: "red"
+  }
 }));
 
 const validationSchema = Yup.object().shape({
-  company: Yup.string().required("Company name is required"),
-  employer_email: Yup.string().email("Invalid email").required("Email is required"),
+//  company: Yup.string().required("Company name is required"),
+//  employer_email: Yup.string().email("Invalid email").required("Email is required"),
   position: Yup.string().required("Position is required"),
   role: Yup.string().required("Role is required"),
   level: Yup.string().required("Level is required"),
@@ -51,7 +51,6 @@ const CreateJobs = (props) => {
   const initialValues = {
       company: "",
       employer_email: "",
-      //logo,
       position: "",
       role: "",
       level: "",
@@ -64,8 +63,8 @@ const CreateJobs = (props) => {
       requirements: "",
       salary: 0,
     };
-//  const setPopup = useContext(SetPopupContext);
   const [success, setSuccess] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const [jobDetails, setJobDetails] = useState({
     company: "",
     employer_email: "",
@@ -83,6 +82,10 @@ const CreateJobs = (props) => {
     salary: 0,
   });
 
+  let employerData=JSON.parse(sessionStorage.getItem("AUTH_TOKEN"));
+  let email = employerData.email_address;
+  let company_name = employerData.company_name;
+
   const handleInput = (key, value) => {
     setJobDetails({
       ...jobDetails,
@@ -90,7 +93,19 @@ const CreateJobs = (props) => {
     });
   };
 
-  const handleUpdate = (values) => {
+  const [tools, setTools] = useState([]);
+
+  const handleToolChange = (newTools) => {
+      setTools(newTools)
+    }
+
+  const [languages, setLanguages] = useState([]);
+
+  const handleLangChange = (newLang) => {
+        setLanguages(newLang)
+      }
+
+  const handleUpdate = (values, { resetForm }) => {
     console.log(values);
     axios
       .post(apiList.jobs, values, {
@@ -105,6 +120,11 @@ const CreateJobs = (props) => {
 //          message: response.data.message,
 //        });
         setSuccess(true);
+
+        setTools([]);
+        setLanguages([]);
+        setFormSubmitted(true);
+        resetForm();
         setJobDetails({
           company: "",
           employer_email: "",
@@ -132,6 +152,8 @@ const CreateJobs = (props) => {
       setSuccess(true);
   };
 
+  const updatedInitialValues = formSubmitted ? initialValues : jobDetails;
+
   return (
     <>
       <Grid
@@ -158,14 +180,18 @@ const CreateJobs = (props) => {
 //              }}
             >
             <Formik
-                            initialValues={initialValues}
+                            initialValues={updatedInitialValues}
                             validationSchema={validationSchema}
-                            onSubmit={(values, { setSubmitting }) => {
-                              handleUpdate(values);
+                            onSubmit={(values, { setSubmitting, resetForm }) => {
+                              values.tools = tools;
+                              values.languages = languages;
+                              values.company= company_name;
+                              values.employer_email = email;
+                              handleUpdate(values, { resetForm });
                               setSubmitting(false);
                             }}
                           >
-                            {({ isSubmitting }) => (
+                            {({ values, errors, touched, handleChange, handleSubmit,isSubmitting }) => (
               <Form>
               <Grid
                 container
@@ -173,21 +199,17 @@ const CreateJobs = (props) => {
                 alignItems="stretch"
                 spacing={3}
               >
-                <Grid
-                                      container
-                                      direction="column"
-                                      alignItems="stretch"
-                                      spacing={3}
-                                    >
                                       <Grid item>
                                         <Field
                                           as={TextField}
                                           name="company"
                                           label="Company"
                                           variant="outlined"
+                                          value={company_name}
+                                          required={true} readOnly={true}
                                           fullWidth
                                         />
-                                        <ErrorMessage name="company" component="div" />
+
                                       </Grid>
                                       <Grid item>
                                         <Field
@@ -196,9 +218,11 @@ const CreateJobs = (props) => {
                                           label="Employer email"
                                           type="email"
                                           variant="outlined"
+                                          value={email}
+                                          required={true} readOnly={true}
                                           fullWidth
                                         />
-                                        <ErrorMessage name="employer_email" component="div" />
+
                                       </Grid>
                                       <Grid item>
                                         <Field
@@ -230,27 +254,11 @@ const CreateJobs = (props) => {
                                         />
                                         <ErrorMessage name="level" component="div" />
                                       </Grid>
+                                       <Grid item>
+                                       <MuiChipsInput label="Tools" variant="outlined" value={tools} onChange={handleToolChange} fullWidth/>
+                                       </Grid>
                                       <Grid item>
-                                        {/* <Field
-                                          as={ChipInput}
-                                          className={classes.inputBox}
-                                          label="Tools"
-                                          variant="outlined"
-                                          helperText="Press enter to add tools"
-                                          name="tools"
-                                          fullWidth
-                                        /> */}
-                                      </Grid>
-                                      <Grid item>
-                                        {/* <Field
-                                          as={ChipInput}
-                                          className={classes.inputBox}
-                                          label="Languages"
-                                          variant="outlined"
-                                          helperText="Press enter to add Languages"
-                                          name="languages"
-                                          fullWidth
-                                        /> */}
+                                        <MuiChipsInput label="Languages" variant="outlined" value={languages} onChange={handleLangChange} fullWidth/>
                                       </Grid>
                                       <Grid item>
                                         <Field
@@ -298,28 +306,25 @@ const CreateJobs = (props) => {
                                         <ErrorMessage name="location" component="div" />
                                       </Grid>
                                       <Grid item>
-                                                                              <Field
-                                                                                as={TextField}
-                                                                                name="salary"
-                                                                                label="Salary"
-                                                                                variant="outlined"
-                                                                                fullWidth
-                                                                              />
-                                                                              <ErrorMessage name="salary" component="div" />
-                                                                            </Grid>
-
+                                      <Field
+                                          as={TextField}
+                                          name="salary"
+                                          label="Salary"
+                                          variant="outlined"
+                                          fullWidth
+                                        />
+                                        <ErrorMessage name="salary" component="div" />
+                                      </Grid>
 
                                       <Button
                                                   type="submit"
                                                   variant="contained"
                                                   color="primary"
-                                                  style={{ padding: "10px 50px", marginTop: "30px" }}
+                                                  style={{ padding: "10px 10px", marginTop: "0px" }}
                                                   disabled={isSubmitting}
                                                   >
                                         Create Job
                                       </Button>
-
-                                      </Grid>
                                       </Grid>
                                     </Form>
                                     )}
@@ -330,6 +335,7 @@ const CreateJobs = (props) => {
       </Grid>
 
     </>
+
   );
 };
 

@@ -24,7 +24,8 @@ const Education = ({ formData, setFormData }) => {
             Year you graduated
           </label>
           <input
-            type="email"
+
+            type="number" min="1970" max="2099" step="1"
             className="form-control"
             id="Email"
             value={formData.edu1_year}
