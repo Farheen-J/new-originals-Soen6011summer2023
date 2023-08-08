@@ -4,7 +4,7 @@ package com.sep.backend.service;
 import com.sep.backend.models.EmployerTrackJob;
 
 /**
- * The interface Candidate Job Tracking service.
+ * The interface Employer Job Tracking service.
  */
 public interface IEmployerJobTrackingService {
 

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 /**
- * The interface Candidate Track Job repository.
+ * The interface Employer Track Job repository.
  */
 public interface EmployerJobTrackingRepository extends JpaRepository<EmployerTrackJob, Integer> {
 

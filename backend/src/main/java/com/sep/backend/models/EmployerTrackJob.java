@@ -13,7 +13,7 @@ import java.util.List;
 
 
 /**
- * The type Candidate Track Job.
+ * The type Employer Track Job.
  */
 @Entity
 @Table(name = "employer_track_job")

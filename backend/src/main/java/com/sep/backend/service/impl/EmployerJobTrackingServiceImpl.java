@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * The type Candidate Job Track service.
+ * The type Employer Job Track service.
  */
 @Service
 public class EmployerJobTrackingServiceImpl implements IEmployerJobTrackingService {
