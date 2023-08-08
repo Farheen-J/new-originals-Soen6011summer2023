@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
+import javax.security.auth.Subject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,19 +32,22 @@ public class JobListingController {
 
     private final IAcceptedJobService iAcceptedJobService;
     private final IInterviewJobService iInterviewJobService;
+
+    private final IEmailSenderService iEmailSenderService;
     /**
      * Instantiates a new Job Listing controller.
      *
      * @param iJobListingService the job listing service
      */
     @Autowired
-    public JobListingController(IJobListingService iJobListingService, IJobApplicationService iJobApplicationService, IAcceptedJobService iAcceptedJobService, IRejectedJobService iRejectedJobService, IInterviewJobService iInterviewJobService)
+    public JobListingController(IEmailSenderService iEmailSenderService, IJobListingService iJobListingService, IJobApplicationService iJobApplicationService, IAcceptedJobService iAcceptedJobService, IRejectedJobService iRejectedJobService, IInterviewJobService iInterviewJobService)
     {
         this.iJobListingService = iJobListingService;
         this.iJobApplicationService = iJobApplicationService;
         this.iRejectedJobService = iRejectedJobService;
         this.iAcceptedJobService = iAcceptedJobService;
         this.iInterviewJobService = iInterviewJobService;
+        this.iEmailSenderService = iEmailSenderService;
     }
 
     /**
@@ -195,6 +200,7 @@ public class JobListingController {
         JobApplication jobApplication;
         try{
             jobApplication = iJobApplicationService.saveJobApplication(jobApplicationRequestDto);
+            sendEmailToEmployer(jobApplication);
         } catch (JobApplicationRegistrationException e) {
             return new ResponseDto<>(Collections.singletonList(e.getMessage()));
         }
@@ -236,6 +242,7 @@ public class JobListingController {
         RejectedJob rejectedJob;
         try{
             rejectedJob = iRejectedJobService.saveRejectCandidate(jobApplicationRequestDto);
+            sendEmailToCandidate(rejectedJob);
         } catch (JobApplicationRegistrationException e) {
             return new ResponseDto<>(Collections.singletonList(e.getMessage()));
         }
@@ -258,6 +265,7 @@ public class JobListingController {
         AcceptedJob acceptedJob;
         try{
             acceptedJob = iAcceptedJobService.saveAcceptCandidate(jobApplicationRequestDto);
+            sendEmailToCandidate(acceptedJob);
         } catch (JobApplicationRegistrationException e) {
             return new ResponseDto<>(Collections.singletonList(e.getMessage()));
         }
@@ -280,6 +288,7 @@ public class JobListingController {
         InterviewJob interviewJob;
         try{
             interviewJob = iInterviewJobService.saveInterviewCandidate(jobApplicationRequestDto);
+            sendEmailToCandidate(interviewJob);
         } catch (JobApplicationRegistrationException e) {
             return new ResponseDto<>(Collections.singletonList(e.getMessage()));
         }
@@ -296,4 +305,97 @@ public class JobListingController {
                         .build()
         );
     }
+
+    private void sendEmailToEmployer(JobApplication jobApplication)
+    {
+        String subject = "Job Application Notification for Job ID: "+jobApplication.getJobID();
+        String messageContent = "Dear Employer," + "\n\n"
+                + "We hope this email finds you well. We wanted to inform you that a new job application has been submitted for the job posting "
+                + "referenced by the Job ID: " + jobApplication.getJobID() + ".\n\n"
+                + "The candidate's qualifications, skills, and experience have been carefully reviewed, and we believe they could be a valuable "
+                + "addition to your team. We encourage you to take a closer look at their application.\n\n"
+                + "You can view the candidate's full application and profile on our platform.\n\n"
+                + "If you have any questions or would like to proceed with the application, please log in to your account and navigate to the "
+                + "job posting for more details. Feel free to contact the candidate directly through the provided email address.\n\n"
+                + "Thank you for using Connects. Career Service Platform.\n\n"
+                + "Best regards,\n" + "Connects Team\n";
+
+
+        this.iEmailSenderService.sendEmail(jobApplication.getEmployerEmail(),subject, messageContent);
+
+    }
+
+    private void sendEmailToCandidate(RejectedJob rejectedJob)
+    {
+        String subject = "Job Application Notification for Job ID: "+rejectedJob.getJobID();
+        String messageContent = "Dear Candidate" + ",\n\n"
+                + "We hope this email finds you well. We wanted to reach out and share some important information regarding your recent job application. "
+                + "After careful consideration, we regret to inform you that your application for the Job referenced by the Job ID: " + rejectedJob.getJobID() + " has been rejected.\n\n"
+                + "While your qualifications and skills are impressive, the selection process was highly competitive, and the company had to make some difficult decisions.\n\n"
+                + "We appreciate your interest in the position and your enthusiasm for joining their team. Your efforts and dedication did not go unnoticed, "
+                + "and we encourage you to continue pursuing your career aspirations.\n\n"
+                + "We understand that receiving news of rejection can be disappointing, but please remember that this outcome doesn't define your abilities "
+                + "and potential. Many factors contribute to the selection process, and we hope you will consider applying for future opportunities with them.\n\n"
+                + "If you have any questions or would like feedback on your application, please don't hesitate to reach out to the employer at " + rejectedJob.getEmployerEmail() + ". "
+                + "We'd be happy to provide you with constructive feedback to assist you in your job search.\n\n"
+                + "Thank you for considering us as part of your journey, and we wish you the very best in your future endeavors.\n\n"
+                + "We encourage you to keep exploring opportunities on Connects. Career Service Platform and leverage the resources available to enhance your "
+                + "professional growth.\n\n"
+                + "Best regards,\n" + "Connects Team";
+
+        this.iEmailSenderService.sendEmail(rejectedJob.getEmailAddress(),subject, messageContent);
+    }
+
+    private void sendEmailToCandidate(AcceptedJob acceptedJob)
+    {
+        String subject = "Job Application Notification for Job ID: "+acceptedJob.getJobID();
+        String messageContent = "Dear Candidate" + ",\n\n"
+                + "We hope this email finds you well. We wanted to reach out and share some great news with you. "
+                + "After careful consideration, we are pleased to inform you that your application for the Job referenced by the Job ID: " + acceptedJob.getJobID() + " has been accepted!\n\n"
+                + "The employers were impressed by your qualifications, skills, and experience, and believed that you will be a valuable "
+                + "addition to their team. "
+                + "We are excited to have you join this company in achieving their goals.\n\n"
+                + "Here are the next steps in the process:\n\n"
+                + "1. An official offer letter will be sent to you that outlines the terms of your employment, including compensation, "
+                + "benefits, and start date.\n\n"
+                + "2. Please review the offer letter carefully and let the employers know if you have any questions or concerns. You can reach out "
+                + "to them at " + acceptedJob.getEmployerEmail() + "\n\n"
+                + "3. Once you are ready, please sign and return the offer letter within 3 weeks of receiving this email to confirm your "
+                + "acceptance of the position.\n\n"
+                + "4. Their HR team will also provide you with information about the onboarding process, including any paperwork and "
+                + "training sessions you need to complete.\n\n"
+                + "We are excited for all the opportunities you will be getting while working with such an elite company and we look forward to you choosing us to serve you in the future. If you have "
+                + "any immediate questions or need further information, please don't hesitate to reach out to the employer directly at " + acceptedJob.getEmployerEmail() + ".\n\n"
+                + "Once again, congratulations on your acceptance, and we wish you the very best.\n\n"
+                +"Thank you for using Connects. Career Service Platform.\n\n"
+                + "Best regards,\n" + "Connects Team\n";
+
+        this.iEmailSenderService.sendEmail(acceptedJob.getEmailAddress(),subject,messageContent);
+    }
+
+    private void sendEmailToCandidate(InterviewJob interviewJob)
+    {
+        String subject = "Job Application Notification for Job ID: "+interviewJob.getJobID();
+        String messageContent = "Dear Candidate," + "\n\n"
+                + "We hope this email finds you well. We wanted to reach out and share some great news with you. "
+                + "After careful consideration, we are pleased to inform you that your application for the Job referenced by the Job ID: " + interviewJob.getJobID() + " has been shortlisted for an interview!\n\n"
+                + "The employers were impressed by your qualifications, skills, and experience, and believe that you will be a strong "
+                + "candidate for the position. Congratulations on making it to this stage of the selection process.\n\n"
+                + "Here are the next steps in the process:\n\n"
+                + "1. An official invitation for the interview will be sent to you, including details about the date, time, and location of the interview.\n\n"
+                + "2. Please make sure to review the interview details carefully and prepare for the interview accordingly. If you have any questions or need clarification, you can reach out "
+                + "to the employers at " + interviewJob.getEmployerEmail() + "\n\n"
+                + "3. On the scheduled date, be sure to arrive at the interview location on time and present yourself professionally.\n\n"
+                + "4. After the interview, the employers will provide you with feedback and further instructions regarding the next steps of the process.\n\n"
+                + "We are excited about the opportunity for you to showcase your skills and potential during the interview. If you have "
+                + "any immediate questions or need further information, please don't hesitate to reach out to the employer directly at " + interviewJob.getEmployerEmail() + ".\n\n"
+                + "Once again, congratulations on being shortlisted for the interview, and we wish you the very best.\n\n"
+                + "Thank you for using Connects. Career Service Platform.\n\n"
+                + "Best regards,\n" + "Connects Team";
+
+
+        this.iEmailSenderService.sendEmail(interviewJob.getEmailAddress(),subject,messageContent);
+    }
+
+
 }
