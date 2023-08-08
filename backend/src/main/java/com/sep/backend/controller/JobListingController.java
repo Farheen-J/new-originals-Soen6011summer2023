@@ -131,6 +131,17 @@ public class JobListingController {
         }
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = UriConstants.DELETE_JOB_LISTING)
+    private ResponseDto<String> deleteJobListing(@RequestParam(name = "job_id")Integer jobId){
+        try{
+            iJobListingService.deleteJobListing(jobId);
+            return new ResponseDto<>("Record Deleted Successfully");
+        }
+        catch (Exception e){
+            log.error("Error occurred :: " , e);
+            return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
+        }
+    }
 
     /**
      * Get all job listings.

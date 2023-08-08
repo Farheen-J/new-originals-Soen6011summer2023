@@ -138,5 +138,10 @@ public class UriConstants {
      */
     public static final String DELETE_CANDIDATE = "delete_candidate";
 
+    /**
+     * The constant DELETE_JOB_LISTING.
+     */
+    public static final String DELETE_JOB_LISTING = "delete_job_listing";
+
 
 }

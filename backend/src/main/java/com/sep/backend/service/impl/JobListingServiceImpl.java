@@ -4,11 +4,13 @@ package com.sep.backend.service.impl;
 import com.sep.backend.dto.JobListingRequestDto;
 import com.sep.backend.exception.JobListingRegistrationException;
 import com.sep.backend.models.JobListing;
+import com.sep.backend.repository.JobApplicationRepository;
 import com.sep.backend.repository.JobListingRepository;
 import com.sep.backend.service.IJobListingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +22,7 @@ public class JobListingServiceImpl implements IJobListingService {
 
     private JobListingRepository jobListingRepository;
 
+    private JobApplicationRepository jobApplicationRepository;
 
     /**
      * Instantiates a new Job Listing service.
@@ -27,9 +30,9 @@ public class JobListingServiceImpl implements IJobListingService {
      * @param jobListingRepository the job listing repository
      */
     @Autowired
-    public JobListingServiceImpl(JobListingRepository jobListingRepository) {
+    public JobListingServiceImpl(JobListingRepository jobListingRepository, JobApplicationRepository jobApplicationRepository) {
         this.jobListingRepository = jobListingRepository;
-
+        this.jobApplicationRepository = jobApplicationRepository;
     }
 
     @Override
@@ -75,4 +78,11 @@ public class JobListingServiceImpl implements IJobListingService {
         return jobListingRepository.findAllByEmployerEmail(employerEmail);
     }
 
+    @Override
+    @Transactional
+    public void deleteJobListing(Integer jobId)
+    {
+        jobApplicationRepository.deleteAllByJobID(jobId);
+        jobListingRepository.deleteById(jobId);
+    }
 }

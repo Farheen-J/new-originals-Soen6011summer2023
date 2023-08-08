@@ -27,4 +27,6 @@ public interface JobListingRepository extends JpaRepository<JobListing, Integer>
 
     void deleteAllByEmployerEmail(String emailAddress);
 
+    void deleteAllById(Integer jobId);
+
 }
