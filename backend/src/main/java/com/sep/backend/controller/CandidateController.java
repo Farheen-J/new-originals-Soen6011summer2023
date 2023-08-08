@@ -119,7 +119,7 @@ public class CandidateController {
      @RequestMapping(method = RequestMethod.GET, value = UriConstants.GET_UPLOADED_RESUME)
      public ResponseEntity<?> getUploadedResume(@RequestParam(name = "email_address") String emailAddress)
      {
-          Candidate candidate = iCandidateService.findByEmailAddress(emailAddress);
+          Candidate candidate = iCandidateService.getCandidateByEmailAddress(emailAddress);
           if(candidate == null)
           {
                //custom exception for no such candidate found
@@ -133,7 +133,7 @@ public class CandidateController {
      public ResponseDto<CandidateRegistrationResponseDto> getCandidateByEmailAddress(@RequestParam (name = "email_address") String emailAddress) {
           Candidate candidate;
           try {
-               candidate = iCandidateService.findByEmailAddress(emailAddress);
+               candidate = iCandidateService.getCandidateByEmailAddress(emailAddress);
 
                // Check if the candidate exists in the database
                if (candidate == null) {

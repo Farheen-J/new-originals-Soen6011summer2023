@@ -21,7 +21,7 @@ public interface ICandidateService {
  */
 Candidate saveCandidate(CandidateRegistrationRequestDto candidateRegistrationRequestDto) throws CandidateRegistrationException;
 
-Candidate findByEmailAddress(String emailAddress);
+Candidate getCandidateByEmailAddress(String emailAddress);
 
 List<Candidate> getCandidatesList();
 

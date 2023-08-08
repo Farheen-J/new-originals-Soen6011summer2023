@@ -23,7 +23,7 @@ public interface IEmployerService {
      */
     Employer saveEmployer(EmployerRegistrationRequestDto employerRegistrationRequestDto) throws EmployerRegistrationException;
 
-
+    Employer editEmployer(EmployerRegistrationRequestDto employerRegistrationRequestDto) throws EmployerRegistrationException;
     List<Employer> getEmployerList();
 
     Employer getEmployerByEmailAddress(String emailAddress);

@@ -50,6 +50,11 @@ public class UriConstants {
      * The constant REGISTER_EMPLOYER.
      */
     public static final String REGISTER_EMPLOYER = "register_employer";
+
+    /**
+     * The constant EDIT_EMPLOYER.
+     */
+    public static final String EDIT_EMPLOYER = "edit_employer";
     /**
      * The constant GET_EMPLOYER.
      */

@@ -123,7 +123,7 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
         return candidate;
     }
     @Override
-    public Candidate findByEmailAddress(String emailAddress) {
+    public Candidate getCandidateByEmailAddress(String emailAddress) {
         return candidateRepository.findFirstByEmailAddress(emailAddress);
     }
 
@@ -135,7 +135,7 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
     @Override
     @Transactional
     public void deleteCandidate(String emailAddress) {
-        Candidate candidate = findByEmailAddress(emailAddress);
+        Candidate candidate = getCandidateByEmailAddress(emailAddress);
         candidateRepository.deleteAllByEmailAddress(emailAddress);
     }
 
