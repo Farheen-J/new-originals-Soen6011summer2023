@@ -6,7 +6,7 @@ import com.sep.backend.exception.CandidateRegistrationException;
 import com.sep.backend.dto.CandidateRegistrationRequestDto;
 import com.sep.backend.exception.LoginException;
 import com.sep.backend.models.Candidate;
-import com.sep.backend.repository.CandidateRepository;
+import com.sep.backend.repository.*;
 import com.sep.backend.service.ICandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,14 +23,26 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
 
     private CandidateRepository candidateRepository;
 
+    private JobApplicationRepository jobApplicationRepository;
+
+    private InterviewJobRepository interviewJobRepository;
+
+    private AcceptedJobRepository acceptedJobRepository;
+
+    private RejectedJobRepository rejectedJobRepository;
+
     /**
      * Instantiates a new Candidate service.
      *
      * @param candidateRepository the Candidate repository
      */
     @Autowired
-    public CandidateServiceImpl(CandidateRepository candidateRepository){
+    public CandidateServiceImpl(AcceptedJobRepository acceptedJobRepository, RejectedJobRepository rejectedJobRepository, JobApplicationRepository jobApplicationRepository, InterviewJobRepository interviewJobRepository,CandidateRepository candidateRepository){
         this.candidateRepository = candidateRepository;
+        this.acceptedJobRepository = acceptedJobRepository;
+        this.rejectedJobRepository = rejectedJobRepository;
+        this.interviewJobRepository = interviewJobRepository;
+        this.jobApplicationRepository = jobApplicationRepository;
     }
 
     @Override
@@ -128,14 +140,12 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
     }
 
     @Override
-    public List<Candidate> getCandidatesList() {
-        return candidateRepository.findAll();
-    }
-
-    @Override
     @Transactional
     public void deleteCandidate(String emailAddress) {
-        Candidate candidate = getCandidateByEmailAddress(emailAddress);
+        jobApplicationRepository.deleteAllByEmailAddress(emailAddress);
+        acceptedJobRepository.deleteAllByEmailAddress(emailAddress);
+        rejectedJobRepository.deleteAllByEmailAddress(emailAddress);
+        interviewJobRepository.deleteAllByEmailAddress(emailAddress);
         candidateRepository.deleteAllByEmailAddress(emailAddress);
     }
 

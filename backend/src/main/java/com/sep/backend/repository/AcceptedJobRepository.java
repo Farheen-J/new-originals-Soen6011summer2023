@@ -26,5 +26,5 @@ public interface AcceptedJobRepository extends JpaRepository<AcceptedJob, Intege
 
     List <AcceptedJob> findAllByEmployerEmail(String emailAddress);
 
-
+    void deleteAllByEmailAddress(String emailAddress);
 }
