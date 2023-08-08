@@ -19,6 +19,12 @@ public class UriConstants {
      * The constant REGISTER_CANDIDATE.
      */
     public static final String REGISTER_CANDIDATE = "register_candidate";
+
+    /**
+     * The constant EDIT_CANDIDATE.
+     */
+    public static final String EDIT_CANDIDATE = "edit_candidate";
+
     /**
      * The constant BUILD_RESUME.
      */
@@ -44,6 +50,11 @@ public class UriConstants {
      * The constant REGISTER_EMPLOYER.
      */
     public static final String REGISTER_EMPLOYER = "register_employer";
+
+    /**
+     * The constant EDIT_EMPLOYER.
+     */
+    public static final String EDIT_EMPLOYER = "edit_employer";
     /**
      * The constant GET_EMPLOYER.
      */

@@ -72,6 +72,32 @@ public class CandidateController {
           );
      }
 
+     @RequestMapping(method = RequestMethod.POST, value = UriConstants.EDIT_CANDIDATE)
+     public ResponseDto<CandidateRegistrationResponseDto> editCandidate(@RequestBody CandidateRegistrationRequestDto candidateRegistrationRequestDto){
+          Candidate candidate;
+          try{
+               candidate = iCandidateService.editCandidate(candidateRegistrationRequestDto);
+          } catch (CandidateRegistrationException e) {
+               return new ResponseDto<>(Collections.singletonList(e.getMessage()));
+          }
+          catch (Exception e){
+               log.error("Error occurred :: " , e);
+               return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
+          }
+          return new ResponseDto<>(
+                  CandidateRegistrationResponseDto.builder()
+                          .id(candidate.getId())
+                          .firstName(candidate.getFirstName())
+                          .middleName(candidate.getMiddleName())
+                          .lastName(candidate.getLastName())
+                          .age(candidate.getAge())
+                          .emailAddress(candidate.getEmailAddress())
+                          .phoneNumber(candidate.getPhoneNumber())
+                          .gender(candidate.getGender().getGenderDisplay())
+                          .build()
+          );
+     }
+
      @RequestMapping(method = RequestMethod.POST, value = UriConstants.UPLOAD_RESUME, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
      public ResponseDto<UploadResumeResponse> uploadResume(@RequestParam("email_address") String emailAddress, @RequestParam("uploaded_resume") MultipartFile uploadedResume) {
           Candidate candidate;
@@ -93,7 +119,7 @@ public class CandidateController {
      @RequestMapping(method = RequestMethod.GET, value = UriConstants.GET_UPLOADED_RESUME)
      public ResponseEntity<?> getUploadedResume(@RequestParam(name = "email_address") String emailAddress)
      {
-          Candidate candidate = iCandidateService.findByEmailAddress(emailAddress);
+          Candidate candidate = iCandidateService.getCandidateByEmailAddress(emailAddress);
           if(candidate == null)
           {
                //custom exception for no such candidate found
@@ -107,7 +133,7 @@ public class CandidateController {
      public ResponseDto<CandidateRegistrationResponseDto> getCandidateByEmailAddress(@RequestParam (name = "email_address") String emailAddress) {
           Candidate candidate;
           try {
-               candidate = iCandidateService.findByEmailAddress(emailAddress);
+               candidate = iCandidateService.getCandidateByEmailAddress(emailAddress);
 
                // Check if the candidate exists in the database
                if (candidate == null) {

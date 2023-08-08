@@ -7,7 +7,7 @@ import lombok.Builder;
 import java.util.List;
 
 /**
- * The type Candidate Track Job response dto.
+ * The type Employer Track Job response dto.
  */
 @Builder
 public class EmployerJobTrackingResponseDto {

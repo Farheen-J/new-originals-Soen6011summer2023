@@ -29,7 +29,7 @@ private String middleName;
 @Column(name = "phone_number", unique = true)
 private String phoneNumber;
 
-@Column(name = "email_address", unique = true)
+@Column(name = "email_address", unique = true, nullable = false)
 private String emailAddress;
 
 @Column(name = "gender", nullable = false)

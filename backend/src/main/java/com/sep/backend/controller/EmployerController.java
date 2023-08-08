@@ -73,6 +73,32 @@ public class EmployerController {
         );
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = UriConstants.EDIT_EMPLOYER)
+    public ResponseDto<EmployerRegistrationResponseDto> editEmployer(@RequestBody EmployerRegistrationRequestDto employerRegistrationRequestDto){
+        Employer employer;
+        try{
+            employer = iEmployerService.editEmployer(employerRegistrationRequestDto);
+        } catch (EmployerRegistrationException e) {
+            return new ResponseDto<>(Collections.singletonList(e.getMessage()));
+        }
+        catch (Exception e){
+            log.error("Error occurred ::", e );
+            return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
+        }
+        return new ResponseDto<>(
+                EmployerRegistrationResponseDto.builder()
+                        .id(employer.getId())
+                        .firstName(employer.getFirstName())
+                        .lastName(employer.getLastName())
+                        .emailAddress(employer.getEmailAddress())
+                        .phoneNumber(employer.getPhoneNumber())
+                        .registrationNumber(employer.getRegistrationNumber())
+                        .designation(employer.getDesignation())
+                        .companyName(employer.getCompany_name())
+                        .build()
+        );
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = UriConstants.GET_EMPLOYER_LIST)
     public ResponseDto<List<Employer>> getEmployer(){
 

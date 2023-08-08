@@ -21,13 +21,14 @@ public interface ICandidateService {
  */
 Candidate saveCandidate(CandidateRegistrationRequestDto candidateRegistrationRequestDto) throws CandidateRegistrationException;
 
-Candidate findByEmailAddress(String emailAddress);
+Candidate getCandidateByEmailAddress(String emailAddress);
 
 List<Candidate> getCandidatesList();
 
 void deleteCandidate(String emailAddress);
 
+Candidate editCandidate(CandidateRegistrationRequestDto candidateRegistrationRequestDto) throws CandidateRegistrationException;
+
 Candidate uploadResume(String emailAddress, byte[] resumeData);
 
-Candidate getCandidateByEmailAddress(String emailAddress);
 }

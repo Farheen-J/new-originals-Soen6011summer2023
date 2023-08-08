@@ -77,6 +77,45 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
     }
 
     @Override
+    public Candidate editCandidate(CandidateRegistrationRequestDto candidateRegistrationRequestDto) throws CandidateRegistrationException {
+
+        if (Objects.isNull(candidateRegistrationRequestDto.getEmailAddress())) throw new CandidateRegistrationException("Email Address is required");
+        else if(Objects.isNull(candidateRegistrationRequestDto.getPassword())) throw new CandidateRegistrationException("Password is required");
+
+        Candidate existingCandidate = candidateRepository.findFirstByEmailAddress(candidateRegistrationRequestDto.getEmailAddress());
+
+        if(existingCandidate == null)
+        {
+            throw new CandidateRegistrationException("Candidate not found!");
+        }
+
+        if (candidateRegistrationRequestDto.getFirstName() != null) {
+            existingCandidate.setFirstName(candidateRegistrationRequestDto.getFirstName());
+        }
+        if (candidateRegistrationRequestDto.getMiddleName() != null) {
+            existingCandidate.setMiddleName(candidateRegistrationRequestDto.getMiddleName());
+        }
+        if (candidateRegistrationRequestDto.getLastName() != null) {
+            existingCandidate.setLastName(candidateRegistrationRequestDto.getLastName());
+        }
+        if (candidateRegistrationRequestDto.getPhoneNumber() != null) {
+            existingCandidate.setPhoneNumber(candidateRegistrationRequestDto.getPhoneNumber());
+        }
+        if (candidateRegistrationRequestDto.getGender() != null) {
+            existingCandidate.setGender(Gender.getGender(candidateRegistrationRequestDto.getGender()));
+        }
+        if (candidateRegistrationRequestDto.getAge() != null) {
+            existingCandidate.setAge(candidateRegistrationRequestDto.getAge());
+        }
+        if (candidateRegistrationRequestDto.getPassword() != null) {
+            existingCandidate.setPassword(candidateRegistrationRequestDto.getPassword());
+        }
+
+        Candidate updatedCandidate = candidateRepository.save(existingCandidate);
+
+        return updatedCandidate;
+    }
+    @Override
     public Candidate uploadResume(String emailAddress, byte[] resumeData) {
         Candidate candidate = candidateRepository.findFirstByEmailAddress(emailAddress);
         candidate.setUploadedResume(resumeData);
@@ -84,7 +123,7 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
         return candidate;
     }
     @Override
-    public Candidate findByEmailAddress(String emailAddress) {
+    public Candidate getCandidateByEmailAddress(String emailAddress) {
         return candidateRepository.findFirstByEmailAddress(emailAddress);
     }
 
@@ -96,13 +135,9 @@ public class CandidateServiceImpl extends UserLogin implements ICandidateService
     @Override
     @Transactional
     public void deleteCandidate(String emailAddress) {
-        Candidate candidate = findByEmailAddress(emailAddress);
+        Candidate candidate = getCandidateByEmailAddress(emailAddress);
         candidateRepository.deleteAllByEmailAddress(emailAddress);
     }
-    @Override
-    public Candidate getCandidateByEmailAddress(String emailAddress) {
 
-        return candidateRepository.findFirstByEmailAddress(emailAddress);
-    }
 
 }

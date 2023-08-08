@@ -1,9 +1,6 @@
 package com.sep.backend.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "employer")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,7 +27,7 @@ public class Employer extends BaseModel {
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
 
-    @Column(name = "email_address", unique = true)
+    @Column(name = "email_address", unique = true, nullable = false)
     private String emailAddress;
 
     @Column(name = "company_name", nullable = false)
@@ -41,7 +39,7 @@ public class Employer extends BaseModel {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "registration_number", nullable = false)
+    @Column(name = "registration_number", nullable = false, unique = true)
     private String registrationNumber;
 
 }

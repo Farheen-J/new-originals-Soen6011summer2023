@@ -1,16 +1,12 @@
 package com.sep.backend.service.impl;
-import com.sep.backend.dto.EmployerRegistrationRequestDto;
 
+import com.sep.backend.dto.EmployerRegistrationRequestDto;
 import com.sep.backend.dto.LoginResponse;
 import com.sep.backend.exception.EmployerRegistrationException;
-
 import com.sep.backend.exception.LoginException;
 import com.sep.backend.models.Employer;
-
 import com.sep.backend.repository.EmployerRepository;
-
 import com.sep.backend.service.IEmployerService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,14 +47,46 @@ public class EmployerServiceImpl extends UserLogin implements IEmployerService {
                 .emailAddress(employerRegistrationRequestDto.getEmailAddress())
                 .designation(employerRegistrationRequestDto.getDesignation())
                 .company_name(employerRegistrationRequestDto.getCompanyName())
-//                .gender(employerRegistrationRequestDto.getGender())
-//                .companyName(employerRegistrationRequestDto.getCompanyName())
                 .phoneNumber(employerRegistrationRequestDto.getPhoneNumber())
                 .password(employerRegistrationRequestDto.getPassword())
                 .registrationNumber(employerRegistrationRequestDto.getRegistrationNumber())
                 .build();
         employerRepository.save(employer);
         return employer;
+    }
+
+    @Override
+    public Employer editEmployer(EmployerRegistrationRequestDto employerRegistrationRequestDto) throws EmployerRegistrationException {
+
+        if (Objects.isNull(employerRegistrationRequestDto.getEmailAddress())) throw new EmployerRegistrationException("Email Address is required");
+        else if(Objects.isNull(employerRegistrationRequestDto.getPassword())) throw new EmployerRegistrationException("Password is required");
+
+        Employer existingEmployer = employerRepository.findFirstByEmailAddress(employerRegistrationRequestDto.getEmailAddress());
+
+        if(existingEmployer == null)
+        {
+            throw new EmployerRegistrationException("Employer not found!");
+        }
+
+        if (employerRegistrationRequestDto.getFirstName() != null) {
+            existingEmployer.setFirstName(employerRegistrationRequestDto.getFirstName());
+        }
+        if (employerRegistrationRequestDto.getDesignation() != null) {
+            existingEmployer.setDesignation(employerRegistrationRequestDto.getDesignation());
+        }
+        if (employerRegistrationRequestDto.getLastName() != null) {
+            existingEmployer.setLastName(employerRegistrationRequestDto.getLastName());
+        }
+        if (employerRegistrationRequestDto.getPhoneNumber() != null) {
+            existingEmployer.setPhoneNumber(employerRegistrationRequestDto.getPhoneNumber());
+        }
+        if (employerRegistrationRequestDto.getPassword() != null) {
+            existingEmployer.setPassword(employerRegistrationRequestDto.getPassword());
+        }
+
+        Employer updatedEmployer = employerRepository.save(existingEmployer);
+
+        return updatedEmployer;
     }
     public LoginResponse getLoginDetails(String email, String password) throws LoginException {
         LoginResponse loginResponse=new LoginResponse();
@@ -72,16 +100,12 @@ public class EmployerServiceImpl extends UserLogin implements IEmployerService {
         loginResponse.setDesignation(employer.getDesignation());
         loginResponse.setCompanyName(employer.getCompany_name());
         loginResponse.setFirstName(employer.getFirstName());
-//        loginResponse.setMiddleName(employer.getMiddleName());
         loginResponse.setLastName(employer.getLastName());
         loginResponse.setPhoneNumber(employer.getPhoneNumber());
         loginResponse.setEmailAddress(employer.getEmailAddress());
         return loginResponse;
     }
-//    @Override
-//    public EmployerHomepageResponseDto getHomePage(String counsellorId) throws EmployerHomepageException {
-//        return null;
-//    }
+
 
     @Override
     public Employer getEmployerByEmailAddress(String emailAddress) {
