@@ -23,7 +23,6 @@ public interface EmployerRepository extends JpaRepository<Employer, Integer> {
 
     void deleteAllByEmailAddress(String emailAddress);
 
-    Employer findFirstById(Integer id);
 
 
 }

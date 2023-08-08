@@ -1,7 +1,6 @@
 package com.sep.backend.service;
 
 import com.sep.backend.dto.EmployerRegistrationRequestDto;
-import com.sep.backend.exception.EmployerHomepageException;
 import com.sep.backend.exception.EmployerRegistrationException;
 import com.sep.backend.models.Employer;
 import org.springframework.stereotype.Service;
@@ -30,5 +29,4 @@ public interface IEmployerService {
 
     void deleteEmployer(String emailAddress);
 
-    Employer findById(Integer id);
 }

@@ -100,7 +100,7 @@ public class EmployerController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = UriConstants.GET_EMPLOYER_LIST)
-    public ResponseDto<List<Employer>> getEmployer(){
+    public ResponseDto<List<Employer>> getEmployersList(){
 
         List<Employer> list;
         try{
@@ -114,7 +114,7 @@ public class EmployerController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = UriConstants.DELETE_EMPLOYER)
-    private ResponseDto<String> deleteEmployer(@RequestParam(name = "email_address")String emailAddress){
+    private ResponseDto<String> deleteEmployer(@RequestParam(name = "employer_email")String emailAddress){
         try{
             iEmployerService.deleteEmployer(emailAddress);
             return new ResponseDto<>("Record Deleted Successfully");
@@ -132,7 +132,7 @@ public class EmployerController {
      * @return the response DTO containing the employer data
      */
     @RequestMapping(method = RequestMethod.GET, value = UriConstants.GET_EMPLOYER)
-    public ResponseDto<EmployerRegistrationResponseDto> getEmployerByEmailAddress(@RequestParam (name = "email_address") String emailAddress) {
+    public ResponseDto<EmployerRegistrationResponseDto> getEmployerByEmployerEmail(@RequestParam (name = "employer_email") String emailAddress) {
         Employer employer;
         try {
             employer = iEmployerService.getEmployerByEmailAddress(emailAddress);

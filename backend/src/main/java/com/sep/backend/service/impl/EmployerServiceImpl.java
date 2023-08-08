@@ -5,11 +5,14 @@ import com.sep.backend.dto.LoginResponse;
 import com.sep.backend.exception.EmployerRegistrationException;
 import com.sep.backend.exception.LoginException;
 import com.sep.backend.models.Employer;
+import com.sep.backend.models.JobListing;
 import com.sep.backend.repository.EmployerRepository;
+import com.sep.backend.repository.JobListingRepository;
 import com.sep.backend.service.IEmployerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,14 +24,17 @@ public class EmployerServiceImpl extends UserLogin implements IEmployerService {
 
     private EmployerRepository employerRepository;
 
+    private JobListingRepository jobListingRepository;
+
     /**
      * Instantiates a new Candidate service.
      *
      * @param employerRepository the employer repository
      */
     @Autowired
-    public EmployerServiceImpl(EmployerRepository employerRepository){
+    public EmployerServiceImpl(EmployerRepository employerRepository, JobListingRepository jobListingRepository){
         this.employerRepository = employerRepository;
+        this.jobListingRepository = jobListingRepository;
     }
 
     @Override
@@ -120,15 +126,12 @@ public class EmployerServiceImpl extends UserLogin implements IEmployerService {
     }
 
     @Override
+    @Transactional
     public void deleteEmployer(String emailAddress) {
-
+        jobListingRepository.deleteAllByEmployerEmail(emailAddress);
+        employerRepository.deleteAllByEmailAddress(emailAddress);
     }
 
-
-    @Override
-    public Employer findById(Integer id) {
-        return employerRepository.findFirstById(id);
-    }
 
 
 }

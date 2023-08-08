@@ -28,4 +28,6 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
     List<JobApplication> findAllByJobID(Integer jobId);
     void deleteByJobIDAndEmailAddress(Integer jobId, String emailAddress);
 
+    void deleteAllByEmailAddress(String emailAddress);
+
 }
