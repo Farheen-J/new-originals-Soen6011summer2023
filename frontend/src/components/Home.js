@@ -17,10 +17,12 @@ import EmployerTrackApplications from "../components/Employer/TrackApplications"
 import AdminHP from "../components/Admin/AdminHP";
 import CandidateListing from "../components/Admin/CandidateListing";
 import EmployerListing from "../components/Admin/EmployerListing";
+import JobListing from "../components/Admin/JobListing";
 import Resume from "../components/Candidate/Resume";
 import Header from "../components/JobListings/Header";
 import { jobListings, candidateListings, employerListings, getCandidateResume } from '../services/registerAPI';
 import { formatDistanceToNow } from 'date-fns';
+import Tracking from './Admin/Tracking';
 
 
 const useStyles = makeStyles(theme => ({
@@ -68,8 +70,42 @@ function Home({ loginCallBack }) {
   const classes = useStyles();
   const user = getUserInfo();
 
+  let userType = user?.userType;
+
   const [dataFetched, setDataFetched] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('job_listings');
+
+
+  // Define a default active menu item based on userType
+  let defaultActiveMenuItem;
+  switch (userType) {
+    case 'candidate':
+      defaultActiveMenuItem = 'job_listings';
+      break;
+    case 'employer':
+      defaultActiveMenuItem = 'my_jobs';
+      break;
+    case 'admin':
+      defaultActiveMenuItem = 'tracking';
+      break;
+    default:
+      defaultActiveMenuItem = '';
+  }
+
+  const hardcoded = {
+    "data": {
+      "jobs_count": {
+        "posted_jobs": 7,
+        "active_jobs": 11,
+        "inactive_jobs": 1
+      },
+      "users_count": {
+        "candidate_count": 2,
+        "employer_count": 3
+      }
+    }
+  }
+
+  const [selectedOption, setSelectedOption] = useState(defaultActiveMenuItem);
   const [filterKeywords, setfilterKeywords] = useState([]);
   const [errMsg, setErrMsg] = useState('');
 
@@ -178,7 +214,7 @@ function Home({ loginCallBack }) {
     setfilterKeywords([]);
   };
 
-  let userType = user?.userType;
+  //let userType = user?.userType;
   const font = "League Spartan, monospace";
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -248,7 +284,8 @@ function Home({ loginCallBack }) {
                     <AdminHP />
                     {selectedOption === 'tracking' ? (
                       <>
-
+                        <Tracking
+                          data={hardcoded} />
                       </>
                     ) : null}
                     {selectedOption === 'candidate_listings' ? (
@@ -267,7 +304,9 @@ function Home({ loginCallBack }) {
                     ) : null}
                     {selectedOption === 'job_listings' ? (
                       <>
-                        <h1>listing 3</h1>
+                        <JobListing
+                          data={data}
+                        />
                       </>
                     ) : null}
                   </>

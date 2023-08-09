@@ -161,6 +161,7 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
       defaultActiveMenuItem = ''; 
   }
 
+
   // Initialize activeMenuItem state with the default value
   const [activeMenuItem, setActiveMenuItem] = React.useState(defaultActiveMenuItem);
 
