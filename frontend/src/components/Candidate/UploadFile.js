@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import Success from "./Success";
 
 function UploadFile() {
 
   const [file, setFile] = useState()
-
+  const [success, setSuccess] = useState(false);
   function handleChange(event) {
     setFile(event.target.files[0])
   }
@@ -14,7 +15,10 @@ function UploadFile() {
     const url = 'http://localhost:8080/v1/upload_resume';
     const formData = new FormData();
     formData.append('uploaded_resume', file);
-    formData.append('email_address', 'arshiyasahni87@gmail.com');
+    let candidateData=JSON.parse(sessionStorage.getItem("AUTH_TOKEN"));
+    let email = candidateData.email_address;
+
+    formData.append('email_address', email);
 
     const config = {
       headers: {
@@ -23,6 +27,7 @@ function UploadFile() {
     };
     axios.post(url, formData, config).then((response) => {
       console.log(response.data);
+      setSuccess(true );
     });
 
   }
@@ -34,7 +39,9 @@ function UploadFile() {
           <input type="file" onChange={handleChange}/>
           <button type="submit">Upload</button>
         </form>
+        {success && <Success />}
     </div>
+
   );
 }
 

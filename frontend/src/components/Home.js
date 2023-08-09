@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Grid } from '@material-ui/core';
 import CreateJobsPage from "../components/Employer/CreateJobsPage"
+import MyJobs from "../components/Employer/MyJobs"
 import Jobs from "../components/JobListings/Jobs";
 import Candidates from "../components/CandidateListings/Candidates";
 import CandidateTrackApplications from "../components/Candidate/TrackApplications";
@@ -106,28 +107,28 @@ function Home({ loginCallBack }) {
   const fetchCandidateDataFromAPI2 = async () => {
     try {
       const response = await candidateListings();
-  
+
       if (response.errors) {
         setErrMsg(response.errors[0]);
       } else {
         // Collect all the email addresses from the response
         const emailAddresses = response.map((candidate) => candidate.email_address);
-  
+
         // Make API calls for each candidate's email address and get the resumes
         const getCandidateResumePromises = emailAddresses.map((email) =>
           getCandidateResume(email)
         );
-  
+
         // Wait for all the API calls to complete
         const candidateResumes = await Promise.all(getCandidateResumePromises);
-  
+
         // Merge candidate data with their resumes
         const candidatesWithData = response.map((candidate, index) => ({
           ...candidate,
           resume: candidateResumes[index],
         }));
-  
-       
+
+
         setCandidateData(candidatesWithData);
         setErrMsg("");
         setDataFetched(true);
@@ -249,6 +250,7 @@ function Home({ loginCallBack }) {
                     ) : null}
                     {selectedOption === 'my_jobs' ? (
                       <>
+                      <MyJobs/>
                       </>
                     ) : null}
                     {selectedOption === 'create_jobs' ? (

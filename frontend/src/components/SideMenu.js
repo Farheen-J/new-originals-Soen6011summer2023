@@ -184,7 +184,9 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
       case 'employer':
         return (
           <>
-            <MenuItem className={`${classes.menuItem} ${activeMenuItem === 'my_jobs' ? classes.activeMenuItem : ''}`}>My Jobs</MenuItem>
+          <MenuItem className={`${classes.menuItem} ${activeMenuItem === 'my_jobs' ? classes.activeMenuItem : ''}`}
+            onClick={() => handleMenuItemClick('my_jobs')}>My Jobs
+          </MenuItem>
 
             <MenuItem
               className={`${classes.menuItem} ${activeMenuItem === 'track' ? classes.activeMenuItem : ''

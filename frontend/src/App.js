@@ -5,9 +5,17 @@ import Home from './components/Home';
 import { BASE_ULR, URLS } from './config/constant';
 import SignInRegisterContainer from './containers/sign_in_sign_up_container';
 import { getUserInfo } from './services/registerAPI';
+import JobApplications from "./components/Employer/JobApplications";
+import MyJobs from "./components/Employer/MyJobs";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 const App = () => {
-  
+
   const [loggedIn, setLoggedIn] = useState(getUserInfo() !== null);
   axios.defaults.baseURL = BASE_ULR
   axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -26,7 +34,7 @@ const App = () => {
     return Promise.reject(error);
   });
   return (
-
+    <Router>
     <div className="App" style={{ height: '100%' }}>
 
       {loggedIn ? <Home loginCallBack={() => {
@@ -38,9 +46,18 @@ const App = () => {
 
 
       }
-    </div>
+      </div>
+      <>
+      <Switch>
+        <Route exact path="/JobApplications/:jobId" component={JobApplications} >
+        </Route>
+        <Route exact path="/MyJobs" component={MyJobs} >
+        </Route>
+      </Switch>
 
+      </>
 
+    </Router>
   );
 }
 

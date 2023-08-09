@@ -6,14 +6,15 @@ import Project from "./Project";
 import Extras from "./Extras";
 import axios from "axios";
 import { saveAs } from "file-saver";
-import Success from "./Success";
+import Success from "./../Success";
+import apiList from "../../../config/constant";
 
 const Form = () => {
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
-    phone: "",
+    email_address: "",
+    phone_number: "",
     linkedin: "",
     github: "",
     skills: "",
@@ -60,10 +61,11 @@ const Form = () => {
     "Projects",
     "Extras",
   ];
+  const [errorBool, setErrorBool] = useState(false);
 
   const PageDisplay = () => {
     if (page === 0) {
-      return <PersonalDetails formData={formData} setFormData={setFormData} />;
+      return <PersonalDetails formData={formData} setFormData={setFormData} errorBool={errorBool} setErrorBool={setErrorBool} />;
     } else if (page === 1) {
       return <Education formData={formData} setFormData={setFormData} />;
     } else if (page === 2) {
@@ -110,22 +112,28 @@ const Form = () => {
 
         <button
           className="btn btn-primary"
+          disabled={page === 0 && errorBool===false}
           onClick={() => {
+            let candidateData=JSON.parse(sessionStorage.getItem("AUTH_TOKEN"));
+            let email = candidateData.email_address;
+            setFormData({ ...formData, email_address: email })
+            console.log(formData);
             if (page === FormTitle.length - 1) {
               axios
-                .post("http://localhost:8080/create-pdf", formData)
-                .then(() =>
-                  axios.get("http://localhost:8080/fetch-pdf", {
-                    responseType: "blob",
-                  })
-                )
+                .post(apiList.build_resume, formData)
+//                 .then(() =>
+//                   axios.get("http://localhost:8080/fetch-pdf", {
+//                     responseType: "blob",
+//                   })
+//                 )
                 .then((res) => {
+                  console.log(res);
                   const pdfBlob = new Blob([res.data], {
                     type: "application/pdf",
                   });
-                  setSuccess(true && res.status === 200);
-                  saveAs(pdfBlob, "Resume.pdf");
-                });
+                  setSuccess(true );
+                  //saveAs(pdfBlob, "Resume.pdf");
+                 });
             } else {
               setPage((currPage) => currPage + 1);
             }

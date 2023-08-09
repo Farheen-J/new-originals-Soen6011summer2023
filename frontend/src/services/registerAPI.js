@@ -48,7 +48,6 @@ export const signUp = (userData) => {
       return auth.data;
     }
   );
-
 }
 
 export const logOut = () => {
