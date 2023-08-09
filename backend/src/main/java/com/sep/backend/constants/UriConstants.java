@@ -120,6 +120,11 @@ public class UriConstants {
     public static final String EMPLOYER_TRACK_JOBS = "employer_track_jobs";
 
     /**
+     * The constant ADMIN_TRACK_JOBS.
+     */
+    public static final String ADMIN_TRACK_JOBS = "admin_track_jobs";
+
+    /**
      * The constant GET_ALL_CANDIDATES.
      */
     public static final String GET_ALL_CANDIDATES = "get_candidate_list";
