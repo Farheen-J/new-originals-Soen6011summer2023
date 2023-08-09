@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { deleteCandidate } from '../../services/registerAPI';
+import { deleteJobPosting } from '../../services/registerAPI';
 
 const useStyles = makeStyles(theme => ({
     centerContainer: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     userItem: {
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: 'left',
         padding: theme.spacing(2),
         borderBottom: '1px solid #ccc',
         backgroundColor: '#fffdfa', // Set the background color for all user items
@@ -68,7 +68,7 @@ function CandidateListing({ data }) {
     const [searchTerm, setSearchTerm] = useState('');
 
     const fetchDataFromAPI = async (userData) => {
-        deleteCandidate(userData.email_address)
+        deleteJobPosting(userData.id)
             .then((data) => {
                 console.log("Delete " + JSON.stringify(data))
                 if (data.errors) {
@@ -89,7 +89,7 @@ function CandidateListing({ data }) {
     };
 
     const handleDeleteUser = (userData) => {
-        // fetchDataFromAPI(userData);
+        fetchDataFromAPI(userData);
         // const updatedUserList = userList.filter(user => user.id !== id);
         //setUserList(updatedUserList);
     };
@@ -97,17 +97,16 @@ function CandidateListing({ data }) {
     const handleSearch = (event) => {
         const searchValue = event.target.value.toLowerCase();
         setSearchTerm(searchValue);
-    
+
         // Filter the initialUserList based on the search term
         const filteredList = initialUserList.filter(user =>
             user.id.toString().includes(searchValue) || // Convert to string and check for matching job ID
-            user.company.toLowerCase().includes(searchValue) // Check for matching company name
+            user.company.toLowerCase().includes(searchValue) || // Check for matching company name
+            user.position.toLowerCase().includes(searchValue) // Check for matching position
         );
-    
+
         setUserList(filteredList);
     };
-    
-    
 
     return (
         <div className={classes.centerContainer}>
@@ -133,8 +132,10 @@ function CandidateListing({ data }) {
                         type="text"
                         value={searchTerm}
                         onChange={handleSearch}
-                        placeholder="Search by email"
+                        placeholder="Search by Job ID/Company/Position"
+                        style={{ width: '300px' }} // Adjust the width value as needed
                     />
+
                 </div>
                 {errMsg && (
                     <div className={classes.errorMsg}>
@@ -144,6 +145,7 @@ function CandidateListing({ data }) {
                 <div className={classes.userItem}>
                     <div className={classes.userEmail}><strong>Job ID</strong></div>
                     <div className={classes.userEmail}><strong>Company</strong></div>
+                    <div className={classes.userEmail}><strong>Position</strong></div>
                     <div className={classes.userEmail}><strong>Action</strong></div>
                 </div>
                 {userList.length === 0 && (
@@ -155,6 +157,7 @@ function CandidateListing({ data }) {
                     <div key={user.id} className={classes.userItem}>
                         <div className={classes.userEmail}>{user.id}</div>
                         <div className={classes.userEmail}>{user.company}</div>
+                        <div className={classes.userEmail}>{user.position}</div>
                         <div
                             className={classes.deleteUserButton}
                             onClick={() => handleDeleteUser(user)}

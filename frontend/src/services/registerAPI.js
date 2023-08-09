@@ -129,3 +129,13 @@ export const employerListings = () => {
     }
   );
 }
+
+export const deleteJobPosting = (job_id) => {
+  let register_url = URLS.admin_delete_job_posting + "?job_id=" + job_id;
+  return axios.delete(register_url).then(
+    auth => {
+      return auth.data;
+    }
+  );
+}
+
