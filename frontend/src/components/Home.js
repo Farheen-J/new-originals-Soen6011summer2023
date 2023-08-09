@@ -14,12 +14,16 @@ import Jobs from "../components/JobListings/Jobs";
 import Candidates from "../components/CandidateListings/Candidates";
 import CandidateTrackApplications from "../components/Candidate/TrackApplications";
 import EmployerTrackApplications from "../components/Employer/TrackApplications";
+import AdminHP from "../components/Admin/AdminHP";
+import CandidateListing from "../components/Admin/CandidateListing";
+import EmployerListing from "../components/Admin/EmployerListing";
+import JobListing from "../components/Admin/JobListing";
 import Resume from "../components/Candidate/Resume";
 import Header from "../components/JobListings/Header";
-import { jobListings } from '../services/registerAPI';
-import { candidateListings } from '../services/registerAPI';
+import { jobListings, candidateListings, employerListings, getCandidateResume } from '../services/registerAPI';
 import { formatDistanceToNow } from 'date-fns';
-import { getCandidateResume } from '../services/registerAPI';
+import Tracking from './Admin/Tracking';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,13 +70,48 @@ function Home({ loginCallBack }) {
   const classes = useStyles();
   const user = getUserInfo();
 
+  let userType = user?.userType;
+
   const [dataFetched, setDataFetched] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('job_listings');
+
+
+  // Define a default active menu item based on userType
+  let defaultActiveMenuItem;
+  switch (userType) {
+    case 'candidate':
+      defaultActiveMenuItem = 'job_listings';
+      break;
+    case 'employer':
+      defaultActiveMenuItem = 'my_jobs';
+      break;
+    case 'admin':
+      defaultActiveMenuItem = 'tracking';
+      break;
+    default:
+      defaultActiveMenuItem = '';
+  }
+
+  const hardcoded = {
+    "data": {
+      "jobs_count": {
+        "posted_jobs": 7,
+        "active_jobs": 11,
+        "inactive_jobs": 1
+      },
+      "users_count": {
+        "candidate_count": 2,
+        "employer_count": 3
+      }
+    }
+  }
+
+  const [selectedOption, setSelectedOption] = useState(defaultActiveMenuItem);
   const [filterKeywords, setfilterKeywords] = useState([]);
   const [errMsg, setErrMsg] = useState('');
 
   const [data, setData] = useState([]);
   const [candidateData, setCandidateData] = useState([]);
+  const [employerData, setEmployerData] = useState([]);
 
   const formatPostedAt = (dateString) => {
     const date = new Date(dateString);
@@ -104,7 +143,7 @@ function Home({ loginCallBack }) {
       });
   };
 
-  const fetchCandidateDataFromAPI2 = async () => {
+  const fetchCandidateDataFromAPI = async () => {
     try {
       const response = await candidateListings();
 
@@ -137,10 +176,27 @@ function Home({ loginCallBack }) {
     }
   };
 
+  const fetchEmployerDataFromAPI = async () => {
+    try {
+      const response = await employerListings();
+
+      if (response.errors) {
+        setErrMsg(response.errors[0]);
+      } else {
+        setEmployerData(response.data);
+        setErrMsg("");
+        setDataFetched(true);
+      }
+    } catch (error) {
+      setErrMsg("");
+    }
+  };
+
   useEffect(() => {
     // Fetch data from the API when the component mounts
     fetchDataFromAPI();
-    fetchCandidateDataFromAPI2();
+    fetchCandidateDataFromAPI();
+    fetchEmployerDataFromAPI();
   }, []);
 
   const addFilterKeywords = (data) => {
@@ -158,7 +214,7 @@ function Home({ loginCallBack }) {
     setfilterKeywords([]);
   };
 
-  let userType = user?.userType;
+  //let userType = user?.userType;
   const font = "League Spartan, monospace";
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -223,6 +279,39 @@ function Home({ loginCallBack }) {
                 />
               </Grid>
               <Grid item xs>
+                {userType === 'admin' ? (
+                  <>
+                    <AdminHP />
+                    {selectedOption === 'tracking' ? (
+                      <>
+                        <Tracking
+                          data={hardcoded} />
+                      </>
+                    ) : null}
+                    {selectedOption === 'candidate_listings' ? (
+                      <>
+                        <CandidateListing
+                          data={candidateData}
+                        />
+                      </>
+                    ) : null}
+                    {selectedOption === 'employer_listings' ? (
+                      <>
+                        <EmployerListing
+                          data={employerData}
+                        />
+                      </>
+                    ) : null}
+                    {selectedOption === 'job_listings' ? (
+                      <>
+                        <JobListing
+                          data={data}
+                        />
+                      </>
+                    ) : null}
+                  </>
+
+                ) : null}
                 {userType === 'employer' ? (
                   <>
                     <EmployerHP />
@@ -249,7 +338,7 @@ function Home({ loginCallBack }) {
                     ) : null}
                     {selectedOption === 'my_jobs' ? (
                       <>
-                      <MyJobs/>
+                        <MyJobs />
                       </>
                     ) : null}
                     {selectedOption === 'create_jobs' ? (

@@ -8,6 +8,10 @@ export const URLS = {
     candidate_apply_job: '/candidate_apply_job',
     candidate_tracking: '/candidate_track_jobs',
     candidate_resume: '/get_built_resume',
+    admin_delete_candidate: '/delete_candidate',
+    admin_delete_employer: '/delete_employer',
+    admin_get_all_employers: '/get_employer_list',
+    admin_delete_job_posting: '/delete_job_listing',
 }
 
 const apiList = {
