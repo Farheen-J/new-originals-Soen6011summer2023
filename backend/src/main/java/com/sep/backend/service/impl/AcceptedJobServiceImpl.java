@@ -5,8 +5,8 @@ import com.sep.backend.dto.JobApplicationRequestDto;
 import com.sep.backend.exception.JobApplicationRegistrationException;
 import com.sep.backend.models.AcceptedJob;
 import com.sep.backend.repository.AcceptedJobRepository;
+import com.sep.backend.repository.InterviewJobRepository;
 import com.sep.backend.repository.JobApplicationRepository;
-import com.sep.backend.repository.JobListingRepository;
 import com.sep.backend.service.IAcceptedJobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class AcceptedJobServiceImpl implements IAcceptedJobService {
 
     private JobApplicationRepository jobApplicationRepository;
 
-    private JobListingRepository jobListingRepository;
+    private InterviewJobRepository interviewJobRepository;
 
 
     /**
@@ -36,10 +36,10 @@ public class AcceptedJobServiceImpl implements IAcceptedJobService {
      * @param acceptedJobRepository the accepted job repository
      */
     @Autowired
-    public AcceptedJobServiceImpl(AcceptedJobRepository acceptedJobRepository, JobApplicationRepository jobApplicationRepository, JobListingRepository jobListingRepository) {
+    public AcceptedJobServiceImpl(AcceptedJobRepository acceptedJobRepository, JobApplicationRepository jobApplicationRepository, InterviewJobRepository interviewJobRepository) {
         this.acceptedJobRepository = acceptedJobRepository;
         this.jobApplicationRepository = jobApplicationRepository;
-        this.jobListingRepository = jobListingRepository;
+        this.interviewJobRepository = interviewJobRepository;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class AcceptedJobServiceImpl implements IAcceptedJobService {
 
         acceptedJobRepository.save(acceptedJob);
         jobApplicationRepository.deleteByJobIDAndEmailAddress(jobApplicationRequestDto.getJobId(), jobApplicationRequestDto.getEmailAddress());
-        jobListingRepository.deleteById(jobApplicationRequestDto.getJobId());
+        interviewJobRepository.deleteByJobIDAndEmailAddress(jobApplicationRequestDto.getJobId(), jobApplicationRequestDto.getEmailAddress());
         return acceptedJob;
     }
 

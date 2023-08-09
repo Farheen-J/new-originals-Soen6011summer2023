@@ -10,6 +10,7 @@ import com.sep.backend.service.IInterviewJobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Objects;
 
 import static com.sep.backend.enums.ApplicationStatus.INTERVIEW_WITH_EMPLOYER;
@@ -18,6 +19,7 @@ import static com.sep.backend.enums.ApplicationStatus.INTERVIEW_WITH_EMPLOYER;
  * The type Interview Job service.
  */
 @Service
+@Transactional
 public class InterviewJobServiceImpl implements IInterviewJobService {
 
     private InterviewJobRepository interviewJobRepository;
@@ -56,6 +58,7 @@ public class InterviewJobServiceImpl implements IInterviewJobService {
                 .build();
 
         interviewJobRepository.save(interviewJob);
+        jobApplicationRepository.deleteByJobIDAndEmailAddress(jobApplicationRequestDto.getJobId(), jobApplicationRequestDto.getEmailAddress());
         return interviewJob;
     }
 
