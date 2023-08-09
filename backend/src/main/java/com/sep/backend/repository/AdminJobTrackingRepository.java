@@ -10,11 +10,7 @@ import java.util.List;
  */
 public interface AdminJobTrackingRepository extends JpaRepository<AdminTrackJob, Integer> {
 
-
-
-
     List<AdminTrackJob> findAll();
-
 
 
 }
