@@ -25,6 +25,7 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ResumePDF from "./ResumePDF";
 //import { SetPopupContext } from "../../App";
+import { saveAs } from "file-saver";
 
 import apiList from "../../config/constant";
 
@@ -295,7 +296,7 @@ const ApplicationTile = (props) => {
     finished: "#4EA5D9",
   };
 
-  const handlePrint = () => {
+  const handlePrint = (formData) => {
       // You can use the existing ref to get the resume information and generate the PDF blob
       const resumePDF = (
         <ResumePDF formData={formData} />
@@ -303,16 +304,30 @@ const ApplicationTile = (props) => {
 
       // Create the PDF blob using the react-to-pdf library
       const pdfBlob = new Blob([resumePDF], { type: "application/pdf" });
-      const fileURL = URL.createObjectURL(pdfBlob);
-      window.open(fileURL);
+//      const fileURL = URL.createObjectURL(pdfBlob);
+//      window.open(fileURL);
       // Save the PDF blob as a file
-      //saveAs(pdfBlob, "Resume.pdf");
+      saveAs(pdfBlob, "Resume.pdf");
+    };
+
+  const getBuiltResume = () => {
+    let address = `${apiList.get_built_resume}?email_address=${application.email_address}`;
+    axios.GET(address).then((res) =>{
+          console.log(application.email_address);
+//          if(res.data.errors){
+//          return alert(res.data.errors[0]);
+//          }
+//          else{
+          setFormData(res);
+          console.log("Form Data res "+ res);
+          handlePrint(res);
+          //}
+          })
     };
 
   const getResume = () => {
-    if (
-      application.email_address
-    ) {
+    let build = false;
+    if (!build) {
       //const address = `${server}${application.jobApplicant.resume}`;
       const address = `${apiList.get_uploaded_resume}?email_address=${application.email_address}`;
       console.log(address);
@@ -328,38 +343,11 @@ const ApplicationTile = (props) => {
                window.open(fileURL);
           }
           else{
-          const address = `${apiList.get_built_resume}?email_address=${application.email_address}`;
-          axios(address, {
-                            method: "GET",
-
-                          })
-                            .then((response) => {
-//                              if(response.data.errors[0] === 'No such resume found'){
-//                              console.log(response);
-//                              return alert("No resume found!");
-//                              }
-//                              else{
-                                setFormData(response);
-                                console.log(response);
-                                handlePrint();
-                              //}
-                            })
-                            .catch((error) => {
-                              console.log(error);
-
-                    });
+          console.log("Go to build resume");
+          getBuiltResume();
+          build = true;
           }
-
         })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      //      setPopup({
-      //        open: true,
-      //        severity: "error",
-      //        message: "No resume found",
-      //      });
     }
   };
 
@@ -378,26 +366,21 @@ const ApplicationTile = (props) => {
     else if(status === "shortlisted"){
         address = `${apiList.interview}`;
     }
-    const statusData = {
-      status: status
-    };
+    console.log(address);
+    let data = {job_id: application.id,
+                emailAddress: emp_email ,
+                employerEmail: application.email_address};
     axios
-      .put(address, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-                        jobID: application.id,
-                        emailAddress: emp_email ,
-                        employerEmail: application.email_address})
-      })
+      .post(address, data)
       .then((response) => {
+        console.log(response);
         getData();
       })
       .catch((err) => {
         console.log(err.response);
       });
   };
+
 
   const buttonSet = {
     APPLIED_BY_CANDIDATE: (
@@ -525,8 +508,7 @@ const ApplicationTile = (props) => {
             </Button>
           </Grid>
           <Grid item container xs>
-            //{buttonSet["applied"]}
-            {buttonSet[application.applicationStatus]}
+            {buttonSet[application.application_status]}
           </Grid>
         </Grid>
       </Grid>

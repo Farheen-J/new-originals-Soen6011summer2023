@@ -88,7 +88,6 @@ const JobDescription = (props) => {
   };
 
   const handleApplyClick = async () => {
-   console.log(props.data);
     let userData = {
       job_id: props.data.id,
       email_address: props.candidateData.email_address,

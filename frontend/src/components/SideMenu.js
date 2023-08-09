@@ -144,7 +144,7 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
   const classes = useStyles();
   const user = getUserInfo();
   let userType = user?.userType;
-  const [activeMenuItem, setActiveMenuItem] = React.useState('job_listings');
+  const [activeMenuItem, setActiveMenuItem] = React.useState(userType === 'employer'?'my_jobs': 'my_jobs');
 
   const handleMenuItemClick = (option) => {
     onMenuItemClick(option);

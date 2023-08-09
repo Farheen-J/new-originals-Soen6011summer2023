@@ -24,7 +24,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const ResumePDF = ({ formData }) => {
+const ResumePDF = (props) => {
+  const {formData} = props;
+  console.log("Resume data"+formData);
   return (
     <Document>
       <Page size="A4" style={styles.page}>
