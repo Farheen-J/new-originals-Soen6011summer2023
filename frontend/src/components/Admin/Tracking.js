@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Box, CssBaseline, Paper, Typography } from "@material-ui/core";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import TrackApplications from "./TrackApplications";
+import { adminReport, adminReporting } from '../../services/registerAPI';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,6 +35,25 @@ const useStyles = makeStyles(theme => ({
     },
     componentContainer: {
         margin: theme.spacing(2), // Add margin between components
+    },
+    centerTypography1: {
+        textAlign: 'center',
+        marginTop: theme.spacing(12),
+        marginBottom: theme.spacing(-6),
+        marginLeft: theme.spacing(-10),
+        marginRight: theme.spacing(20),
+    },
+    centerTypography2: {
+        textAlign: 'center',
+        marginTop: theme.spacing(12),
+        marginBottom: theme.spacing(-8),
+        marginLeft: theme.spacing(-10),
+        marginRight: theme.spacing(20),
+    },
+    widePaper: {
+        width: '111.3%', // Adjust this value as needed
+        padding: theme.spacing(1),
+        backgroundColor: "#fafafaeb",
     },
 }));
 
@@ -98,29 +119,68 @@ function UserCount({ candidateCount, employerCount, classes }) {
 
 function Tracking({ data }) {
     const classes = useStyles();
-      // Register the necessary Chart.js components
-  ChartJS.register(ArcElement, Tooltip, Legend);
+    // Register the necessary Chart.js components
+    ChartJS.register(ArcElement, Tooltip, Legend);
 
-    const { posted_jobs, active_jobs, inactive_jobs } = data.data.jobs_count;
-    const { candidate_count, employer_count } = data.data.users_count;
+    const [errMsg, setErrMsg] = useState('');
+    const [statistics, setStatistics] = useState({});
 
+    const fetchDataFromAPI = async () => {
+        // Function to fetch application data from the API
+        adminReporting()
+            .then((data) => {
+                if (data.errors) {
+                    setErrMsg(data.errors[0]);
+                } else {
+                    console.log("Data: " + JSON.stringify(data))
+                    setStatistics(data)
+                    setErrMsg('');
+
+                }
+            })
+            .catch(() => {
+                setErrMsg('Unable to register');
+            });
+    };
+
+    useEffect(() => {
+        // Fetch data from the API when the component mounts
+        fetchDataFromAPI();
+    }, []);
+
+    const jobCountProps = {
+        postedJobs: statistics?.data?.jobs_count?.posted_jobs || 0,
+        activeJobs: statistics?.data?.jobs_count?.active_jobs || 0,
+        inactiveJobs: statistics?.data?.jobs_count?.inactive_jobs || 0,
+        classes: classes,
+    };
+
+    const userCountProps = {
+        candidateCount: statistics?.data?.users_count?.candidate_count || 0,
+        employerCount: statistics?.data?.users_count?.employer_count || 0,
+        classes: classes,
+    };
     return (
         <div className={classes.centerContainer}>
+            <div className={classes.centerTypography1}>
+                <Paper className={classes.widePaper}>
+                    <Typography variant="h4">Job Tracking</Typography>
+                </Paper>
+            </div>
+            <TrackApplications
+                data={data}
+                candidateData={JSON.parse(sessionStorage.getItem("AUTH_TOKEN"))}
+            />
             <Grid>
+                <div className={classes.centerTypography2}>
+                    <Paper className={classes.widePaper}>
+                        <Typography variant="h4">Statistics</Typography>
+                    </Paper>
+                </div>
                 <Box className={classes.root}>
-                    <JobCount
-                        postedJobs={posted_jobs}
-                        activeJobs={active_jobs}
-                        inactiveJobs={inactive_jobs}
-                        classes={classes} // Pass the classes prop
-                    />
-                    <UserCount
-                        candidateCount={candidate_count}
-                        employerCount={employer_count}
-                        classes={classes} // Pass the classes prop
-                    />
+                    <JobCount {...jobCountProps} />
+                    <UserCount {...userCountProps} />
                 </Box>
-
             </Grid>
         </div>
     );

@@ -3,8 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper, Typography, Box, Grow, Dialog, DialogTitle, DialogContent } from "@material-ui/core";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import JobDescription from "../JobListings/JobDescription";
-import JobOfferDetails from "./JobOfferDetails";
-import { employerTracking } from '../../services/registerAPI';
+import { adminTracking } from '../../services/registerAPI';
 
 const useStyles = makeStyles((theme) => ({
     // Define the styles for the component using makeStyles hook
@@ -12,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         maxWidth: 1000,
         margin: "0 auto",
+        marginBottom: theme.spacing(-7),
         marginTop: 40,
         fontFamily: "Arial, sans-serif",
     },
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         overflowY: "auto",
         minHeight: 300,
         borderRadius: 4,
-        backgroundColor: "#fffbf6f0",
+        backgroundColor: "#fafafaeb",
         boxShadow: theme.shadows[2],
         transition: "background-color 0.2s ease",
         "&:hover": {
@@ -43,10 +43,6 @@ const useStyles = makeStyles((theme) => ({
     companyName: {
         fontWeight: 900,
         color: "#0540c5",
-    },
-    emailAddress: {
-        fontWeight: 700,
-        color: "#637f2c",
     },
     position: {
         color: "#000000",
@@ -88,12 +84,12 @@ const TrackApplications = (props) => {
 
     const fetchDataFromAPI = async () => {
         // Function to fetch application data from the API
-        employerTracking(props.employerData.email_address)
+        adminTracking()
             .then((data) => {
                 if (data.errors) {
                     setErrMsg(data.errors[0]);
                 } else {
-                    //console.log("Data: " + JSON.stringify(data))
+                    console.log("Data: " + JSON.stringify(data))
                     setApplications(data)
                     setErrMsg('');
 
@@ -117,7 +113,7 @@ const TrackApplications = (props) => {
     const [selectedCardData, setSelectedCardData] = useState(null);
 
     const getJobDataFromPropsData = (jobID) => {
-        //console.log("Inside function: " + jobID)
+        console.log("Inside function: " + jobID)
         return props.data.find((job) => job.id === jobID);
     };
 
@@ -145,7 +141,7 @@ const TrackApplications = (props) => {
         } else {
             setSelectedCardData(data);
         }
-        // console.log("Selected card " + JSON.stringify(selectedCardData))
+        console.log("Selected card " + JSON.stringify(selectedCardData))
     };
 
     const handleJobOfferClose = () => {
@@ -159,10 +155,10 @@ const TrackApplications = (props) => {
                 <Box className={classes.kanbanBoard}>
                     <div className={`${classes.column} ${classes.appliedColumn}`}>
                         <Typography variant="h6" className={classes.statusHeader}>
-                            Posted
+                            Applied
                         </Typography>
-                        {applications.data?.posted_jobs.map((app) => {
-                            const jobDataFromProps = getJobDataFromPropsData(app.id);
+                        {applications.data?.applied_jobs.map((app) => {
+                            const jobDataFromProps = getJobDataFromPropsData(app.jobID);
                             if (!jobDataFromProps || Object.keys(jobDataFromProps).length === 0) {
                                 return null;
                             }
@@ -198,9 +194,6 @@ const TrackApplications = (props) => {
                                         <Typography variant="body2" className={classes.position}>
                                             {jobDataFromProps?.position}
                                         </Typography>
-                                        <Typography variant="body2" className={classes.emailAddress}>
-                                            Candidate: {app?.emailAddress}
-                                        </Typography>
                                     </Paper>
                                 </Grow>
                             );
@@ -213,22 +206,19 @@ const TrackApplications = (props) => {
                         {applications.data?.accepted_jobs.map((app) => {
                             const jobDataFromProps = getJobDataFromPropsData(app.jobID);
 
-                            //console.log("Job Data: " + JSON.stringify(jobDataFromProps))
+                            console.log("Job Data: " + JSON.stringify(jobDataFromProps))
                             if (!jobDataFromProps || Object.keys(jobDataFromProps).length === 0) {
-                                //console.log("Inside if: " + app.jobID)
+                                console.log("Inside if: " + app.jobID)
                                 return null;
                             }
                             return (
                                 <Grow in key={app.id}>
-                                    <Paper className={classes.card} onClick={() => handleDialogOpen(app)}>
+                                    <Paper className={classes.card} onClick={() => handleJobOffer(app)}>
                                         <Typography variant="subtitle1" className={classes.companyName}>
                                             {jobDataFromProps?.company}
                                         </Typography>
                                         <Typography variant="body2" className={classes.position}>
                                             {jobDataFromProps?.position}
-                                        </Typography>
-                                        <Typography variant="body2" className={classes.emailAddress}>
-                                            Candidate: {app?.emailAddress}
                                         </Typography>
                                     </Paper>
                                 </Grow>
@@ -253,9 +243,6 @@ const TrackApplications = (props) => {
                                         <Typography variant="body2" className={classes.position}>
                                             {jobDataFromProps?.position}
                                         </Typography>
-                                        <Typography variant="body2" className={classes.emailAddress}>
-                                            Candidate: {app?.emailAddress}
-                                        </Typography>
                                     </Paper>
                                 </Grow>
                             );
@@ -278,15 +265,6 @@ const TrackApplications = (props) => {
                         }
                     </DialogContent>
                 </Dialog>
-                {selectedCardData && ( // Render JobOfferDetails only when selectedCardData exists
-                    <Dialog open={jobOffer} onClose={handleJobOfferClose}>
-                        <JobOfferDetails
-                            open={jobOffer}
-                            handleClose={handleJobOfferClose}
-                            data={selectedCardData}
-                        />
-                    </Dialog>
-                )}
             </div>
         </ThemeProvider>
     );
