@@ -1,4 +1,4 @@
-export const BASE_ULR = 'http://localhost:8080/v1';
+export const BASE_ULR = 'http://localhost:8090/v1';
 export const URLS = {
     login: '/login',
     register_employer: '/register_employer',
@@ -8,6 +8,7 @@ export const URLS = {
     candidate_apply_job: '/candidate_apply_job',
     candidate_tracking: '/candidate_track_jobs',
     candidate_resume: '/get_built_resume',
+    admin_delete_candidate: '/delete_candidate'
 }
 
 const apiList = {

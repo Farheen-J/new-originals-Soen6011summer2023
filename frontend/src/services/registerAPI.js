@@ -104,3 +104,12 @@ export const getCandidateResume = (email_address) => {
     }
   );
 }
+
+export const deleteCandidate = (email_address) => {
+  let register_url = URLS.admin_delete_candidate + "?email_address=" + email_address;
+  return axios.delete(register_url).then(
+    auth => {
+      return auth.data;
+    }
+  );
+}

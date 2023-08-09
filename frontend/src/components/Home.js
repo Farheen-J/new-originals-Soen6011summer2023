@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SideMenu from '../components/SideMenu';
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@material-ui/core';
 import { getUserInfo, logOut } from '../services/registerAPI';
+import AdminHP from '../components/Admin/AdminHP';
 import EmployerHP from '../components/Employer/EmployerHP';
 import CandidateHP from '../components/Candidate/CandidateHP';
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
@@ -11,6 +12,7 @@ import { Grid } from '@material-ui/core';
 import CreateJobsPage from "../components/Employer/CreateJobsPage"
 import MyJobs from "../components/Employer/MyJobs"
 import Jobs from "../components/JobListings/Jobs";
+import Candidates_Listing from "./Admin/Candidates_Listing";
 import Candidates from "../components/CandidateListings/Candidates";
 import CandidateTrackApplications from "../components/Candidate/TrackApplications";
 import EmployerTrackApplications from "../components/Employer/TrackApplications";
@@ -23,9 +25,9 @@ import { getCandidateResume } from '../services/registerAPI';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
+    //display: 'flex',
+    //flexDirection: 'column',
+    //height: '100%',
   },
   appBar: {
     height: 55,
@@ -58,6 +60,19 @@ const useStyles = makeStyles(theme => ({
   menuIconContainer: {
     position: 'absolute',
     right: 0,
+  },
+  mainContent: {
+    display: 'flex',
+    flexGrow: 1,
+    overflowX: 'hidden',
+  },
+  mainContainer: {
+    paddingLeft: theme.spacing(-20),
+    paddingRight: theme.spacing(20),
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(2),
+    maxWidth: '100%',
+    width: '100%',
   },
 }));
 
@@ -104,7 +119,7 @@ function Home({ loginCallBack }) {
       });
   };
 
-  const fetchCandidateDataFromAPI2 = async () => {
+  const fetchCandidateDataFromAPI = async () => {
     try {
       const response = await candidateListings();
 
@@ -141,7 +156,7 @@ function Home({ loginCallBack }) {
   useEffect(() => {
     // Fetch data from the API when the component mounts
     fetchDataFromAPI();
-    fetchCandidateDataFromAPI2();
+    fetchCandidateDataFromAPI();
   }, []);
 
   const addFilterKeywords = (data) => {
@@ -218,105 +233,142 @@ function Home({ loginCallBack }) {
           {userType !== null && dataFetched &&
             <Grid container className={classes.content}>
               <Grid item xs={3}>
+                
                 <SideMenu
                   loginCallBack={loginCallBack}
                   onMenuItemClick={handleMenuItemClick}
                 />
               </Grid>
               <Grid item xs>
-                {userType === 'employer' ? (
-                  <>
-                    <EmployerHP />
-                    {selectedOption === 'candidate_listings' ? (
+              <div className={classes.mainContainer}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    {userType === 'admin' ? (
                       <>
-                        {filterKeywords.length > 0 && (
-                          <Header
-                            keywords={filterKeywords}
-                            removeKeywords={deleteKeyword}
-                            clearAll={clearAll}
-                          />
-                        )}
-                        <Candidates
-                          keywords={filterKeywords}
-                          data={candidateData}
-                          setKeywords={addFilterKeywords}
-                        />
+                        <AdminHP />
+                        {selectedOption === 'tracking' ? (
+                          <>
+                            
+                          </>
+                        ) : null}
+                        {selectedOption === 'candidate_listings' ? (
+                          <>
+                            <Candidates_Listing
+                              data={candidateData}
+                            />
+                          </>
+                        ) : null}
+                        {selectedOption === 'employer_listings' ? (
+                          <>
+                            <h1>listing 2</h1>
+                          </>
+                        ) : null}
+                        {selectedOption === 'job_listings' ? (
+                          <>
+                            <h1>listing 3</h1>
+                          </>
+                        ) : null}
                       </>
-                    ) : null}
-                    {selectedOption === 'track' ? (
-                      <>
-                        <EmployerTrackApplications />
-                      </>
-                    ) : null}
-                    {selectedOption === 'my_jobs' ? (
-                      <>
-                      <MyJobs/>
-                      </>
-                    ) : null}
-                    {selectedOption === 'create_jobs' ? (
-                      <>
-                        {filterKeywords.length > 0 && (
-                          <Header
-                            keywords={filterKeywords}
-                            removeKeywords={deleteKeyword}
-                            clearAll={clearAll}
-                          />
-                        )}
-                        <CreateJobsPage
-                          keywords={filterKeywords}
-                          data={data}
-                          setKeywords={addFilterKeywords}
-                        />
-                      </>
-                    ) : null}
-                  </>
-                ) : null}
 
-                {userType === 'candidate' ? (
-                  <>
-                    <CandidateHP />
-                    {selectedOption === 'job_listings' ? (
+                    ) : null}
+                  </Grid>
+                  <Grid item xs={12}>
+                    {userType === 'employer' ? (
                       <>
-                        {filterKeywords.length > 0 && (
-                          <Header
-                            keywords={filterKeywords}
-                            removeKeywords={deleteKeyword}
-                            clearAll={clearAll}
-                          />
-                        )}
-                        <Jobs
-                          keywords={filterKeywords}
-                          data={data}
-                          setKeywords={addFilterKeywords}
-                        />
+                        <EmployerHP />
+                        {selectedOption === 'candidate_listings' ? (
+                          <>
+                            {filterKeywords.length > 0 && (
+                              <Header
+                                keywords={filterKeywords}
+                                removeKeywords={deleteKeyword}
+                                clearAll={clearAll}
+                              />
+                            )}
+                            <Candidates
+                              keywords={filterKeywords}
+                              data={candidateData}
+                              setKeywords={addFilterKeywords}
+                            />
+                          </>
+                        ) : null}
+                        {selectedOption === 'track' ? (
+                          <>
+                            <EmployerTrackApplications />
+                          </>
+                        ) : null}
+                        {selectedOption === 'my_jobs' ? (
+                          <>
+                            <MyJobs />
+                          </>
+                        ) : null}
+                        {selectedOption === 'create_jobs' ? (
+                          <>
+                            {filterKeywords.length > 0 && (
+                              <Header
+                                keywords={filterKeywords}
+                                removeKeywords={deleteKeyword}
+                                clearAll={clearAll}
+                              />
+                            )}
+                            <CreateJobsPage
+                              keywords={filterKeywords}
+                              data={data}
+                              setKeywords={addFilterKeywords}
+                            />
+                          </>
+                        ) : null}
                       </>
                     ) : null}
-                    {selectedOption === 'resume' ? (
+
+                    {userType === 'candidate' ? (
                       <>
-                        {filterKeywords.length > 0 && (
-                          <Header
-                            keywords={filterKeywords}
-                            removeKeywords={deleteKeyword}
-                            clearAll={clearAll}
-                          />
-                        )}
-                        < Resume
-                          keywords={filterKeywords}
-                          data={data}
-                          setKeywords={addFilterKeywords}
-                        />
+                        <CandidateHP />
+                        {selectedOption === 'job_listings' ? (
+                          <>
+                            {filterKeywords.length > 0 && (
+                              <Header
+                                keywords={filterKeywords}
+                                removeKeywords={deleteKeyword}
+                                clearAll={clearAll}
+                              />
+                            )}
+                            <Jobs
+                              keywords={filterKeywords}
+                              data={data}
+                              setKeywords={addFilterKeywords}
+                            />
+                          </>
+                        ) : null}
+                        {selectedOption === 'resume' ? (
+                          <>
+                            {filterKeywords.length > 0 && (
+                              <Header
+                                keywords={filterKeywords}
+                                removeKeywords={deleteKeyword}
+                                clearAll={clearAll}
+                              />
+                            )}
+                            < Resume
+                              keywords={filterKeywords}
+                              data={data}
+                              setKeywords={addFilterKeywords}
+                            />
+                          </>
+                        ) : null}
+                        {selectedOption === 'track' ? (
+                          <>
+                            <CandidateTrackApplications
+                              data={data}
+                              candidateData={JSON.parse(sessionStorage.getItem("AUTH_TOKEN"))}
+                            />
+                          </>
+                        ) : null}
                       </>
                     ) : null}
-                    {selectedOption === 'track' ? (
-                      <>
-                        <CandidateTrackApplications
-                          data={data}
-                          candidateData={JSON.parse(sessionStorage.getItem("AUTH_TOKEN"))}
-                        />
-                      </>
-                    ) : null}
-                  </>
-                ) : null}
+                  </Grid>
+                </Grid>
+              </div>
               </Grid>
             </Grid>
           }
