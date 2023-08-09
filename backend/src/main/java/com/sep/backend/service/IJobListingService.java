@@ -25,4 +25,6 @@ public interface IJobListingService {
 
     List<JobListing> getAllJobListingsByEmployerEmail(String employerEmail);
 
+    void deleteJobListing(Integer jobId);
+
 }

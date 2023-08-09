@@ -26,6 +26,6 @@ public interface RejectedJobRepository extends JpaRepository<RejectedJob, Intege
 
     List<RejectedJob> findAllByEmployerEmail(String emailAddress);
 
-    void deleteByJobIDAndEmailAddress(String emailAddress, Integer jobId);
+    void deleteAllByEmailAddress(String emailAddress);
 
 }

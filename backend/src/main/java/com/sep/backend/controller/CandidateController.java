@@ -98,6 +98,17 @@ public class CandidateController {
           );
      }
 
+     @RequestMapping(method = RequestMethod.DELETE, value = UriConstants.DELETE_CANDIDATE)
+     private ResponseDto<String> deleteCandidate(@RequestParam(name = "email_address")String emailAddress){
+          try{
+               iCandidateService.deleteCandidate(emailAddress);
+               return new ResponseDto<>("Record Deleted Successfully");
+          }
+          catch (Exception e){
+               log.error("Error occurred :: " , e);
+               return new ResponseDto<>(Collections.singletonList("Some Error Occurred"));
+          }
+     }
      @RequestMapping(method = RequestMethod.POST, value = UriConstants.UPLOAD_RESUME, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
      public ResponseDto<UploadResumeResponse> uploadResume(@RequestParam("email_address") String emailAddress, @RequestParam("uploaded_resume") MultipartFile uploadedResume) {
           Candidate candidate;

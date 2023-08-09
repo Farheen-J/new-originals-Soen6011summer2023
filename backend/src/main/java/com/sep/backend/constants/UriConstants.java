@@ -108,6 +108,7 @@ public class UriConstants {
      * The constant EMPLOYER_SET_INTERVIEW.
      */
     public static final String EMPLOYER_SET_INTERVIEW = "employer_set_interview";
+
     /**
      * The constant CANDIDATE_TRACK_JOBS.
      */
@@ -132,6 +133,16 @@ public class UriConstants {
      * The constant DELETE_EMPLOYER.
      */
     public static final String DELETE_EMPLOYER = "delete_employer";
+
+    /**
+     * The constant DELETE_CANDIDATE.
+     */
+    public static final String DELETE_CANDIDATE = "delete_candidate";
+
+    /**
+     * The constant DELETE_JOB_LISTING.
+     */
+    public static final String DELETE_JOB_LISTING = "delete_job_listing";
 
 
 }
