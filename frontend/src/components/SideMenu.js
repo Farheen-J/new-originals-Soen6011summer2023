@@ -144,7 +144,26 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
   const classes = useStyles();
   const user = getUserInfo();
   let userType = user?.userType;
-  const [activeMenuItem, setActiveMenuItem] = React.useState('job_listings');
+
+  // Define a default active menu item based on userType
+  let defaultActiveMenuItem;
+  switch (userType) {
+    case 'candidate':
+      defaultActiveMenuItem = 'job_listings';
+      break;
+    case 'employer':
+      defaultActiveMenuItem = 'my_jobs';
+      break;
+    case 'admin':
+      defaultActiveMenuItem = 'tracking';
+      break;
+    default:
+      defaultActiveMenuItem = ''; 
+  }
+
+  // Initialize activeMenuItem state with the default value
+  const [activeMenuItem, setActiveMenuItem] = React.useState(defaultActiveMenuItem);
+
 
   const handleMenuItemClick = (option) => {
     onMenuItemClick(option);
@@ -184,9 +203,9 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
       case 'employer':
         return (
           <>
-          <MenuItem className={`${classes.menuItem} ${activeMenuItem === 'my_jobs' ? classes.activeMenuItem : ''}`}
-            onClick={() => handleMenuItemClick('my_jobs')}>My Jobs
-          </MenuItem>
+            <MenuItem className={`${classes.menuItem} ${activeMenuItem === 'my_jobs' ? classes.activeMenuItem : ''}`}
+              onClick={() => handleMenuItemClick('my_jobs')}>My Jobs
+            </MenuItem>
 
             <MenuItem
               className={`${classes.menuItem} ${activeMenuItem === 'track' ? classes.activeMenuItem : ''
@@ -213,8 +232,30 @@ function SideMenu({ loginCallBack, onMenuItemClick }) {
       case 'admin':
         return (
           <>
-            <MenuItem className={`${classes.menuItem}`}>Admin Option 1</MenuItem>
-            <MenuItem className={classes.menuItem}>Admin Option 2</MenuItem>
+            <MenuItem
+              className={`${classes.menuItem} ${activeMenuItem === 'tracking' ? classes.activeMenuItem : ''}`}
+              onClick={() => handleMenuItemClick('tracking')}
+            >
+              Tracking
+            </MenuItem>
+            <MenuItem
+              className={`${classes.menuItem} ${activeMenuItem === 'candidate_listings' ? classes.activeMenuItem : ''}`}
+              onClick={() => handleMenuItemClick('candidate_listings')}
+            >
+              Candidates
+            </MenuItem>
+            <MenuItem
+              className={`${classes.menuItem} ${activeMenuItem === 'employer_listings' ? classes.activeMenuItem : ''}`}
+              onClick={() => handleMenuItemClick('employer_listings')}
+            >
+              Employers
+            </MenuItem>
+            <MenuItem
+              className={`${classes.menuItem} ${activeMenuItem === 'job_listings' ? classes.activeMenuItem : ''}`}
+              onClick={() => handleMenuItemClick('job_listings')}
+            >
+              Job Listings
+            </MenuItem>
           </>
         );
       default:

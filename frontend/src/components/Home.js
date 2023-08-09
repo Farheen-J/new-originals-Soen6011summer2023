@@ -14,12 +14,14 @@ import Jobs from "../components/JobListings/Jobs";
 import Candidates from "../components/CandidateListings/Candidates";
 import CandidateTrackApplications from "../components/Candidate/TrackApplications";
 import EmployerTrackApplications from "../components/Employer/TrackApplications";
+import AdminHP from "../components/Admin/AdminHP";
+import CandidateListing from "../components/Admin/CandidateListing";
+import EmployerListing from "../components/Admin/EmployerListing";
 import Resume from "../components/Candidate/Resume";
 import Header from "../components/JobListings/Header";
-import { jobListings } from '../services/registerAPI';
-import { candidateListings } from '../services/registerAPI';
+import { jobListings, candidateListings, employerListings, getCandidateResume } from '../services/registerAPI';
 import { formatDistanceToNow } from 'date-fns';
-import { getCandidateResume } from '../services/registerAPI';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -73,6 +75,7 @@ function Home({ loginCallBack }) {
 
   const [data, setData] = useState([]);
   const [candidateData, setCandidateData] = useState([]);
+  const [employerData, setEmployerData] = useState([]);
 
   const formatPostedAt = (dateString) => {
     const date = new Date(dateString);
@@ -104,7 +107,7 @@ function Home({ loginCallBack }) {
       });
   };
 
-  const fetchCandidateDataFromAPI2 = async () => {
+  const fetchCandidateDataFromAPI = async () => {
     try {
       const response = await candidateListings();
 
@@ -137,10 +140,27 @@ function Home({ loginCallBack }) {
     }
   };
 
+  const fetchEmployerDataFromAPI = async () => {
+    try {
+      const response = await employerListings();
+
+      if (response.errors) {
+        setErrMsg(response.errors[0]);
+      } else {
+        setEmployerData(response.data);
+        setErrMsg("");
+        setDataFetched(true);
+      }
+    } catch (error) {
+      setErrMsg("");
+    }
+  };
+
   useEffect(() => {
     // Fetch data from the API when the component mounts
     fetchDataFromAPI();
-    fetchCandidateDataFromAPI2();
+    fetchCandidateDataFromAPI();
+    fetchEmployerDataFromAPI();
   }, []);
 
   const addFilterKeywords = (data) => {
@@ -223,6 +243,36 @@ function Home({ loginCallBack }) {
                 />
               </Grid>
               <Grid item xs>
+                {userType === 'admin' ? (
+                  <>
+                    <AdminHP />
+                    {selectedOption === 'tracking' ? (
+                      <>
+
+                      </>
+                    ) : null}
+                    {selectedOption === 'candidate_listings' ? (
+                      <>
+                        <CandidateListing
+                          data={candidateData}
+                        />
+                      </>
+                    ) : null}
+                    {selectedOption === 'employer_listings' ? (
+                      <>
+                        <EmployerListing
+                          data={employerData}
+                        />
+                      </>
+                    ) : null}
+                    {selectedOption === 'job_listings' ? (
+                      <>
+                        <h1>listing 3</h1>
+                      </>
+                    ) : null}
+                  </>
+
+                ) : null}
                 {userType === 'employer' ? (
                   <>
                     <EmployerHP />
@@ -249,7 +299,7 @@ function Home({ loginCallBack }) {
                     ) : null}
                     {selectedOption === 'my_jobs' ? (
                       <>
-                      <MyJobs/>
+                        <MyJobs />
                       </>
                     ) : null}
                     {selectedOption === 'create_jobs' ? (

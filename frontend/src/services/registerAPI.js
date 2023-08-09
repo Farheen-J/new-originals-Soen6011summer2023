@@ -101,3 +101,31 @@ export const getCandidateResume = (email_address) => {
     }
   );
 }
+
+
+export const deleteCandidate = (email_address) => {
+  let register_url = URLS.admin_delete_candidate + "?email_address=" + email_address;
+  return axios.delete(register_url).then(
+    auth => {
+      return auth.data;
+    }
+  );
+}
+
+export const deleteEmployer = (email_address) => {
+  let register_url = URLS.admin_delete_employer + "?employer_email=" + email_address;
+  return axios.delete(register_url).then(
+    auth => {
+      return auth.data;
+    }
+  );
+}
+
+export const employerListings = () => {
+  let admin_get_all_employers = URLS.admin_get_all_employers;
+  return axios.get(admin_get_all_employers).then(
+    auth => {
+      return auth.data;
+    }
+  );
+}
