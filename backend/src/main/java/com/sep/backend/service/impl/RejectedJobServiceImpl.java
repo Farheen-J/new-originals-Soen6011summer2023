@@ -4,6 +4,7 @@ package com.sep.backend.service.impl;
 import com.sep.backend.dto.JobApplicationRequestDto;
 import com.sep.backend.exception.JobApplicationRegistrationException;
 import com.sep.backend.models.RejectedJob;
+import com.sep.backend.repository.InterviewJobRepository;
 import com.sep.backend.repository.JobApplicationRepository;
 import com.sep.backend.repository.RejectedJobRepository;
 import com.sep.backend.service.IRejectedJobService;
@@ -26,15 +27,18 @@ public class RejectedJobServiceImpl implements IRejectedJobService {
 
     private JobApplicationRepository jobApplicationRepository;
 
+    private InterviewJobRepository interviewJobRepository;
+
     /**
      * Instantiates a new Rejected Job service.
      *
      * @param rejectedJobRepository the rejected job repository
      */
     @Autowired
-    public RejectedJobServiceImpl(RejectedJobRepository rejectedJobRepository, JobApplicationRepository jobApplicationRepository) {
+    public RejectedJobServiceImpl(RejectedJobRepository rejectedJobRepository, JobApplicationRepository jobApplicationRepository, InterviewJobRepository interviewJobRepository) {
         this.rejectedJobRepository = rejectedJobRepository;
         this.jobApplicationRepository = jobApplicationRepository;
+        this.interviewJobRepository = interviewJobRepository;
     }
 
     @Override
@@ -58,6 +62,7 @@ public class RejectedJobServiceImpl implements IRejectedJobService {
 
         rejectedJobRepository.save(rejectedJob);
         jobApplicationRepository.deleteByJobIDAndEmailAddress(jobApplicationRequestDto.getJobId(),jobApplicationRequestDto.getEmailAddress());
+        interviewJobRepository.deleteByJobIDAndEmailAddress(jobApplicationRequestDto.getJobId(), jobApplicationRequestDto.getEmailAddress());
         return rejectedJob;
     }
 
