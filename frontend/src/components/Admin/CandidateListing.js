@@ -1,7 +1,6 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { deleteCandidate } from '../../services/registerAPI';
-import { candidateListings } from '../../services/registerAPI';
 
 const useStyles = makeStyles(theme => ({
     userList: {
@@ -48,16 +47,11 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(2),
         marginBottom: theme.spacing(2),
         borderRadius: theme.spacing(1), // Adjust the value as needed
-      },
+    },
 }));
 
-function AdminTrackingPanel({ data }) {
+function CandidateListing({ data }) {
     const classes = useStyles();
-
-    useEffect(() => {
-        candidateListings();
-        }, []); // Call the function when the component mounts
-        
     const initialUserList = data;
     const [errMsg, setErrMsg] = useState('');
     const [userList, setUserList] = useState(initialUserList);
@@ -77,12 +71,16 @@ function AdminTrackingPanel({ data }) {
                 }
             })
             .catch(() => {
-                setErrMsg('Unable to register');
+                setErrMsg('Unable to delete');
             });
+        // Clear error message after 5 seconds
+        setTimeout(() => {
+            setErrMsg('');
+        }, 2000);
     };
 
-    const handleDeleteUser = (id) => {
-        fetchDataFromAPI(id);
+    const handleDeleteUser = (userData) => {
+        fetchDataFromAPI(userData);
         // const updatedUserList = userList.filter(user => user.id !== id);
         //setUserList(updatedUserList);
     };
@@ -126,8 +124,13 @@ function AdminTrackingPanel({ data }) {
                 />
             </div>
             {errMsg && (
-                <div  className={classes.errorMsg}>
+                <div className={classes.errorMsg}>
                     {errMsg}
+                </div>
+            )}
+            {userList.length === 0 && (
+                <div className={classes.userItem}>
+                    No data found.
                 </div>
             )}
             {userList.map(user => (
@@ -145,4 +148,4 @@ function AdminTrackingPanel({ data }) {
     );
 }
 
-export default AdminTrackingPanel;
+export default CandidateListing;
