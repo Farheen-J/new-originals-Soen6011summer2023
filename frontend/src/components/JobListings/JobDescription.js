@@ -30,6 +30,8 @@ const JobDescription = (props) => {
   const [currentContent, setCurrentContent] = useState("default");
   const { open, handleClose } = props;
   const [errMsg, setErrMsg] = useState('');
+  const [loading, setLoading] = useState(false);
+
 
   const useStyles = makeStyles((theme) => ({
     // Define the styles for the component using makeStyles hook
@@ -88,7 +90,7 @@ const JobDescription = (props) => {
   };
 
   const handleApplyClick = async () => {
-   console.log(props.data);
+    setLoading(true);
     let userData = {
       job_id: props.data.id,
       email_address: props.candidateData.email_address,
@@ -106,6 +108,9 @@ const JobDescription = (props) => {
       })
       .catch(() => {
         setErrMsg("Error submitting application. Please try again later.");
+      })
+      .finally(() => {
+        setLoading(false); // Set loading back to false
       });
   };
 
@@ -192,27 +197,33 @@ const JobDescription = (props) => {
         <DialogActions className={classes.buttonContainer}>
           {currentContent === "newContent" ? (
             <React.Fragment>
-              <Button
-                className={classes.button}
-                onClick={handleGoBack}
-                color="primary"
-              >
-                Back
-              </Button>
-              <Button
-                className={classes.button}
-                onClick={handleApplyClick}
-                color="primary"
-              >
-                Apply
-              </Button>
-              <Button
-                className={classes.button}
-                onClick={handleClose}
-                color="primary"
-              >
-                Close
-              </Button>
+              {loading ? (
+                <div className={classes.errMsg}>Loading...</div> // Display loading message
+              ) : (
+                <>
+                  <Button
+                    className={classes.button}
+                    onClick={handleGoBack}
+                    color="primary"
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    className={classes.button}
+                    onClick={handleApplyClick}
+                    color="primary"
+                  >
+                    Apply
+                  </Button>
+                  <Button
+                    className={classes.button}
+                    onClick={handleClose}
+                    color="primary"
+                  >
+                    Close
+                  </Button>
+                </>
+              )}
             </React.Fragment>
           ) : (
             props.invoker === "job_listing" && (

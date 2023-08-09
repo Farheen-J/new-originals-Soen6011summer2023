@@ -113,6 +113,7 @@ const TrackApplications = (props) => {
     const [selectedCardData, setSelectedCardData] = useState(null);
 
     const getJobDataFromPropsData = (jobID) => {
+        console.log("Inside function: " + jobID)
         return props.data.find((job) => job.id === jobID);
     };
 
@@ -204,7 +205,10 @@ const TrackApplications = (props) => {
                         </Typography>
                         {applications.data?.accepted_jobs.map((app) => {
                             const jobDataFromProps = getJobDataFromPropsData(app.jobID);
+
+                            console.log("Job Data: " + JSON.stringify(jobDataFromProps))
                             if (!jobDataFromProps || Object.keys(jobDataFromProps).length === 0) {
+                                console.log("Inside if: " + app.jobID)
                                 return null;
                             }
                             return (
