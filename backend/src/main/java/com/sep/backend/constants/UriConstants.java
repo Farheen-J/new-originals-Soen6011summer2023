@@ -108,6 +108,7 @@ public class UriConstants {
      * The constant EMPLOYER_SET_INTERVIEW.
      */
     public static final String EMPLOYER_SET_INTERVIEW = "employer_set_interview";
+
     /**
      * The constant CANDIDATE_TRACK_JOBS.
      */
