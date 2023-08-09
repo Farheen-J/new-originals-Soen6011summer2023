@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper, Typography, Box, Grow, Dialog, DialogTitle, DialogContent } from "@material-ui/core";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import JobDescription from "../JobListings/JobDescription";
-import JobOfferDetails from "../Employer/JobOfferDetails";
+import JobOfferDetails from "./JobOfferDetails";
+import { employerTracking } from '../../services/registerAPI';
 
 const useStyles = makeStyles((theme) => ({
     // Define the styles for the component using makeStyles hook
@@ -41,7 +42,11 @@ const useStyles = makeStyles((theme) => ({
     },
     companyName: {
         fontWeight: 900,
-        color: "#0540c5", 
+        color: "#0540c5",
+    },
+    emailAddress: {
+        fontWeight: 700,
+        color: "#637f2c",
     },
     position: {
         color: "#000000",
@@ -79,14 +84,52 @@ const theme = createTheme({
 
 const TrackApplications = (props) => {
     const classes = useStyles();
+    const [applications, setApplications] = useState({});
 
+    const fetchDataFromAPI = async () => {
+        // Function to fetch application data from the API
+        employerTracking(props.employerData.email_address)
+            .then((data) => {
+                if (data.errors) {
+                    setErrMsg(data.errors[0]);
+                } else {
+                    //console.log("Data: " + JSON.stringify(data))
+                    setApplications(data)
+                    setErrMsg('');
+
+                }
+            })
+            .catch(() => {
+                setErrMsg('Unable to register');
+            });
+    };
+
+    useEffect(() => {
+        // Fetch data from the API when the component mounts
+        fetchDataFromAPI();
+    }, []);
+
+    const jobData = props.data;
+
+    const [errMsg, setErrMsg] = useState('');
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [jobOffer, setJobOffer] = useState(false);
     const [selectedCardData, setSelectedCardData] = useState(null);
 
+    const getJobDataFromPropsData = (jobID) => {
+        //console.log("Inside function: " + jobID)
+        return props.data.find((job) => job.id === jobID);
+    };
+
+
     const handleDialogOpen = (data) => {
         setIsDialogOpen(true);
-        setSelectedCardData(data);
+        const jobDataFromProps = getJobDataFromPropsData(data.jobID);
+        if (jobDataFromProps) {
+            setSelectedCardData({ ...data, ...jobDataFromProps });
+        } else {
+            setSelectedCardData(data);
+        }
     };
 
     const handleDialogClose = () => {
@@ -96,129 +139,19 @@ const TrackApplications = (props) => {
 
     const handleJobOffer = (data) => {
         setJobOffer(true);
-        setSelectedCardData(data);
+        const jobDataFromProps = getJobDataFromPropsData(data.jobID);
+        if (jobDataFromProps) {
+            setSelectedCardData({ ...data, ...jobDataFromProps });
+        } else {
+            setSelectedCardData(data);
+        }
+        // console.log("Selected card " + JSON.stringify(selectedCardData))
     };
 
     const handleJobOfferClose = () => {
         setJobOffer(false);
         setSelectedCardData(null);
     };
-
-    const [applications, setApplications] = useState({
-        posted: [
-            {
-                "id": 1,
-                "company": "Photosnap",
-                "position": "Senior Frontend Developer",
-                "role": "Frontend",
-                "level": "Senior",
-                "posted_at": "1d ago",
-                "contract": "Full Time",
-                "location": "USA Only",
-                "languages": ["HTML", "CSS", "JavaScript"],
-                "tools": [],
-                "employer_email": "employer@gmail.com",
-                "description": "Description….Roles and responsibility",
-                "requirements": "degree..experience..etc"
-            },
-            {
-                "id": 2,
-                "company": "Manage",
-                "position": "Fullstack Developer",
-                "role": "Fullstack",
-                "level": "Midweight",
-                "posted_at": "1d ago",
-                "contract": "Part Time",
-                "location": "Remote",
-                "languages": ["Python"],
-                "tools": ["React"],
-                "employer_email": "employer@gmail.com",
-                "description": "Description….Roles and responsibility",
-                "requirements": "degree..experience..etc"
-            },
-        ],
-        rejected: [
-            {
-                "id": 3,
-                "company": "Account",
-                "position": "Junior Frontend Developer",
-                "role": "Frontend",
-                "level": "Junior",
-                "posted_at": "2d ago",
-                "contract": "Part Time",
-                "location": "USA Only",
-                "languages": ["JavaScript"],
-                "tools": ["React", "Sass"],
-                "employer_email": "employer@gmail.com",
-                "description": "Description….Roles and responsibility",
-                "requirements": "degree..experience..etc"
-            },
-            {
-                "id": 4,
-                "company": "MyHome",
-                "position": "Junior Frontend Developer",
-                "role": "Frontend",
-                "level": "Junior",
-                "posted_at": "5d ago",
-                "contract": "Contract",
-                "location": "USA Only",
-                "languages": ["CSS", "JavaScript"],
-                "tools": [],
-                "employer_email": "employer@gmail.com",
-                "description": "Description….Roles and responsibility",
-                "requirements": "degree..experience..etc"
-            },
-        ],
-        interview: [
-            {
-                "id": 5,
-                "company": "Loop Studios",
-                "position": "Software Engineer",
-                "role": "FullStack",
-                "level": "Midweight",
-                "posted_at": "1w ago",
-                "contract": "Full Time",
-                "location": "Worldwide",
-                "languages": ["JavaScript"],
-                "tools": ["Ruby", "Sass"],
-                "employer_email": "employer@gmail.com",
-                "description": "Description….Roles and responsibility",
-                "requirements": "degree..experience..etc"
-            },
-            {
-                "id": 6,
-                "company": "FaceIt",
-                "position": "Junior Backend Developer",
-                "role": "Backend",
-                "level": "Junior",
-                "posted_at": "2w ago",
-                "contract": "Full Time",
-                "location": "UK Only",
-                "languages": ["Ruby"],
-                "tools": ["RoR"],
-                "employer_email": "employer@gmail.com",
-                "description": "Description….Roles and responsibility",
-                "requirements": "degree..experience..etc"
-            },
-        ],
-        job_offers: [
-            {
-                "id": 7,
-                "company": "Shortly",
-                "position": "Junior Developer",
-                "role": "Frontend",
-                "level": "Junior",
-                "posted_at": "2w ago",
-                "contract": "Full Time",
-                "location": "Worldwide",
-                "languages": ["HTML", "JavaScript"],
-                "tools": ["Sass"],
-                "employer_email": "employer@gmail.com",
-                "description": "Description….Roles and responsibility",
-                "requirements": "degree..experience..etc"
-            },
-        ],
-    });
 
     return (
         <ThemeProvider theme={theme}>
@@ -228,65 +161,105 @@ const TrackApplications = (props) => {
                         <Typography variant="h6" className={classes.statusHeader}>
                             Posted
                         </Typography>
-                        {applications.posted.map((app) => (
-                            <Grow in key={app.company}>
-                                <Paper
-                                    className={classes.card}
-                                    onClick={() => handleDialogOpen(app)}
-                                >
-                                    <Typography variant="subtitle1" className={classes.companyName}>{app.company}</Typography>
-                                    <Typography variant="body2"  className={classes.position}>{app.position}</Typography>
-                                </Paper>
-                            </Grow>
-                        ))}
+                        {applications.data?.posted_jobs.map((app) => {
+                            const jobDataFromProps = getJobDataFromPropsData(app.id);
+                            if (!jobDataFromProps || Object.keys(jobDataFromProps).length === 0) {
+                                return null;
+                            }
+                            return (
+                                <Grow in key={app.id}>
+                                    <Paper className={classes.card} onClick={() => handleDialogOpen(app)}>
+                                        <Typography variant="subtitle1" className={classes.companyName}>
+                                            {jobDataFromProps?.company}
+                                        </Typography>
+                                        <Typography variant="body2" className={classes.position}>
+                                            {jobDataFromProps?.position}
+                                        </Typography>
+                                    </Paper>
+                                </Grow>
+                            );
+                        })}
                     </div>
                     <div className={classes.column}>
                         <Typography variant="h6" className={classes.statusHeader}>
                             Interview
                         </Typography>
-                        {applications.interview.map((app) => (
-                            <Grow in key={app.company}>
-                                <Paper
-                                    className={classes.card}
-                                    onClick={() => handleDialogOpen(app)}
-                                >
-                                    <Typography variant="subtitle1" className={classes.companyName}>{app.company}</Typography>
-                                    <Typography variant="body2"  className={classes.position}>{app.position}</Typography>
-                                </Paper>
-                            </Grow>
-                        ))}
+                        {applications.data?.interview_jobs.map((app) => {
+                            const jobDataFromProps = getJobDataFromPropsData(app.jobID);
+                            if (!jobDataFromProps || Object.keys(jobDataFromProps).length === 0) {
+                                return null;
+                            }
+                            return (
+                                <Grow in key={app.id}>
+                                    <Paper className={classes.card} onClick={() => handleDialogOpen(app)}>
+                                        <Typography variant="subtitle1" className={classes.companyName}>
+                                            {jobDataFromProps?.company}
+                                        </Typography>
+                                        <Typography variant="body2" className={classes.position}>
+                                            {jobDataFromProps?.position}
+                                        </Typography>
+                                        <Typography variant="body2" className={classes.emailAddress}>
+                                            Candidate: {app?.emailAddress}
+                                        </Typography>
+                                    </Paper>
+                                </Grow>
+                            );
+                        })}
                     </div>
                     <div className={classes.column}>
                         <Typography variant="h6" className={classes.statusHeader}>
                             Job Offers
                         </Typography>
-                        {applications.job_offers.map((app) => (
-                            <Grow in key={app.company}>
-                                <Paper
-                                    className={classes.card}
-                                    onClick={() => handleJobOffer(app)}
-                                >
-                                    <Typography variant="subtitle1" className={classes.companyName}>{app.company}</Typography>
-                                    <Typography variant="body2"  className={classes.position}>{app.position}</Typography>
-                                </Paper>
-                            </Grow>
-                        ))}
+                        {applications.data?.accepted_jobs.map((app) => {
+                            const jobDataFromProps = getJobDataFromPropsData(app.jobID);
+
+                            //console.log("Job Data: " + JSON.stringify(jobDataFromProps))
+                            if (!jobDataFromProps || Object.keys(jobDataFromProps).length === 0) {
+                                //console.log("Inside if: " + app.jobID)
+                                return null;
+                            }
+                            return (
+                                <Grow in key={app.id}>
+                                    <Paper className={classes.card} onClick={() => handleDialogOpen(app)}>
+                                        <Typography variant="subtitle1" className={classes.companyName}>
+                                            {jobDataFromProps?.company}
+                                        </Typography>
+                                        <Typography variant="body2" className={classes.position}>
+                                            {jobDataFromProps?.position}
+                                        </Typography>
+                                        <Typography variant="body2" className={classes.emailAddress}>
+                                            Candidate: {app?.emailAddress}
+                                        </Typography>
+                                    </Paper>
+                                </Grow>
+                            );
+                        })}
                     </div>
                     <div className={classes.column}>
                         <Typography variant="h6" className={classes.statusHeader}>
                             Rejected
                         </Typography>
-                        {applications.rejected.map((app) => (
-                            <Grow in key={app.company}>
-                                <Paper
-                                    className={classes.card}
-                                    onClick={() => handleDialogOpen(app)}
-                                >
-                                    <Typography variant="subtitle1" className={classes.companyName}>{app.company}</Typography>
-                                    <Typography variant="body2"  className={classes.position}>{app.position}</Typography>
-                                </Paper>
-                            </Grow>
-                        ))}
+                        {applications.data?.rejected_jobs.map((app) => {
+                            const jobDataFromProps = getJobDataFromPropsData(app.jobID);
+                            if (!jobDataFromProps || Object.keys(jobDataFromProps).length === 0) {
+                                return null;
+                            }
+                            return (
+                                <Grow in key={app.id}>
+                                    <Paper className={classes.card} onClick={() => handleDialogOpen(app)}>
+                                        <Typography variant="subtitle1" className={classes.companyName}>
+                                            {jobDataFromProps?.company}
+                                        </Typography>
+                                        <Typography variant="body2" className={classes.position}>
+                                            {jobDataFromProps?.position}
+                                        </Typography>
+                                        <Typography variant="body2" className={classes.emailAddress}>
+                                            Candidate: {app?.emailAddress}
+                                        </Typography>
+                                    </Paper>
+                                </Grow>
+                            );
+                        })}
                     </div>
                 </Box>
                 <Dialog open={isDialogOpen} onClose={handleDialogClose}>
@@ -305,7 +278,7 @@ const TrackApplications = (props) => {
                         }
                     </DialogContent>
                 </Dialog>
-                {selectedCardData && ( 
+                {selectedCardData && ( // Render JobOfferDetails only when selectedCardData exists
                     <Dialog open={jobOffer} onClose={handleJobOfferClose}>
                         <JobOfferDetails
                             open={jobOffer}

@@ -93,6 +93,7 @@ export const candidateTracking = (email_address) => {
   );
 }
 
+
 export const getCandidateResume = (email_address) => {
   let candidate_resume = URLS.candidate_resume + "?email_address=" + email_address;
   return axios.get(candidate_resume).then(
@@ -139,3 +140,12 @@ export const deleteJobPosting = (job_id) => {
   );
 }
 
+
+export const employerTracking = (email_address) => {
+  let register_url = URLS.employer_tracking + "?employer_email=" + email_address;
+  return axios.get(register_url).then(
+    auth => {
+      return auth.data;
+    }
+  );
+}

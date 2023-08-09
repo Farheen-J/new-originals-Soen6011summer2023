@@ -333,7 +333,10 @@ function Home({ loginCallBack }) {
                     ) : null}
                     {selectedOption === 'track' ? (
                       <>
-                        <EmployerTrackApplications />
+                        <EmployerTrackApplications
+                          data={data}
+                          employerData={JSON.parse(sessionStorage.getItem("AUTH_TOKEN"))}
+                        />
                       </>
                     ) : null}
                     {selectedOption === 'my_jobs' ? (
@@ -363,7 +366,7 @@ function Home({ loginCallBack }) {
                 {userType === 'candidate' ? (
                   <>
                     <CandidateHP />
-                    {selectedOption === 'job_listings' ? (
+                    {selectedOption === 'job_listings' && data.length > 0 ? (
                       <>
                         {filterKeywords.length > 0 && (
                           <Header
