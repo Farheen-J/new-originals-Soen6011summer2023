@@ -149,3 +149,21 @@ export const employerTracking = (email_address) => {
     }
   );
 }
+
+export const adminTracking = () => {
+  let register_url = URLS.admin_tracking;
+  return axios.get(register_url).then(
+    auth => {
+      return auth.data;
+    }
+  );
+}
+
+export const adminReporting = () => {
+  let register_url = URLS.admin_report;
+  return axios.get(register_url).then(
+    auth => {
+      return auth.data;
+    }
+  );
+}

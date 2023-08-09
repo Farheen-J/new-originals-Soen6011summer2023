@@ -91,20 +91,6 @@ function Home({ loginCallBack }) {
       defaultActiveMenuItem = '';
   }
 
-  const hardcoded = {
-    "data": {
-      "jobs_count": {
-        "posted_jobs": 7,
-        "active_jobs": 11,
-        "inactive_jobs": 1
-      },
-      "users_count": {
-        "candidate_count": 2,
-        "employer_count": 3
-      }
-    }
-  }
-
   const [selectedOption, setSelectedOption] = useState(defaultActiveMenuItem);
   const [filterKeywords, setfilterKeywords] = useState([]);
   const [errMsg, setErrMsg] = useState('');
@@ -285,7 +271,7 @@ function Home({ loginCallBack }) {
                     {selectedOption === 'tracking' ? (
                       <>
                         <Tracking
-                          data={hardcoded} />
+                          data={data} />
                       </>
                     ) : null}
                     {selectedOption === 'candidate_listings' ? (
