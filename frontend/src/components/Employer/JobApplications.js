@@ -363,17 +363,33 @@ const ApplicationTile = (props) => {
     }
   };
 
+  let employerData=JSON.parse(sessionStorage.getItem("AUTH_TOKEN"));
+  let emp_email = employerData.email_address;
+
   const updateStatus = (status) => {
-    //const address = `${apiList.applications}/${application._id}`;
-    const address = "";
+    console.log(application);
+    let address = "";
+    if(status === "rejected"){
+       address = `${apiList.rejected}`;
+    }
+    else if(status === "accepted"){
+       address = `${apiList.accepted}`;
+    }
+    else if(status === "shortlisted"){
+        address = `${apiList.interview}`;
+    }
     const statusData = {
       status: status
     };
     axios
-      .put(address, statusData, {
+      .put(address, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+        body: JSON.stringify({
+                        jobID: application.id,
+                        emailAddress: emp_email ,
+                        employerEmail: application.email_address})
       })
       .then((response) => {
         getData();
@@ -384,7 +400,7 @@ const ApplicationTile = (props) => {
   };
 
   const buttonSet = {
-    applied: (
+    APPLIED_BY_CANDIDATE: (
       <>
         <Grid item xs>
           <Button
@@ -393,7 +409,7 @@ const ApplicationTile = (props) => {
               background: colorSet["shortlisted"],
               color: "#ffffff",
             }}
-            //onClick={() => updateStatus("shortlisted")}
+            onClick={() => updateStatus("shortlisted")}
           >
             Shortlist
           </Button>
@@ -405,14 +421,14 @@ const ApplicationTile = (props) => {
               background: colorSet["rejected"],
               color: "#ffffff",
             }}
-            //onClick={() => updateStatus("rejected")}
+            onClick={() => updateStatus("rejected")}
           >
             Reject
           </Button>
         </Grid>
       </>
     ),
-    shortlisted: (
+    INTERVIEW_WITH_EMPLOYER: (
       <>
         <Grid item xs>
           <Button
@@ -421,7 +437,7 @@ const ApplicationTile = (props) => {
               background: colorSet["accepted"],
               color: "#ffffff",
             }}
-            //onClick={() => updateStatus("accepted")}
+            onClick={() => updateStatus("accepted")}
           >
             Accept
           </Button>
@@ -433,14 +449,14 @@ const ApplicationTile = (props) => {
               background: colorSet["rejected"],
               color: "#ffffff",
             }}
-            //onClick={() => updateStatus("rejected")}
+            onClick={() => updateStatus("rejected")}
           >
             Reject
           </Button>
         </Grid>
       </>
     ),
-    rejected: (
+    REJECTED_BY_EMPLOYER: (
       <>
         <Grid item xs>
           <Paper
@@ -455,7 +471,7 @@ const ApplicationTile = (props) => {
         </Grid>
       </>
     ),
-    accepted: (
+    ACCEPTED_BY_EMPLOYER: (
       <>
         <Grid item xs>
           <Paper
@@ -470,36 +486,7 @@ const ApplicationTile = (props) => {
         </Grid>
       </>
     ),
-    cancelled: (
-      <>
-        <Grid item xs>
-          <Paper
-            className={classes.statusBlock}
-            style={{
-              background: colorSet["cancelled"],
-              color: "#ffffff",
-            }}
-          >
-            Cancelled
-          </Paper>
-        </Grid>
-      </>
-    ),
-    finished: (
-      <>
-        <Grid item xs>
-          <Paper
-            className={classes.statusBlock}
-            style={{
-              background: colorSet["finished"],
-              color: "#ffffff",
-            }}
-          >
-            Finished
-          </Paper>
-        </Grid>
-      </>
-    ),
+
   };
 
   return (
@@ -538,7 +525,8 @@ const ApplicationTile = (props) => {
             </Button>
           </Grid>
           <Grid item container xs>
-            {buttonSet["applied"]}
+            //{buttonSet["applied"]}
+            {buttonSet[application.applicationStatus]}
           </Grid>
         </Grid>
       </Grid>

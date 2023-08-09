@@ -102,9 +102,9 @@ const JobTile = (props) => {
   };
 
   const handleDelete = () => {
-    console.log(job._id);
+    console.log(job.id);
     axios
-      .delete(`${apiList.jobs}/${job._id}`, {
+      .delete(`${apiList.delete_job}/${job.id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

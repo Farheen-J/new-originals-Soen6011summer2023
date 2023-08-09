@@ -74,10 +74,14 @@ export const candidateListings = () => {
   );
 }
 
-export const applyCandidateJobs = (userData) => {
+export const applyCandidateJobs = (data) => {
   let register_url = URLS.candidate_apply_job;
-  return axios.post(register_url, userData).then(
+  return axios.post(register_url, ({
+   body: JSON.stringify(data)
+   }))
+   .then(
     auth => {
+      console.log(JSON.stringify(data));
       return auth.data;
     }
   );

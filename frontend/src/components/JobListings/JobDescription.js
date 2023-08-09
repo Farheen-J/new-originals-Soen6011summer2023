@@ -88,14 +88,17 @@ const JobDescription = (props) => {
   };
 
   const handleApplyClick = async () => {
+   console.log(props.data);
     let userData = {
       job_id: props.data.id,
-      email_address: props.candidateData.email_address
+      email_address: props.candidateData.email_address,
+      employer_email: props.data.employer_email
     }
     applyCandidateJobs(userData)
       .then((data) => {
         if (data.errors) {
           setErrMsg(data.errors[0]);
+          console.log(data.errors[0]);
         } else {
           console.log("response in job description: " + JSON.stringify(data))
           setErrMsg("Application submitted successfully!");

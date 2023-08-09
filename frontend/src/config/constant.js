@@ -20,6 +20,10 @@ const apiList = {
   build_resume: `${BASE_ULR}/build_resume`,
   get_built_resume: `${BASE_ULR}/get_built_resume`,
   get_uploaded_resume: `${BASE_ULR}/get_uploaded_resume`,
+  rejected:`${BASE_ULR}/employer_reject_candidate`,
+  accepted:`${BASE_ULR}/employer_accept_candidate`,
+  interview:`${BASE_ULR}/employer_set_interview`,
+  delete_job:`${BASE_ULR}/delete_job_listing`
 };
 
 export default apiList;
