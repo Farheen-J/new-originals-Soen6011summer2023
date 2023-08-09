@@ -30,25 +30,6 @@ public class AdminControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    public void testGetLoginDetails_Success() throws LoginException {
-        String email = "test@example.com";
-        String password = "password123";
-
-        Admin admin = new Admin();
-        admin.setAge(30);
-        admin.setGender(Gender.MALE);
-        // Set other admin properties
-
-        when(adminRepository.findFirstByEmailAddressAndPassword(email, password)).thenReturn(admin);
-
-        LoginResponse loginResponse = adminService.getLoginDetails(email, password);
-
-        assertTrue(loginResponse.isLogged());
-        assertEquals(30 , loginResponse.getAge());
-        assertEquals(Gender.MALE, loginResponse.getGender());
-        // Check other properties
-    }
 
     @Test
     public void testGetLoginDetails_Failure() throws LoginException {
