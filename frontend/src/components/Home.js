@@ -128,7 +128,6 @@ function Home({ loginCallBack }) {
           resume: candidateResumes[index],
         }));
 
-
         setCandidateData(candidatesWithData);
         setErrMsg("");
         setDataFetched(true);
