@@ -15,6 +15,8 @@ export const URLS = {
     admin_delete_employer: '/delete_employer',
     admin_get_all_employers: '/get_employer_list',
     admin_delete_job_posting: '/delete_job_listing',
+    edit_candidate: 'edit_candidate',
+    edit_employer: 'edit_employer'
 }
 
 const apiList = {

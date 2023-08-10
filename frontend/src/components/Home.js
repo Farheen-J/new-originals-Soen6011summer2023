@@ -21,8 +21,10 @@ import JobListing from "../components/Admin/JobListing";
 import Resume from "../components/Candidate/Resume";
 import Header from "../components/JobListings/Header";
 import { jobListings, candidateListings, employerListings, getCandidateResume } from '../services/registerAPI';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@material-ui/core';
 import { formatDistanceToNow } from 'date-fns';
 import Tracking from './Admin/Tracking';
+import EditProfile from './EditProfile';
 
 
 const useStyles = makeStyles(theme => ({
@@ -69,11 +71,11 @@ const useStyles = makeStyles(theme => ({
 function Home({ loginCallBack }) {
   const classes = useStyles();
   const user = getUserInfo();
-
+  console.log("This is user info "+user.last_name);
   let userType = user?.userType;
 
   const [dataFetched, setDataFetched] = useState(false);
-
+  const [editProfileOpen, setEditProfileOpen] = useState(false);
 
   // Define a default active menu item based on userType
   let defaultActiveMenuItem;
@@ -223,6 +225,17 @@ function Home({ loginCallBack }) {
     handleClose();
   };
 
+
+  const handleEditProfile = () => {
+      setEditProfileOpen(true);
+      //handleClose(); // Close the menu
+    };
+
+  const handleCloseEP = () => {
+      setAnchorEl(null);
+      setEditProfileOpen(false); // Close the dialog
+  };
+
   const theme = createTheme({
     // Define the theme for Material-UI components
     typography: {
@@ -250,9 +263,20 @@ function Home({ loginCallBack }) {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose} className={classes.menuItem}>User: {user.last_name}</MenuItem>
+                  <MenuItem onClick={handleEditProfile} className={classes.menuItem}>User: {user.last_name}</MenuItem>
                   <MenuItem onClick={handleLogout} className={classes.menuItem}>Logout</MenuItem>
                 </Menu>
+                <Dialog open={editProfileOpen} onClose={handleCloseEP} maxWidth="sm" fullWidth>
+                        <DialogTitle>Edit Profile</DialogTitle>
+                        <DialogContent>
+                          <EditProfile userData={user} accountType={userType} />
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleClose} color="primary">
+                            Close
+                          </Button>
+                        </DialogActions>
+                </Dialog>
               </div>
             </Toolbar>
           </AppBar>
