@@ -56,3 +56,21 @@ Users who have registered can log in safely using their email address and passwo
    - Material-UI: CSS framework that provide pre-designed components and styles to enhance the visual appearance and responsiveness of the React.js application.
    - Postman: A popular API testing and development tool. It was used to test and debug your backend APIs during development.
    - Git: A distributed version control system that allows tracking changes to our codebase. It's essential for collaboration, managing code branches, and versioning of the project.
+
+### Website Screenshots
+
+#### Home Page
+![Alt text](Sprint_4/screenshots/mainpage.png?raw=true "Home Page")
+
+
+#### Candidate Home Page
+![Alt text](Sprint_4/screenshots/candidatepage.png?raw=true "Candidate Page")
+
+#### Admin Home Page
+![Alt text](Sprint_4/screenshots/adminpage.png?raw=true "Admin Page")
+
+#### Employer Page
+![Alt text](Sprint_4/screenshots/employerpage.png?raw=true "Employer Page")
+
+
+
