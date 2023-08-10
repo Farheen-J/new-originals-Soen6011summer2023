@@ -17,6 +17,8 @@ export const URLS = {
     admin_delete_job_posting: '/delete_job_listing',
 }
 
+//test
+
 const apiList = {
 
   jobs: `${BASE_ULR}/register_job_listing`,
