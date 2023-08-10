@@ -109,6 +109,7 @@ public class EmployerServiceImpl extends UserLogin implements IEmployerService {
         loginResponse.setLastName(employer.getLastName());
         loginResponse.setPhoneNumber(employer.getPhoneNumber());
         loginResponse.setEmailAddress(employer.getEmailAddress());
+        loginResponse.setRegistrationNumber(employer.getRegistrationNumber());
         return loginResponse;
     }
 
