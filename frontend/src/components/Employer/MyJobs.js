@@ -104,7 +104,7 @@ const JobTile = (props) => {
   const handleDelete = () => {
     console.log(job.id);
     axios
-      .delete(`${apiList.delete_job}/${job.id}`, {
+      .delete(`${apiList.delete_job}?job_id=${job.id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -113,6 +113,8 @@ const JobTile = (props) => {
         console.log(err.response);
         handleClose();
       });
+    props.onDelete(true)
+    handleClose();
   };
 
   const handleJobUpdate = () => {
@@ -164,7 +166,7 @@ const JobTile = (props) => {
               color="secondary"
               className={classes.statusBlock}
               onClick={() => {
-                //setOpen(true);
+                setOpen(true);
               }}
             >
               Delete Job
@@ -357,11 +359,19 @@ const MyJobs = (props) => {
       .then((response) => {
         console.log(response.data);
         setJobs(response.data);
+
       })
       .catch((err) => {
         console.log(err.response.data);
       });
   };
+
+  const reload = (del) =>{
+  if(del){
+  window.location.reload(false);
+    getData();}
+
+  }
 
   return (
     <>
@@ -401,6 +411,7 @@ const MyJobs = (props) => {
                                 job={job}
                                 getData={getData}
                                 onViewApplications={() => handleOpenApplications(job.id)}
+                                onDelete ={() => reload(true)}
                               />
                             );
             })

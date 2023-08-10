@@ -44,4 +44,7 @@ public class LoginResponse {
     @JsonProperty("logged")
     private boolean logged;
 
+    @JsonProperty( "registration_number")
+    private String registrationNumber;
+
 }

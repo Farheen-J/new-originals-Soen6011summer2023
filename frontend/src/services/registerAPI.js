@@ -50,6 +50,41 @@ export const signUp = (userData) => {
   );
 }
 
+export const editProfile = (userData) => {
+  let edit_url = URLS.edit_employer;
+
+  let data = {
+    name: userData.name,
+    last_name: userData.last_name,
+    phone_number: userData.phone_number,
+    email_address: userData.email_address,
+    password: userData.password
+  }
+
+  if (userData.userType === 'employer') {
+    edit_url = URLS.edit_employer;
+    data.company_name = userData.company_name
+    data.designation = userData.designation
+    data.registration_number = userData.registration_number
+  }
+  if (userData.userType === 'candidate') {
+    edit_url = URLS.edit_candidate;
+    data.age = userData.age
+    data.gender = userData.gender
+  }
+  console.log("data " + JSON.stringify(data))
+  return axios.post(edit_url, data).then(
+    auth => {
+      if (auth.data.errors === undefined) {
+        sessionStorage.setItem("AUTH_TOKEN", JSON.stringify({ ...auth.data.data, userType: userData.userType }));
+      } else {
+        return auth.data
+      }
+      return auth.data;
+    }
+  );
+}
+
 export const logOut = () => {
   sessionStorage.removeItem("AUTH_TOKEN");
 }
