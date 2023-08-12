@@ -72,5 +72,8 @@ Users who have registered can log in safely using their email address and passwo
 #### Employer Page
 ![Alt text](Sprint_4/screenshots/employerpage.png?raw=true "Employer Page")
 
+#### Screenshots of Website 
+https://github.com/Farheen-J/new-originals-Soen6011summer2023/tree/main/Sprint_4/screenshots 
+
 
 
